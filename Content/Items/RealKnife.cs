@@ -112,18 +112,18 @@ namespace LensRands.Content.Items
                 {
                     case 1:
                         {
-                            newdamage += (int)(timer * 2.5);
+                            newdamage += (int)(timer * 5);
                             break;
                         }
                     case 2:
                         {
-                            newdamage += newdamage;
+                            newdamage += (newdamage * 5);
                             SoundEngine.PlaySound(AudioSys.RealSlash, player.position);
                             break;
                         }
                     case 3:
                         {
-                            newdamage += (int)((100 - timer) * 2.5);
+                            newdamage += (int)((100 - timer) * 5);
                             break;
                         }
                 }

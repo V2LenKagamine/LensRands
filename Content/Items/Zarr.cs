@@ -11,7 +11,7 @@ namespace LensRands.Content.Items
     {
         public override string Texture => LensRands.AssetsPath + "Items/Zarr";
 
-        public int ShotgunShots = 10;
+        public int ShotgunShots = 6;
         public int CannonShots = 1;
         public override void AddRecipes()
         {
@@ -38,7 +38,7 @@ namespace LensRands.Content.Items
             Item.crit = 8;
             Item.useTime = 54;
             Item.useAnimation = 54;
-            Item.knockBack = 10;
+            Item.knockBack = 3;
             Item.shootSpeed = 7f;
             Item.shoot = ProjectileID.PurificationPowder;
             Item.UseSound = SoundID.Item62; //Item7 maybe?
@@ -62,7 +62,7 @@ namespace LensRands.Content.Items
 
                     newVel *= 1f - Main.rand.NextFloat(0.1f);
 
-                    Projectile.NewProjectileDirect(source, position, newVel, type, damage / 8, knockback, player.whoAmI);
+                    Projectile.NewProjectileDirect(source, position, newVel, type, damage / 4, knockback, player.whoAmI);
                 }
 
                 return false;
@@ -86,7 +86,7 @@ namespace LensRands.Content.Items
     public class KuvaZarr : ModItem
     {
 
-        public int ShotgunShots = 12;
+        public int ShotgunShots = 10;
         public int CannonShots = 1;
         public override string Texture => LensRands.AssetsPath + "Items/KuvaZarr";
 
@@ -110,12 +110,12 @@ namespace LensRands.Content.Items
         {
             Item.useAmmo = AmmoID.Bullet;
             Item.autoReuse = false;
-            Item.damage = 165;
+            Item.damage = 185;
             Item.rare = ItemRarityID.Blue;
             Item.crit = 16;
             Item.useTime = 45;
             Item.useAnimation = 45;
-            Item.knockBack = 10;
+            Item.knockBack = 3;
             Item.shootSpeed = 9f;
             Item.shoot = ProjectileID.PurificationPowder;
             Item.UseSound = SoundID.Item62; //Item7 maybe?
@@ -137,7 +137,7 @@ namespace LensRands.Content.Items
 
                     newVel *= 1f - Main.rand.NextFloat(0.1f);
 
-                    Projectile.NewProjectileDirect(source, position, newVel, type, damage / 8, knockback, player.whoAmI);
+                    Projectile.NewProjectileDirect(source, position, newVel, type, damage / 4, knockback, player.whoAmI);
                 }
 
                 return false;
@@ -165,8 +165,8 @@ namespace LensRands.Content.Items
     public class PaddJommKuvaZarr : ModItem
     {
 
-        public int ShotgunShots = 25;
-        public int CannonShots = 2;
+        public int ShotgunShots = 10;
+        public int CannonShots = 1;
         public override string Texture => LensRands.AssetsPath + "Items/PaddJommKuvaZarr";
 
         public override void AddRecipes()
@@ -194,12 +194,12 @@ namespace LensRands.Content.Items
         {
             Item.useAmmo = AmmoID.Bullet;
             Item.autoReuse = false;
-            Item.damage = 220;
+            Item.damage = 1500;
             Item.rare = ItemRarityID.Purple;
             Item.crit = 24;
             Item.useTime = 36;
             Item.useAnimation = 36;
-            Item.knockBack = 10;
+            Item.knockBack = 4;
             Item.shootSpeed = 12f;
             Item.shoot = ProjectileID.PurificationPowder;
             Item.UseSound = SoundID.Item62; //Item7 maybe?
@@ -221,7 +221,7 @@ namespace LensRands.Content.Items
 
                     newVel *= 1f - Main.rand.NextFloat(0.1f);
 
-                    Projectile.NewProjectileDirect(source, position, newVel, type, damage / 8, knockback, player.whoAmI);
+                    Projectile.NewProjectileDirect(source, position, newVel, type, damage / 4, knockback, player.whoAmI);
                 }
 
                 return false;
@@ -268,7 +268,7 @@ namespace LensRands.Content.Items
                 for (int i = 0; i < 5; i++)
                 {
                     // Random upward vector.
-                    Vector2 launchVelocity = new Vector2(Main.rand.NextFloat(-3, 3), Main.rand.NextFloat(-10, -8));
+                    Vector2 launchVelocity = new Vector2(Main.rand.NextFloat(-1.5f, 1.5f), Main.rand.NextFloat(-5, -3));
                     // Importantly, ai1 is set to 1 here. This is checked in OnTileCollide to prevent bouncing and here in Kill to prevent an infinite chain of splitting projectiles.
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, launchVelocity, Projectile.type, Projectile.damage/2, Projectile.knockBack, Main.myPlayer, 0, 1);
                 }
