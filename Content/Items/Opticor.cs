@@ -6,6 +6,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
+using Terraria.Audio;
+using LensRands.Systems.ModSys;
 
 namespace LensRands.Content.Items
 {
@@ -15,10 +17,10 @@ namespace LensRands.Content.Items
         public override string Texture => LensRands.AssetsPath + "Items/Opticor";
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Opticor");
-            Tooltip.SetDefault("A gun from the Void." +
+            // DisplayName.SetDefault("Opticor");
+            /* Tooltip.SetDefault("A gun from the Void." +
                 "\nFires a heavy-damage beam of light." +
-                "\nDoes bonus damage if fully charged.");
+                "\nDoes bonus damage if fully charged."); */
         }
 
         public override void SetDefaults()
@@ -52,6 +54,7 @@ namespace LensRands.Content.Items
                 .Register();
             }
         }
+
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
             player.itemLocation -= new Vector2(26 * player.direction, -12);
@@ -118,7 +121,7 @@ namespace LensRands.Content.Items
             {
                 var origin = start + (i-step) * unit ;
                 Main.EntitySpriteDraw(texture, origin - Main.screenPosition,
-                    new Rectangle(0, 26, 28, 26), touse, r,
+                    new Rectangle(0, 26, 28, 26), i < transDist ? Color.Transparent : touse, r,
                     new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
             }
 
@@ -160,12 +163,14 @@ namespace LensRands.Content.Items
             CastLights();
             if (Charge >= MAX_CHARGE && !damageAdjusted)
             {
-                Projectile.damage = (int)(Projectile.damage * 2.5);
+                Projectile.damage = (int)(Projectile.damage * 1.5);
+                SoundEngine.PlaySound(AudioSys.Opticor, player.position);
                 damageAdjusted = true;
             }
             else if (!damageAdjusted)
             {
                 Projectile.damage = (int)(Projectile.damage * (Charge / MAX_CHARGE));
+                SoundEngine.PlaySound(AudioSys.Opticor, player.position);
                 damageAdjusted = true;
             }
         }

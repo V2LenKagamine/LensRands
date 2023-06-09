@@ -1,0 +1,91 @@
+Mods: {
+	LensRands: {
+		Items: {
+			Breefcase: {
+				DisplayName: Beecase
+				Tooltip:
+					'''
+					Contains approximately 500 Angry Bees.
+					Yes. You read right, 500.
+					'''
+			}
+
+			BreefcaseP: {
+				DisplayName: Beecase-P
+				Tooltip:
+					'''
+					Contains approximately 10 Perfect Bee's.
+					Stingers have been reinforced for multiplied pain!
+					'''
+			}
+
+			KuvaZarr: {
+				DisplayName: Kuva Zarr
+				Tooltip:
+					'''
+					A gun from the Void.
+					This one packs more punch.
+					'''
+			}
+
+			Opticor: {
+				DisplayName: Opticor
+				Tooltip:
+					'''
+					A gun from the Void.
+					Fires a heavy-damage beam of light.
+					Does bonus damage if fully charged.
+					'''
+			}
+
+			PaddJommKuvaZarr: {
+				DisplayName: Padd Jomm Kuva Zarr
+				Tooltip:
+					'''
+					A gun from the Void.
+					'I havent seen [c/FFFF00:Them] in a while.
+					hope [c/FFFF00:They] dont mind me borrowing it.'
+					'''
+			}
+
+			Raveticor: {
+				DisplayName: Raveticor
+				Tooltip:
+					'''
+					A gun from the Void???
+					Fires a heavy-damage beam of light.
+					[c/FFFF00:I like the beat when it goes DOOF DOOF.]
+					'''
+			}
+
+			RealKnife: {
+				DisplayName: Real Knife
+				Tooltip:
+					'''
+					A knife from a lost timeline.
+					Seems to grow sharper as you gain strength.
+					[c/FF0000:Finally.]
+					'''
+			}
+
+			Zarr: {
+				DisplayName: Zarr
+				Tooltip:
+					'''
+					A gun from the Void.
+					Uses standard bullets, thankfully.
+					'''
+			}
+		}
+
+		Projectiles: {
+			BreefcaseProjectile.DisplayName: Beecase
+			BreefcaseProjectileP.DisplayName: Beecase-P
+			OpticorBeam.DisplayName: Opticor Beam
+			RaveticorBeam.DisplayName: Raveticor Beam
+			RealKnifeProjectile.DisplayName: Real Knife Projectile
+			RealKnifeProjectileT.DisplayName: Real Knife Projectile T
+			ZarrProjectile.DisplayName: Zarr Projectile
+		}
+	}
+}

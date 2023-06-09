@@ -18,13 +18,7 @@ namespace LensRands.Systems.PlayerSys
         public bool KnifeOut = false;
         public float KnifeTimer = 0f;
 
-        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
-        {
-            if (!target.active)
-            { OnKillEnemy(target);  }
-        }
-
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (!target.active)
             { OnKillEnemy(target); }

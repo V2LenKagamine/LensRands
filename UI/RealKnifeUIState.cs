@@ -68,45 +68,6 @@ namespace LensRands.UI
             }
             base.Draw(spriteBatch);
         }
-        /*
-        protected override void DrawSelf(SpriteBatch spriteBatch)
-        {
-            
-            
-            var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
-            // Calculate quotient
-            float quotient = (float)modPlayer.KnifeTimer / 100; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
-            quotient = Utils.Clamp(quotient, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
-
-            // Here we get the screen dimensions of the barFrame element, then tweak the resulting rectangle to arrive at a rectangle within the barFrame texture that we will draw the gradient. These values were measured in a drawing program.
-            Rectangle hitbox = bar.GetInnerDimensions().ToRectangle();
-            hitbox.X += 12;
-            hitbox.Width -= 24;
-            hitbox.Y += 16;
-            hitbox.Height -= 10;
-
-            // Now, using this hitbox, we draw a gradient by drawing vertical lines while slowly interpolating between the 2 colors.
-            int left = hitbox.Left;
-            int right = hitbox.Right;
-            int steps = (int)((right - left) * quotient);
-
-            if (modPlayer.KnifeTimer >= 48 && modPlayer.KnifeTimer <= 52)
-            {
-                UsedColor = colorB;
-            }
-            else
-            {
-                UsedColor = colorA;
-            }
-            //for (int i = 0; i < steps; i += 1) {
-            //float percent = (float)i / steps; // Alternate Gradient Approach
-            //float percent = (float)steps / (right - left);
-            base.DrawSelf(spriteBatch);
-            
-            spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left + steps, hitbox.Y, 5, hitbox.Height), UsedColor);
-            //}
-        }
-        */
         public override void Update(GameTime gameTime)
         {
             if (!(Main.LocalPlayer.GetModPlayer<WeaponPlayer>().KnifeOut)) 

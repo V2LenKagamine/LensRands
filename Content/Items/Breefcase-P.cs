@@ -17,8 +17,8 @@ namespace LensRands.Content.Items
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Beecase-P");
-            Tooltip.SetDefault("Contains approximately 10 Perfect Bee's.\nStingers have been reinforced for multiplied pain!");
+            // DisplayName.SetDefault("Beecase-P");
+            // Tooltip.SetDefault("Contains approximately 10 Perfect Bee's.\nStingers have been reinforced for multiplied pain!");
         }
         public override void SetDefaults()
         {
@@ -39,7 +39,7 @@ namespace LensRands.Content.Items
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Beecase-P");
+            // DisplayName.SetDefault("Beecase-P");
         }
         public override void SetDefaults()
         {

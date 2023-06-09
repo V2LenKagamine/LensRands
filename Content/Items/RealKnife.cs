@@ -20,10 +20,10 @@ namespace LensRands.Content.Items
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Real Knife");
-            Tooltip.SetDefault("A knife from a lost timeline." + 
+            // DisplayName.SetDefault("Real Knife");
+            /* Tooltip.SetDefault("A knife from a lost timeline." + 
                 "\nSeems to grow sharper as you gain strength." +
-                "\n[c/FF0000:Finally.]");
+                "\n[c/FF0000:Finally.]"); */
         }
 
         public override void AddRecipes()

@@ -18,8 +18,8 @@ namespace LensRands.Content.Items
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Beecase");
-            Tooltip.SetDefault("Contains approximately 500 Angry Bees.\nYes. You read right, 500.");
+            // DisplayName.SetDefault("Beecase");
+            // Tooltip.SetDefault("Contains approximately 500 Angry Bees.\nYes. You read right, 500.");
         }
         public override void SetDefaults()
         {
@@ -41,7 +41,7 @@ namespace LensRands.Content.Items
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Beecase");
+            // DisplayName.SetDefault("Beecase");
         }
         public override void SetDefaults()
         {

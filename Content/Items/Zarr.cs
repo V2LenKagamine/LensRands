@@ -24,9 +24,9 @@ namespace LensRands.Content.Items
         }
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Zarr");
-            Tooltip.SetDefault("A gun from the Void." + 
-                "\nUses standard bullets, thankfully.");
+            // DisplayName.SetDefault("Zarr");
+            /* Tooltip.SetDefault("A gun from the Void." + 
+                "\nUses standard bullets, thankfully."); */
         }
 
         public override void SetDefaults()
@@ -101,9 +101,9 @@ namespace LensRands.Content.Items
         }
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Kuva Zarr");
-            Tooltip.SetDefault("A gun from the Void." +
-                "\nThis one packs more punch.");
+            // DisplayName.SetDefault("Kuva Zarr");
+            /* Tooltip.SetDefault("A gun from the Void." +
+                "\nThis one packs more punch."); */
         }
 
         public override void SetDefaults()
@@ -185,10 +185,10 @@ namespace LensRands.Content.Items
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Padd Jomm Kuva Zarr");
-            Tooltip.SetDefault("A gun from the Void." + 
+            // DisplayName.SetDefault("Padd Jomm Kuva Zarr");
+            /* Tooltip.SetDefault("A gun from the Void." + 
                 "\n'I havent seen [c/FFFF00:Them] in a while." + 
-                "\nhope [c/FFFF00:They] dont mind me borrowing it.'");
+                "\nhope [c/FFFF00:They] dont mind me borrowing it.'"); */
         }
         public override void SetDefaults()
         {
@@ -320,10 +320,10 @@ namespace LensRands.Content.Items
             Projectile.timeLeft = 3;
             return false;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.timeLeft = 3;
-            base.OnHitNPC(target, damage, knockback, crit);
+            base.OnHitNPC(target,hit,damageDone);
         }
         public override void AI() //Yea NGL copied this from Example
         {
