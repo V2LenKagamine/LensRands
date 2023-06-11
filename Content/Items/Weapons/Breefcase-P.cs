@@ -1,47 +1,45 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Linq;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace LensRands.Content.Items
+namespace LensRands.Content.Items.Weapons
 {
-    public class Breefcase : ModItem
+    public class BreefcaseP : ModItem
     {
-        public override string Texture => LensRands.AssetsPath + "Items/Breefcase";
-        /*
-         * Under no circumstance should this abomination have a recipe.
+        public override string Texture => LensRands.AssetsPath + "Items/Weapons/Breefcase";
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe().AddIngredient(ItemID.Beenade,10).Register();
+            Recipe recipe = CreateRecipe().AddIngredient(ItemID.Beenade, 25).Register();
         }
-        */
+
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Beecase");
-            // Tooltip.SetDefault("Contains approximately 500 Angry Bees.\nYes. You read right, 500.");
+            // DisplayName.SetDefault("Beecase-P");
+            // Tooltip.SetDefault("Contains approximately 10 Perfect Bee's.\nStingers have been reinforced for multiplied pain!");
         }
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.Beenade);
-            Item.shoot = ModContent.ProjectileType<BreefcaseProjectile>();
+            Item.shoot = ModContent.ProjectileType<BreefcaseProjectileP>();
             Item.width = 20;
             Item.height = 16;
             Item.damage = 15;
-            Item.useTime = 300;
-
+            Item.useTime = 60;
             Item.UseSound = new Terraria.Audio.SoundStyle(LensRands.AssetsPath + "Sounds/breefcase") { MaxInstances = 1 };
         }
     }
 
-    public class BreefcaseProjectile : ModProjectile
+    public class BreefcaseProjectileP : ModProjectile
     {
 
         public override string Texture => LensRands.AssetsPath + "Projectiles/Breefcase";
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Beecase");
+            // DisplayName.SetDefault("Beecase-P");
         }
         public override void SetDefaults()
         {
@@ -50,13 +48,14 @@ namespace LensRands.Content.Items
             Projectile.aiStyle = 16;
             Projectile.friendly = true;
             Projectile.timeLeft = 90;
+            Projectile.damage = 150;
         }
         public override void Kill(int timeLeft)
         {
-            
-            if(Main.myPlayer == Projectile.owner)
+
+            if (Main.myPlayer == Projectile.owner)
             {
-                for (int bees = 0; bees < 500; bees++)
+                for (int bees = 0; bees < 10; bees++)
                 {
                     float speedX = Main.rand.Next(-360, 361) * 0.015f;
                     float speedY = Main.rand.Next(-360, 361) * 0.015f;
@@ -64,9 +63,10 @@ namespace LensRands.Content.Items
                     Projectile thebee = Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromThis(), Entity.position, speed, Main.player[Entity.owner].beeType(), Main.player[Entity.owner].beeDamage(Entity.damage), Main.player[Entity.owner].beeKB(.01f), Main.myPlayer)];
                     thebee.usesLocalNPCImmunity = true;
                     thebee.localNPCHitCooldown = 5;
+                    thebee.penetrate = 50;
                 }
             }
-            
+
         }
     }
 }

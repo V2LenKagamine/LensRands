@@ -9,22 +9,14 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace LensRands.Content.Items
+namespace LensRands.Content.Items.Weapons
 {
     public class RealKnife : ModItem
     {
 
 
-        public override string Texture => LensRands.AssetsPath + "Items/RealKnife";
+        public override string Texture => LensRands.AssetsPath + "Items/Weapons/RealKnife";
 
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Real Knife");
-            /* Tooltip.SetDefault("A knife from a lost timeline." + 
-                "\nSeems to grow sharper as you gain strength." +
-                "\n[c/FF0000:Finally.]"); */
-        }
 
         public override void AddRecipes()
         {
@@ -32,11 +24,13 @@ namespace LensRands.Content.Items
                 .AddIngredient(ItemID.WoodenSword)
                 .AddIngredient(ItemID.DemoniteOre, 20)
                 .AddTile(TileID.DemonAltar)
+                .AddCondition(Condition.InMasterMode)
                 .Register();
             recipe = CreateRecipe()
                 .AddIngredient(ItemID.WoodenSword)
                 .AddIngredient(ItemID.CrimtaneOre, 20)
                 .AddTile(TileID.DemonAltar)
+                .AddCondition(Condition.InMasterMode)
                 .Register();
         }
 
@@ -69,19 +63,19 @@ namespace LensRands.Content.Items
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (player.GetModPlayer<WeaponPlayer>().HighestBossKilled < 5)
+            if (player.GetModPlayer<LensPlayer>().HighestBossKilled < 5)
             {
                 return false;
             }
-            if (player.altFunctionUse == 2 && player.GetModPlayer<WeaponPlayer>().KnifeOut)
+            if (player.altFunctionUse == 2 && player.GetModPlayer<LensPlayer>().KnifeOut)
             {
-                player.GetModPlayer<WeaponPlayer>().KnifeOut = false;
-                player.GetModPlayer<WeaponPlayer>().KnifeTimer = 0;
+                player.GetModPlayer<LensPlayer>().KnifeOut = false;
+                player.GetModPlayer<LensPlayer>().KnifeTimer = 0;
                 return base.Shoot(player, source, position, velocity, type, damage, knockback);
             }
-            if (player.altFunctionUse == 2 && !(player.GetModPlayer<WeaponPlayer>().KnifeOut) && player.statMana != 0) 
+            if (player.altFunctionUse == 2 && !player.GetModPlayer<LensPlayer>().KnifeOut && player.statMana != 0)
             {
-                player.GetModPlayer<WeaponPlayer>().KnifeOut = true;
+                player.GetModPlayer<LensPlayer>().KnifeOut = true;
                 player.statMana -= player.statMana;
                 player.manaRegenDelay = 300;
                 return false;
@@ -90,10 +84,10 @@ namespace LensRands.Content.Items
         }
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (player.altFunctionUse == 2 && player.GetModPlayer<WeaponPlayer>().KnifeOut)
+            if (player.altFunctionUse == 2 && player.GetModPlayer<LensPlayer>().KnifeOut)
             {
-                WeaponPlayer plmp = player.GetModPlayer<WeaponPlayer>();
-                int newdamage = (player.statManaMax / 2) + damage;
+                LensPlayer plmp = player.GetModPlayer<LensPlayer>();
+                int newdamage = player.statManaMax / 2 + damage;
                 int timerint = (int)Math.Round(plmp.KnifeTimer);
                 int timer;
                 if (timerint <= 47)
@@ -112,18 +106,18 @@ namespace LensRands.Content.Items
                 {
                     case 1:
                         {
-                            newdamage += (int)(timer * 5);
+                            newdamage += timer * 5;
                             break;
                         }
                     case 2:
                         {
-                            newdamage += (newdamage * 5);
+                            newdamage += newdamage * 5;
                             SoundEngine.PlaySound(AudioSys.RealSlash, player.position);
                             break;
                         }
                     case 3:
                         {
-                            newdamage += (int)((100 - timer) * 5);
+                            newdamage += (100 - timer) * 5;
                             break;
                         }
                 }
@@ -157,9 +151,11 @@ namespace LensRands.Content.Items
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
             int newbasedamage = 0;
-            foreach(KeyValuePair<int,int> pair in KnifeDmgs) {
-                if (pair.Key == player.GetModPlayer<WeaponPlayer>().HighestBossKilled) {
-                    newbasedamage = pair.Value; 
+            foreach (KeyValuePair<int, int> pair in KnifeDmgs)
+            {
+                if (pair.Key == player.GetModPlayer<LensPlayer>().HighestBossKilled)
+                {
+                    newbasedamage = pair.Value;
                     break;
                 }
             }
@@ -170,16 +166,16 @@ namespace LensRands.Content.Items
         public override void HoldItem(Player player)
         {
 
-            if(player.GetModPlayer<WeaponPlayer>().KnifeTimer >= 100 && player.GetModPlayer<WeaponPlayer>().KnifeOut)
+            if (player.GetModPlayer<LensPlayer>().KnifeTimer >= 100 && player.GetModPlayer<LensPlayer>().KnifeOut)
             {
 
-                player.GetModPlayer<WeaponPlayer>().KnifeOut = false;
-                player.GetModPlayer<WeaponPlayer>().KnifeTimer = 0;
+                player.GetModPlayer<LensPlayer>().KnifeOut = false;
+                player.GetModPlayer<LensPlayer>().KnifeTimer = 0;
 
             }
-            if(player.GetModPlayer<WeaponPlayer>().KnifeOut)
+            if (player.GetModPlayer<LensPlayer>().KnifeOut)
             {
-                player.GetModPlayer<WeaponPlayer>().KnifeTimer += 1;
+                player.GetModPlayer<LensPlayer>().KnifeTimer += 1;
             }
 
             base.HoldItem(player);

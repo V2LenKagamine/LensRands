@@ -8,11 +8,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
 
-namespace LensRands.Content.Items
+namespace LensRands.Content.Items.Weapons
 {
     internal class Raveticor : ModItem
     {
-        public override string Texture => LensRands.AssetsPath + "Items/Opticor";
+        public override string Texture => LensRands.AssetsPath + "Items/Weapons/Opticor";
         public override void SetStaticDefaults()
         {
         }
@@ -30,6 +30,7 @@ namespace LensRands.Content.Items
             Item.autoReuse = true;
             Item.damage = 2250;
             Item.rare = ItemRarityID.Blue;
+            Item.DamageType = DamageClass.Magic;
             Item.crit = 16;
             Item.useTime = 4;
             Item.useAnimation = 4;
@@ -43,7 +44,7 @@ namespace LensRands.Content.Items
 
         public override void AddRecipes()
         {
-            if (ModLoader.TryGetMod("CalamityMod", out Mod calamity) && calamity.TryFind<ModItem>("DarksunFragment", out ModItem moditem))
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamity) && calamity.TryFind("DarksunFragment", out ModItem moditem))
             {
                 Recipe recipe = CreateRecipe()
                 .AddIngredient(ItemID.LastPrism)
@@ -119,7 +120,7 @@ namespace LensRands.Content.Items
         public void DrawLaser(Texture2D texture, Vector2 start, Vector2 unit, float step, float rotation = 0f, float scale = 1f, int transDist = 50)
         {
             float r = unit.ToRotation() + rotation;
-            Color touse = Main.hslToRgb(new Vector3(Main.rand.NextFloat(0f,1f),0.75f,.53f)) * Projectile.Opacity;
+            Color touse = Main.hslToRgb(new Vector3(Main.rand.NextFloat(0f, 1f), 0.75f, .53f)) * Projectile.Opacity;
             // Draws the laser 'body'
             for (float i = transDist; i <= Distance; i += step)
             {

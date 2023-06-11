@@ -1,7 +1,5 @@
-using LensRands.Systems.ModSys;
-using Terraria;
 using Terraria.ModLoader;
-using Terraria.UI;
+
 
 namespace LensRands
 {

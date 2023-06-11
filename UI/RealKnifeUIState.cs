@@ -62,7 +62,7 @@ namespace LensRands.UI
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (!(Main.LocalPlayer.GetModPlayer<WeaponPlayer>().KnifeOut))
+            if (!(Main.LocalPlayer.GetModPlayer<LensPlayer>().KnifeOut))
             {
                 return;
             }
@@ -70,12 +70,12 @@ namespace LensRands.UI
         }
         public override void Update(GameTime gameTime)
         {
-            if (!(Main.LocalPlayer.GetModPlayer<WeaponPlayer>().KnifeOut)) 
+            if (!(Main.LocalPlayer.GetModPlayer<LensPlayer>().KnifeOut)) 
             {
                 barHit.Left.Set(-64, 0f);
                 return;
             }
-            var modPlayer = Main.LocalPlayer.GetModPlayer<WeaponPlayer>();
+            var modPlayer = Main.LocalPlayer.GetModPlayer<LensPlayer>();
 
             if (modPlayer.KnifeTimer >= 48 && modPlayer.KnifeTimer <= 52)
             {

@@ -9,19 +9,12 @@ using Terraria.GameContent;
 using Terraria.Audio;
 using LensRands.Systems.ModSys;
 
-namespace LensRands.Content.Items
+namespace LensRands.Content.Items.Weapons
 {
     public class Opticor : ModItem
     {
 
-        public override string Texture => LensRands.AssetsPath + "Items/Opticor";
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Opticor");
-            /* Tooltip.SetDefault("A gun from the Void." +
-                "\nFires a heavy-damage beam of light." +
-                "\nDoes bonus damage if fully charged."); */
-        }
+        public override string Texture => LensRands.AssetsPath + "Items/Weapons/Opticor";
 
         public override void SetDefaults()
         {
@@ -32,6 +25,7 @@ namespace LensRands.Content.Items
             Item.damage = 2250;
             Item.rare = ItemRarityID.Blue;
             Item.crit = 16;
+            Item.DamageType = DamageClass.Magic;
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.knockBack = 3;
@@ -44,7 +38,7 @@ namespace LensRands.Content.Items
 
         public override void AddRecipes()
         {
-            if (ModLoader.TryGetMod("CalamityMod", out Mod calamity) && calamity.TryFind<ModItem>("DarksunFragment", out ModItem moditem))
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamity) && calamity.TryFind("DarksunFragment", out ModItem moditem))
             {
                 Recipe recipe = CreateRecipe()
                 .AddIngredient(ItemID.LastPrism)
@@ -105,9 +99,9 @@ namespace LensRands.Content.Items
 
         public override bool PreDraw(ref Color lightColor)
         {
-            if (Projectile.ai[1] == 1) 
+            if (Projectile.ai[1] == 1)
             {
-                DrawLaser(TextureAssets.Projectile[Projectile.type].Value, Projectile.Center,Projectile.velocity,26,-1.57f,1f, (int)MOVE_DISTANCE);
+                DrawLaser(TextureAssets.Projectile[Projectile.type].Value, Projectile.Center, Projectile.velocity, 26, -1.57f, 1f, (int)MOVE_DISTANCE);
             }
             return false;
         }
@@ -119,7 +113,7 @@ namespace LensRands.Content.Items
             // Draws the laser 'body'
             for (float i = transDist; i <= Distance; i += step)
             {
-                var origin = start + (i-step) * unit ;
+                var origin = start + (i - step) * unit;
                 Main.EntitySpriteDraw(texture, origin - Main.screenPosition,
                     new Rectangle(0, 26, 28, 26), i < transDist ? Color.Transparent : touse, r,
                     new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
@@ -182,7 +176,7 @@ namespace LensRands.Content.Items
 
             for (int i = 0; i < 2; ++i)
             {
-                float num1 = Projectile.velocity.ToRotation() + (Main.rand.NextBool(2)? -1.0f : 1.0f) * 1.57f;
+                float num1 = Projectile.velocity.ToRotation() + (Main.rand.NextBool(2) ? -1.0f : 1.0f) * 1.57f;
                 float num2 = (float)(Main.rand.NextDouble() * 0.8f + 1.0f);
                 Vector2 dustVel = new Vector2((float)Math.Cos(num1) * num2, (float)Math.Sin(num1) * num2);
                 Dust dust = Main.dust[Dust.NewDust(dustPos, 0, 0, DustID.Electric, dustVel.X, dustVel.Y)];
@@ -238,19 +232,19 @@ namespace LensRands.Content.Items
             }
             if (Projectile.ai[1] == 0)
             {
-            int dir = Projectile.direction;
-            player.ChangeDir(dir); // Set player direction to where we are shooting
-            player.heldProj = Projectile.whoAmI; // Update player's held projectile
-            player.itemTime = 2; // Set item time to 2 frames while we are used
-            player.itemAnimation = 2; // Set item animation time to 2 frames while we are used}
-            player.itemRotation = (float)Math.Atan2(Projectile.velocity.Y * dir, Projectile.velocity.X * dir); // Set the item rotation to where we are shooting
+                int dir = Projectile.direction;
+                player.ChangeDir(dir); // Set player direction to where we are shooting
+                player.heldProj = Projectile.whoAmI; // Update player's held projectile
+                player.itemTime = 2; // Set item time to 2 frames while we are used
+                player.itemAnimation = 2; // Set item animation time to 2 frames while we are used}
+                player.itemRotation = (float)Math.Atan2(Projectile.velocity.Y * dir, Projectile.velocity.X * dir); // Set the item rotation to where we are shooting
             }
         }
         private void ChargeLaser(Player player)
         {
             if (!player.channel)
             {
-                Projectile.ai[1]=1;
+                Projectile.ai[1] = 1;
             }
             else if (Projectile.ai[1] == 0)
             {

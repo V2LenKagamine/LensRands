@@ -76,6 +76,65 @@ Mods: {
 					Uses standard bullets, thankfully.
 					'''
 			}
+
+			Carrier: {
+				DisplayName: Carrier
+				Tooltip:
+					'''
+					A friend from the Void.
+					Grants a {0}% chance to not consume ammo.
+					'''
+			}
+
+			CarrierPrime: {
+				DisplayName: Carrier Prime
+				Tooltip:
+					'''
+					A friend from the Void.
+					Grants a {0}% chance to not consume ammo.
+					Grants a {1}% increase in ranged damage.
+					'''
+			}
+
+			StoneLuigi: {
+				DisplayName: Stone Football
+				Tooltip:
+					'''
+					[c/008000:It's a football; I chiseled it!]
+					[c/FF0000:Well,what're ya waiting for, throw me a pass!]
+					[c/008000:It's even offical size! HYUP!]
+					[c/FFAA00:CRASH!]
+					[c/008000:...But not offical weight!]
+					'''
+			}
+
+			Bungus: {
+				DisplayName: Bustling Fungus
+				Tooltip:
+					'''
+					Grants heavy ({0}) liferegen to you and
+					nearby friends({1} units) after not moving for 
+					{2} second(s).
+
+					[c/FFFF00:Oh great the engineer is stacking fungus.]
+					'''
+			}
+
+			Ukelele: {
+				DisplayName: Electric Ukelele
+				Tooltip:
+					'''
+					Gives a {0}% chance to cause chain-lightning
+					to {1} target(s) for {2}% damage.
+
+					[c/6EA66E:... and his music was electric.]
+					'''
+			}
+
+			Monika: {
+				DisplayName: Monika
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -86,6 +145,15 @@ Mods: {
 			RealKnifeProjectile.DisplayName: Real Knife Projectile
 			RealKnifeProjectileT.DisplayName: Real Knife Projectile T
 			ZarrProjectile.DisplayName: Zarr Projectile
+			FootballProjectile.DisplayName: Football Projectile
+			MonikaProjectile.DisplayName: Monika Projectile
+		}
+
+		Buffs: {
+			MonikaBuff: {
+				DisplayName: Monika Buff
+				Description: Mods.LensRands.Buffs.MonikaBuff.Description
+			}
 		}
 	}
 }

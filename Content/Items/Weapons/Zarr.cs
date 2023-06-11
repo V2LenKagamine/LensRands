@@ -5,11 +5,11 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace LensRands.Content.Items
+namespace LensRands.Content.Items.Weapons
 {
     public class Zarr : ModItem
     {
-        public override string Texture => LensRands.AssetsPath + "Items/Zarr";
+        public override string Texture => LensRands.AssetsPath + "Items/Weapons/Zarr";
 
         public int ShotgunShots = 6;
         public int CannonShots = 1;
@@ -17,16 +17,10 @@ namespace LensRands.Content.Items
         {
             Recipe recipe = CreateRecipe()
                 .AddIngredient(ItemID.Boomstick)
-                .AddIngredient(ItemID.Obsidian,20)
-                .AddIngredient(ItemID.HellstoneBar,10)
+                .AddIngredient(ItemID.Obsidian, 20)
+                .AddIngredient(ItemID.HellstoneBar, 10)
                 .AddTile(TileID.Hellforge)
                 .Register();
-        }
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Zarr");
-            /* Tooltip.SetDefault("A gun from the Void." + 
-                "\nUses standard bullets, thankfully."); */
         }
 
         public override void SetDefaults()
@@ -35,6 +29,7 @@ namespace LensRands.Content.Items
             Item.autoReuse = false;
             Item.damage = 85;
             Item.rare = ItemRarityID.Green;
+            Item.DamageType = DamageClass.Ranged;
             Item.crit = 8;
             Item.useTime = 54;
             Item.useAnimation = 54;
@@ -56,7 +51,7 @@ namespace LensRands.Content.Items
         {
             if (player.altFunctionUse == 2)
             {
-                for(int i =0; i < ShotgunShots;i++)
+                for (int i = 0; i < ShotgunShots; i++)
                 {
                     Vector2 newVel = velocity.RotatedByRandom(MathHelper.ToRadians(15));
 
@@ -69,7 +64,7 @@ namespace LensRands.Content.Items
             }
             else
             {
-                
+
                 for (int i = 0; i < CannonShots; i++)
                 {
                     Vector2 newVel = velocity.RotatedByRandom(MathHelper.ToRadians(2.5f));
@@ -88,7 +83,7 @@ namespace LensRands.Content.Items
 
         public int ShotgunShots = 10;
         public int CannonShots = 1;
-        public override string Texture => LensRands.AssetsPath + "Items/KuvaZarr";
+        public override string Texture => LensRands.AssetsPath + "Items/Weapons/KuvaZarr";
 
         public override void AddRecipes()
         {
@@ -112,6 +107,7 @@ namespace LensRands.Content.Items
             Item.autoReuse = false;
             Item.damage = 185;
             Item.rare = ItemRarityID.Blue;
+            Item.DamageType = DamageClass.Ranged;
             Item.crit = 16;
             Item.useTime = 45;
             Item.useAnimation = 45;
@@ -167,11 +163,11 @@ namespace LensRands.Content.Items
 
         public int ShotgunShots = 10;
         public int CannonShots = 1;
-        public override string Texture => LensRands.AssetsPath + "Items/PaddJommKuvaZarr";
+        public override string Texture => LensRands.AssetsPath + "Items/Weapons/PaddJommKuvaZarr";
 
         public override void AddRecipes()
         {
-            if(ModLoader.TryGetMod("CalamityMod", out Mod calamity) && calamity.TryFind<ModItem>("DarksunFragment",out ModItem moditem)) 
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamity) && calamity.TryFind("DarksunFragment", out ModItem moditem))
             {
                 Recipe recipe = CreateRecipe()
                 .AddIngredient(ModContent.ItemType<KuvaZarr>())
@@ -180,7 +176,7 @@ namespace LensRands.Content.Items
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
             }
-            
+
         }
 
         public override void SetStaticDefaults()
@@ -196,6 +192,7 @@ namespace LensRands.Content.Items
             Item.autoReuse = false;
             Item.damage = 1500;
             Item.rare = ItemRarityID.Purple;
+            Item.DamageType = DamageClass.Ranged;
             Item.crit = 24;
             Item.useTime = 36;
             Item.useAnimation = 36;
@@ -270,7 +267,7 @@ namespace LensRands.Content.Items
                     // Random upward vector.
                     Vector2 launchVelocity = new Vector2(Main.rand.NextFloat(-1.5f, 1.5f), Main.rand.NextFloat(-5, -3));
                     // Importantly, ai1 is set to 1 here. This is checked in OnTileCollide to prevent bouncing and here in Kill to prevent an infinite chain of splitting projectiles.
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, launchVelocity, Projectile.type, Projectile.damage/2, Projectile.knockBack, Main.myPlayer, 0, 1);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, launchVelocity, Projectile.type, Projectile.damage / 2, Projectile.knockBack, Main.myPlayer, 0, 1);
                 }
             }
             // Smoke Dust spawn
@@ -279,7 +276,7 @@ namespace LensRands.Content.Items
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 2f);
                 dust.velocity *= 1.4f;
             }
-            
+
             // Fire Dust spawn
             for (int i = 0; i < 80; i++)
             {
@@ -297,7 +294,7 @@ namespace LensRands.Content.Items
                 Gore gore = Gore.NewGoreDirect(Projectile.GetSource_FromThis(), goreSpawnPosition, default, Main.rand.Next(61, 64), 1f);
                 gore.scale = 1.5f;
                 gore.velocity.X += 1.5f;
-                gore.velocity.Y += 1.5f;    
+                gore.velocity.Y += 1.5f;
                 gore = Gore.NewGoreDirect(Projectile.GetSource_FromThis(), goreSpawnPosition, default, Main.rand.Next(61, 64), 1f);
                 gore.scale = 1.5f;
                 gore.velocity.X -= 1.5f;
@@ -323,7 +320,7 @@ namespace LensRands.Content.Items
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.timeLeft = 3;
-            base.OnHitNPC(target,hit,damageDone);
+            base.OnHitNPC(target, hit, damageDone);
         }
         public override void AI() //Yea NGL copied this from Example
         {
@@ -336,9 +333,9 @@ namespace LensRands.Content.Items
 
                 // change the hitbox size, centered about the original projectile center. This makes the projectile damage enemies during the explosion.
                 if (Projectile.ai[1] == 0)
-                    { Projectile.Resize(200, 200);}
+                { Projectile.Resize(200, 200); }
                 else
-                    { Projectile.Resize(30, 30); }
+                { Projectile.Resize(30, 30); }
                 Projectile.knockBack = 10f;
             }
             else
