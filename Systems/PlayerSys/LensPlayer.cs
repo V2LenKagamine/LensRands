@@ -4,6 +4,10 @@ using Terraria.ModLoader.IO;
 using Terraria.ID;
 using System.Collections.Generic;
 using LensRands.LensUtils;
+using Terraria.DataStructures;
+using LensRands.Content.Buffs;
+using System;
+using Microsoft.Xna.Framework;
 
 namespace LensRands.Systems.PlayerSys
 {
@@ -37,6 +41,22 @@ namespace LensRands.Systems.PlayerSys
         public bool NearBungus;
         public readonly int BungusHeal = 4;
         public readonly int BungusRange = 150;
+
+        public bool DiosBFOn;
+        public readonly int DioMax = 10*60*60;
+
+        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        {
+            if(DiosBFOn)
+            {
+                Player.Heal(Player.statLifeMax2 - Player.statLife);  
+                Player.ClearBuff(ModContent.BuffType<DiosBestFriendBuff>());
+                Player.AddBuff(ModContent.BuffType<DiosBestFriendDebuff>(), DioMax);
+                Main.NewText(string.Format("{0}'s Best Friend takes the blow,reviving {0}!", Player.name), Color.Red);
+                return false;
+            }
+            return base.PreKill(damage, hitDirection, pvp,ref playSound,ref genGore,ref damageSource);
+        }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -125,7 +145,7 @@ namespace LensRands.Systems.PlayerSys
             CarrierPrimeOn = false;
             UkeleleOn = false;
             BungusActive = false;
-            //NearBungus = false;
+            DiosBFOn = false;
         }
 
 

@@ -116,7 +116,7 @@ Mods: {
 					nearby friends({1} units) after not moving for 
 					{2} second(s).
 
-					[c/FFFF00:Oh great the engineer is stacking fungus.]
+					[c/FFFF00:Oh great the engineer is stacking bungus.]
 					'''
 			}
 
@@ -132,8 +132,67 @@ Mods: {
 			}
 
 			Monika: {
-				DisplayName: Monika
-				Tooltip: ""
+				DisplayName: Suspicious USB Drive
+				Tooltip:
+					'''
+					You don't know what a '.chr file' is,
+					but you get the feeling you could never
+					fight such a being contained within one.
+					[c/9E4638:Don't worry about your avatar dear,]
+					[c/9E4638:They couldn't hurt me if they tried~.]
+					'''
+			}
+
+			Soldiers: {
+				DisplayName: Soldier's Syringe
+				Tooltip:
+					'''
+					Increases attack speed by {0}%.
+					Decreases attack damage by {1}%.
+					[c/FFFF00:Diluted from the trip.]
+					'''
+			}
+
+			RoRCrateRed: {
+				DisplayName: Golden Shipping Crate
+				Tooltip:
+					'''
+					Opened via an uncrackable quantum-linked three factor
+					authentication backed code only held by the intended recipient...
+					Or you can just open it for [c/D9D9D9:{0} Platinum],[c/FFD966:{1} Gold],[c/BABFC5:{2} Silver], & [c/CE7E00:{3} Copper] Coins.
+					[c/FFFF00:Someone paid a lot of money to keep this in the right hands.]
+					'''
+			}
+
+			RoRCrateGreen: {
+				DisplayName: Pristine Shipping Crate
+				Tooltip:
+					'''
+					Opened via an uncrackable quantum-linked three factor
+					authentication backed code only held by the intended recipient...
+					Or you can just open it for [c/D9D9D9:{0} Platinum],[c/FFD966:{1} Gold],[c/BABFC5:{2} Silver], & [c/CE7E00:{3} Copper] coins.
+					[c/FFFF00:Looks well guarded, enough no one has bothered trying to open it.]
+					'''
+			}
+
+			RoRCrateWhite: {
+				DisplayName: Rusted Shipping Crate
+				Tooltip:
+					'''
+					Opened via an uncrackable quantum-linked three factor
+					authentication backed code only held by the intended recipient...
+					Or you can just open it for [c/D9D9D9:{0} Platinum],[c/FFD966:{1} Gold],[c/BABFC5:{2} Silver], & [c/CE7E00:{3} Copper] coins.
+					[c/FFFF00:Looks old, and broken into often. Probably nothing of notable value inside.]
+					'''
+			}
+
+			DiosBestFriend: {
+				DisplayName: Dio's Best Friend
+				Tooltip:
+					'''
+					Cheat death once every {0} minutes.
+					[c/FFFF00:Honestly, not my favorite red.]
+					'''
 			}
 		}
 
@@ -151,8 +210,18 @@ Mods: {
 
 		Buffs: {
 			MonikaBuff: {
-				DisplayName: Monika Buff
-				Description: Mods.LensRands.Buffs.MonikaBuff.Description
+				DisplayName: Monika.
+				Description: Just Monika.
+			}
+
+			DiosBestFriendBuff: {
+				DisplayName: Dio's Protection
+				Description: Cheat death upon reaching 0 life.
+			}
+
+			DiosBestFriendDebuff: {
+				DisplayName: Dio's Protection Down!
+				Description: He can't protect you forever.
 			}
 		}
 	}

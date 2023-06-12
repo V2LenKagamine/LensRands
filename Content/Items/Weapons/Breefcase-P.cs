@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using LensRands.Systems.ModSys;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -28,7 +29,7 @@ namespace LensRands.Content.Items.Weapons
             Item.height = 16;
             Item.damage = 15;
             Item.useTime = 60;
-            Item.UseSound = new Terraria.Audio.SoundStyle(LensRands.AssetsPath + "Sounds/breefcase") { MaxInstances = 1 };
+            Item.UseSound = AudioSys.BEES;
         }
     }
 

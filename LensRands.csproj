@@ -8,6 +8,12 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <AdditionalFiles Remove="Content\Items\Misc\**" />
+    <Compile Remove="Content\Items\Misc\**" />
+    <EmbeddedResource Remove="Content\Items\Misc\**" />
+    <None Remove="Content\Items\Misc\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>
@@ -15,5 +21,10 @@
     <Folder Include="Assets\Effects\" />
     <Folder Include="Assets\UI\" />
     <Folder Include="Assets\Sounds\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EasyPacketsLib">
+      <HintPath>stuff\EasyPacketsLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

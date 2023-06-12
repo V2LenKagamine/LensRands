@@ -14,6 +14,7 @@ namespace LensRands.Content.Items.Accessories
         public readonly float UkeDamage = 12.5f;
         public override string Texture => LensRands.AssetsPath + "Items/Accessories/Ukelele";
 
+        /*
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe()
@@ -22,6 +23,7 @@ namespace LensRands.Content.Items.Accessories
                 .AddTile(TileID.TinkerersWorkbench)
                 .Register();
         }
+        */
 
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(UkeleleChance,UkeleleHits,UkeDamage);
 

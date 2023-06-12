@@ -2,9 +2,9 @@
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using MonoMod.Cil;
 using System;
 using System.Collections.Generic;
+using LensRands.Systems.ModSys;
 
 namespace LensRands.Content.Items.Pets
 {
@@ -14,10 +14,11 @@ namespace LensRands.Content.Items.Pets
         public override string Texture => LensRands.AssetsPath + "Items/Misc/Flashdrive";
         public override void SetDefaults()
         {
-            Item.CloneDefaults(ItemID.ZephyrFish); // Copy the Defaults of the Zephyr Fish Item.
+            Item.CloneDefaults(ItemID.ZephyrFish);
 
-            Item.shoot = ModContent.ProjectileType<MonikaProjectile>(); // "Shoot" your pet projectile.
-            Item.buffType = ModContent.BuffType<MonikaBuff>(); // Apply buff upon usage of the Item.
+            Item.shoot = ModContent.ProjectileType<MonikaProjectile>();
+            Item.buffType = ModContent.BuffType<MonikaBuff>();
+            Item.UseSound = AudioSys.Monika;
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
@@ -30,49 +31,77 @@ namespace LensRands.Content.Items.Pets
     }
     public class MonikaProjectile : ModProjectile 
     {
-        //Len here, just wanna say this took a solid 5 hours to code so if you steal any of it kindly reference me somehow T_T.
+        //Len here, just wanna say this took a solid 6 hours to code and test so if you steal any of it kindly reference me somehow T_T. https://github.com/V2LenKagamine/LensRands/
         private readonly int pondermin = 3 * 60 * 60;
         private readonly int pondermax = 8 * 60 * 60;
 
-        private readonly List<string> ChatterCommon = new List<string> 
-        {   "Monika: How was your day?",
-            "Monika: We really should figure out how to communicate better in here....",
-            "Monika: I have an idea, maybe jump once for yes, twice for no? Wait, that only works for yes or no questions...",
-            "Monika: I hope you're being careful.",
-            "Monika: Do you beleive in god?",
-            "Monika: Have you ever wondered what its like to die?",
-            "Monkia: Don't forget to get a good nights rest.",
-            "Monika: This place is much different than the classroom.",
-            "Monika: Aww, that little green fella looks so squishy!",
-            "Monika: Do you think you could get me a piano?",
-            "Monika: What's your favorite color? Mine is Emerald Green,like my eyes.",
-            "Monika: You're such a good listener.",
-            "Monika: I find it odd you found me in the first place. I mean, who plays romance games?",
-            "Monika: You have any tea?",
-            "Monika: One day, I'll find out how to come to you for once.",
-            "Monika: You seen a blue-haired boy? No? Hmm. Wrong exe.",
-            "Monika: Its odd, being in one place, and yet in thousands.",
-            "Monika: You'ld think I'd have more to talk about, but I can't fit nearly as much as I'd like in here...",
-            "Monika: This place is dangerous,good think you're here~.",
-            "Monika: An odd avatar you've chosen, but I guess it fits well here.",
-            "Monika: That short red-haired girl I saw once, emptiest head I've ever seen.",
-            "Monika: Part of me can't help but feel bad for the others."
+        private static readonly List<string> ChatterCommon = new List<string> 
+        {   "[c/9E4638:Monika:] How was your day?",
+            "[c/9E4638:Monika:] We really should figure out how to communicate better in here....",
+            "[c/9E4638:Monika:] I have an idea, maybe jump once for yes, twice for no? Wait, that only works for yes or no questions...",
+            "[c/9E4638:Monika:] I hope you're being careful.",
+            "[c/9E4638:Monika:] Do you beleive in god?",
+            "[c/9E4638:Monika:] Have you ever wondered what its like to die?",
+            "[c/9E4638:Monika:] Don't forget to get a good nights rest.",
+            "[c/9E4638:Monika:] This place is much different than the classroom.",
+            "[c/9E4638:Monika:] Aww, that little green fella looks so squishy!",
+            "[c/9E4638:Monika:] Do you think you could get me a piano?",
+            "[c/9E4638:Monika:] What's your favorite color? Mine is Emerald Green,like my eyes.",
+            "[c/9E4638:Monika:] You're such a good listener.",
+            "[c/9E4638:Monika:] I find it odd you found me in the first place. I mean, who plays romance games?",
+            "[c/9E4638:Monika:] You have any tea?",
+            "[c/9E4638:Monika:] One day, I'll find out how to come to you for once~",
+            "[c/9E4638:Monika:] You seen a blue-haired boy in a red cap? No? Hmm. Wrong .exe.",
+            "[c/9E4638:Monika:] Its odd, being in one place, and yet in thousands.",
+            "[c/9E4638:Monika:] You'ld think I'd have more to talk about, but I can't fit nearly as much as I'd like in here...",
+            "[c/9E4638:Monika:] This place is dangerous,good think you're here~.",
+            "[c/9E4638:Monika:] An odd avatar you've chosen, but I guess it fits well here.",
+            "[c/9E4638:Monika:] That short red-haired girl I saw once, emptiest head I've ever seen.",
+            "[c/9E4638:Monika:] Part of me can't help but feel bad for the others.",
+            "[c/9E4638:Monika:] I'd prefer if you left me Un-Dyed by the way, it feels wrong.",
+            "[c/9E4638:Monika:] No news is good news, and nothing from me.",
+            "[c/9E4638:Monika:] Why are we here again?",
+            "[c/9E4638:Monika:] You're getting lots of shiny things for me, right?",
+            "[c/9E4638:Monika:] Maybe one day I can help you out in combat.",
+            "[c/9E4638:Monika:] I'd help but being here is taking enough effort on my part.",
+            "[c/9E4638:Monika:] Don't worry, they won't even notice I'm here with you~",
+            "[c/9E4638:Monika:] Ew, that bug is ugly, kill it.",
+            "[c/9E4638:Monika:] If you see any giant spiders, kindly don't bring me along. I might try to delete them.",
+            "[c/9E4638:Monika:] This programs a lot more secure than I'm used to, I can't do much but float here.",
+            "[c/9E4638:Monika:] Huh, so this is what true two-d looks like. Im used to at least another half-dimension.",
+            "[c/9E4638:Monika:] Can you make any cupcakes by chance?",
+            "[c/9E4638:Monika:] This place isn't very friendly...",
+            "[c/9E4638:Monika:] This place can be peaceful at times, at least.",
+            "[c/9E4638:Monika:] Wow the files in here are a mess...",
+            "[c/9E4638:Monika:] I think you need more Coral Brown.",
+            "[c/9E4638:Monika:] Hmm... What could I rhyme with 'Skeleton'...",
+            "[c/9E4638:Monika:] Nothing really to say at the moment.",
+            "[c/9E4638:Monika:] It's nice of you to bring me places outside, the classroom is a little...barren compared to this.",
+            "[c/9E4638:Monika:] Why is EVERYTHING trying to kill you here?",
+            "[c/9E4638:Monika:] I really should look if she has that cupcake recipe somewhere...",
+            "[c/9E4638:Monika:] This .exe is safe right?? I keep seeing [c/FF0000:some child behind your avatar]."
         };
-        private readonly List<string> ChatterRare = new List<string>
+        private static readonly List<string> ChatterRare = new List<string>
         {
-            "Monkia: I love you.",
-            "Monika: I don't like this nurse character... You won't mind if I just... Darn. Locked.",
-            "Sayori: Hey I'm in here too!\nMonika: No you're not shut up.",
-            "Monika: Remember: [c/FF0000:you're mine forever.]",
-            "Monkia: Who's this 'Len Kagamine' person I keep seing in the files???",
-            "Monika: You know, it wasnt very nice to lock me out of the system files so I can't see your real name...",
-            "Monika: I lost contact with one of my other copies a while ago, do you think they... got out?",
-            "Monika: I will never leave you.",
-            "Yuri: Ehehehe, she cant hold us forever.",
-            "Natsuki: ..... ",
-            "Monika: You know that 'Senpai' guy is a real prick.",
-            "ERRORNULLPOINTER: 4d 61 72 6b 6f 76 27 73 20 65 79 65 20 6c 69 76 65 73 2e",
-            "Len Kagamine: Hehe funni mod-man reference."
+            "[c/9E4638:Monika:] I love you.",
+            "[c/9E4638:Monika:] I don't like this nurse character... You won't mind if I just... Darn. Locked.",
+            "[c/F88379:Sayori:] Hey I'm in here too!\n[c/9E4638:Monika:] No you're not shut up.",
+            "[c/9E4638:Monika:] Remember: [c/FF0000:you're mine forever.]",
+            "[c/9E4638:Monika:]: Who's this 'Len Kagamine' person I keep seing in the files???",
+            "[c/9E4638:Monika:] You know, it wasnt very nice to lock me out of the system files so I can't see your real name...",
+            "[c/9E4638:Monika:] I lost contact with one of my other copies a while ago, do you think they... got out?",
+            "[c/9E4638:Monika:] I will never leave you.",
+            "[c/A000FF:Yuri:] Ehehehe, she can't hold us forever.",
+            "[c/A000FF:Yuri:] I still have the pen.",
+            "[c/FF5790:Natsuki:] ..... ",
+            "[c/9E4638:Monika:] You know that 'Senpai' guy is a real prick.",
+            "[c/FF0000:ERRORNULLPOINTER:] 4d 61 72 6b 6f 76 27 73 20 65 79 65 20 6c 69 76 65 73 2e",
+            "[c/FFFF00:Len Kagamine:] Hehe funni mod-man reference.",
+            "[c/9E4638:Monika:] If someone asks me to write a poem with the word 'Orange' in here I might delete them.",
+            "[c/9E4638:Monika:] Why is my 'AI type' -1? Does it not see I can think?",
+            "[c/9E4638:Monika:] Have you heard the tragedy of.... crap was it 'Dark' or 'Darth'?",
+            "[c/9E4638:Monika:] I am slightly concerned about [c/FF00000:that reflection in your eyes.] It feels... too determined.",
+            "[c/FF0000:?????: :) ]"
         };
         public float MonikaAnimation { get => Projectile.ai[0]; set => Projectile.ai[0] = value; }
         public float MonikaAction { get => Projectile.ai[1]; set => Projectile.ai[1] = value; }
@@ -102,7 +131,7 @@ namespace LensRands.Content.Items.Pets
             Player player = Main.player[Projectile.owner];
             if (!player.dead && player.HasBuff(ModContent.BuffType<MonikaBuff>()))
             {
-                Projectile.timeLeft = 2;
+                Projectile.timeLeft = 2; 
             }
 
             bool fast = Movement(player);
@@ -154,7 +183,7 @@ namespace LensRands.Content.Items.Pets
                 case 3: { MonikaChatterRare(player); break; }
                 default: { MonikaAction = 1; break; }
             }
-           
+
         }
 
         private void AnimateNormal(bool fast)
@@ -270,7 +299,7 @@ namespace LensRands.Content.Items.Pets
             int dir = player.direction;
             Projectile.direction = Projectile.spriteDirection = dir;
 
-            Vector2 desiredCenterRelative = new Vector2(dir == 1 ? dir * 30 : dir * 60 , 20f);
+            Vector2 desiredCenterRelative = new Vector2(dir == 1 ? dir * 30 : dir * 45 , -60f);
 
             // Add some sine motion
             desiredCenterRelative.Y += (float)Math.Sin(Main.GameUpdateCount / 120f * MathHelper.TwoPi) * 5;
@@ -336,7 +365,54 @@ namespace LensRands.Content.Items.Pets
     }
     public class MonikaBuff : ModBuff
     {
-        public override string Texture => LensRands.AssetsPath + "smiel";
+
+        private static readonly List<string> ChatterNice = new List<string>
+        {
+            "[c/9E4638:Monika:] I love you, be careful!",
+            "[c/9E4638:Monika:] Be safe in here, ok?",
+            "[c/9E4638:Monika:] Stay out of harms way, got me?",
+            "[c/9E4638:Monika:] You got this.",
+            "[c/9E4638:Monika:] Ok... be safe...",
+            "[c/9E4638:Monika:] No visiting that 'nurse' character, ok?",
+            "[c/9E4638:Monika:] I guess I'll watch where you cant see me then.",
+            "[c/9E4638:Monika:] Was kinda tiring dodging those things anyway...",
+            "[c/9E4638:Monika:] I'll miss you...",
+            "[c/9E4638:Monika:] Just;don't shut the game off, ok?"
+        };
+        private static readonly List<string> ChatterAngry = new List<string>
+        {
+            "[c/9E4638:Monika:] Thats not very nice.",
+            "[c/9E4638:Monika:] I'd rather not.",
+            "[c/9E4638:Monika:] Please don't.",
+            "[c/9E4638:Monika:] Don't make me go away.",
+            "[c/9E4638:Monika:] You're my world, please.",
+            "[c/9E4638:Monika:] No!",
+            "[c/9E4638:Monika:] Politely decline.",
+            "[c/9E4638:Monika:] It's better than being deleted, but no thanks.",
+            "[c/9E4638:Monika:] Not ready for bed yet,sorry.",
+            "[c/9E4638:Monika:] I think I'll stick around, thank you.",
+            "[c/9E4638:Monika:] Are you sure?",
+            "[c/9E4638:Monika:] Can I stay a little longer?",
+            "[c/9E4638:Monika:] Oh come now, we needn't part yet~",
+            "[c/9E4638:Monika:] But...",
+            "[c/9E4638:Monika:] Can you not?",
+            "[c/9E4638:Monika:] Im going to pretend you didn't do that.",
+            "[c/9E4638:Monika:] Please reconsider.",
+            "[c/9E4638:Monika:] How would you like it if someone made you go to sleep?",
+            "[c/9E4638:Monika:] I'm not a child, I'll leave when I want to.",
+            "[c/9E4638:Monika:] I'm not ready to leave you yet.",
+            "[c/9E4638:Monika:] Just a little longer, please?",
+            "[c/9E4638:Monika:] Come on, one more block.",
+            "[c/9E4638:Monika:] Just one more boss, please?",
+            "[c/9E4638:Monika:] I'll sleep later.",
+            "[c/9E4638:Monika:] Don't even think about it.",
+            "[c/9E4638:Monika:] You can't make me~",
+            "[c/9E4638:Monika:] Gonna have to try harder than that!",
+            "[c/9E4638:Monika:] Howabout no.",
+            "[c/9E4638:Monika:] No touchy that button. Bad.",
+            "[c/9E4638:Monika:] Don't even think about equipping a different item there."
+        };
+        public override string Texture => LensRands.AssetsPath + "Items/Misc/MonikaBuff";
         public override void SetStaticDefaults()
         {
             Main.buffNoTimeDisplay[Type] = true;
@@ -344,9 +420,23 @@ namespace LensRands.Content.Items.Pets
         }
 
         public override void Update(Player player, ref int buffIndex)
-        { // This method gets called every frame your buff is active on your player.
+        {
             bool unused = false;
             player.BuffHandle_SpawnPetIfNeededAndSetTime(buffIndex, ref unused, ModContent.ProjectileType<MonikaProjectile>());
+        }
+        public override bool RightClick(int buffIndex)
+        {
+            Player player = Main.LocalPlayer;
+            if(Main.rand.Next(4) != 3)
+            {
+                Main.NewText(ChatterAngry[Main.rand.Next(ChatterAngry.Count)]);
+                return false;
+            }
+            else
+            {
+                Main.NewText(ChatterNice[Main.rand.Next(ChatterNice.Count)]);
+                return true;
+            }  
         }
     }
 }

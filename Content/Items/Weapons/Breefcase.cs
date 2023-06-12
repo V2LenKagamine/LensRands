@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LensRands.Systems.ModSys;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,7 +26,7 @@ namespace LensRands.Content.Items.Weapons
             Item.damage = 15;
             Item.useTime = 300;
 
-            Item.UseSound = new Terraria.Audio.SoundStyle(LensRands.AssetsPath + "Sounds/breefcase") { MaxInstances = 1 };
+            Item.UseSound = AudioSys.BEES;
         }
     }
 

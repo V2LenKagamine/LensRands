@@ -16,6 +16,7 @@ namespace LensRands.Content.Items.Accessories
         public int stilltimer = 0;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(BungusHeal,BungusRange,StillForMax/60);
 
+        /*
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe()
@@ -25,7 +26,7 @@ namespace LensRands.Content.Items.Accessories
                 .AddTile(TileID.DyeVat)
                 .Register();
         }
-
+        */
         public override void SetDefaults()
         {
             Item.width = 32;
