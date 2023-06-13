@@ -1,4 +1,5 @@
-﻿using LensRands.Content.Items.Accessories;
+﻿using System.Linq;
+using LensRands.Content.Items.Accessories;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -59,10 +60,7 @@ namespace LensRands.Content.Items.Consumable
         public override int gold => 20;
 
         public override int plat => 0;
-        public override int[] LootTable => new int[] {
-            ModContent.ItemType<Soldiers>(),
-            ModContent.ItemType<Bungus>()
-        };
+        public override int[] LootTable => Mod.GetContent<RORWhites>().Select(x => x.Type).ToArray();
 
     }
     public class RoRCrateGreen : RoRCratesBase
@@ -80,9 +78,7 @@ namespace LensRands.Content.Items.Consumable
         public override int gold => 80;
 
         public override int plat => 0;
-        public override int[] LootTable => new int[] {
-            ModContent.ItemType<Ukelele>()
-        };
+        public override int[] LootTable => Mod.GetContent<RORGreens>().Select(x => x.Type).ToArray();
     }
     public class RoRCrateRed : RoRCratesBase
     {
@@ -99,8 +95,6 @@ namespace LensRands.Content.Items.Consumable
         public override int gold => 20;
 
         public override int plat => 3;
-        public override int[] LootTable => new int[] {
-            ModContent.ItemType<DiosBestFriend>()
-        };
+        public override int[] LootTable => Mod.GetContent<RORReds>().Select(x => x.Type).ToArray();
     }
 }

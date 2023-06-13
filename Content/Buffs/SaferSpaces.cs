@@ -1,13 +1,13 @@
-﻿using Terraria.ID;
+﻿using LensRands.Systems.PlayerSys;
+using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
-using LensRands.Systems.PlayerSys;
 
 namespace LensRands.Content.Buffs
 {
-    public class DiosBestFriendBuff : ModBuff
+    public class SaferSpacesBuff : ModBuff
     {
-        public override string Texture => LensRands.AssetsPath + "Buffs/DioBuff";
+        public override string Texture => LensRands.AssetsPath + "Buffs/SaferBuff";
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true;
@@ -17,14 +17,12 @@ namespace LensRands.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<LensPlayer>().DiosBFOn = true;
+            player.GetModPlayer<LensPlayer>().SaferOn = true;
         }
-
     }
-    public class DiosBestFriendDebuff : ModBuff
+    public class SaferSpacesDebuff : ModBuff
     {
-
-        public override string Texture => LensRands.AssetsPath + "Buffs/DioDebuff";
+        public override string Texture => LensRands.AssetsPath + "Buffs/SaferDebuff";
 
         public override void SetStaticDefaults()
         {
@@ -34,7 +32,7 @@ namespace LensRands.Content.Buffs
         }
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<LensPlayer>().DiosBFOn = false;
+            player.GetModPlayer<LensPlayer>().SaferOn = false;
         }
     }
 }

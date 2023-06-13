@@ -194,6 +194,53 @@ Mods: {
 					[c/FFFF00:Honestly, not my favorite red.]
 					'''
 			}
+
+			Pennies: {
+				DisplayName: Roll of Pennies
+				Tooltip:
+					'''
+					Gain [c/CE7E00:{0} Copper Coins] on taking a hit.
+					[c/FFFF00:...Why.]
+					'''
+			}
+
+			SaferSpaces: {
+				DisplayName: Safer Spaces
+				Tooltip:
+					'''
+					Ignore the next hit you take.
+					{0} Second Cooldown.
+					[c/FFFF00:Better than an armor set I guess.]
+					'''
+			}
+
+			TougherTimes: {
+				DisplayName: Tougher Times
+				Tooltip:
+					'''
+					Adds {0} defence.
+					[c/FFFF00:Call for Tougher Measures.]
+					'''
+			}
+
+			Aegis: {
+				DisplayName: Aegis
+				Tooltip:
+					'''
+					Healing grants {0}% health gained as Overheal.
+					[c/F791C5:Regeneration] grants Overheal only
+					when at or above Max Life (Including buffs).
+					'''
+			}
+
+			ArmorPiercingRounds: {
+				DisplayName: Armor Piercing Rounds
+				Tooltip:
+					'''
+					Increases boss damage by {0}%
+					[c/FFFF00:Underpressure and surplus? Scam artists...]
+					'''
+			}
 		}
 
 		Projectiles: {
@@ -222,6 +269,16 @@ Mods: {
 			DiosBestFriendDebuff: {
 				DisplayName: Dio's Protection Down!
 				Description: He can't protect you forever.
+			}
+
+			SaferSpacesBuff: {
+				DisplayName: Safer Spaces
+				Description: Take 0 damage from the next hit.
+			}
+
+			SaferSpacesDebuff: {
+				DisplayName: (Un)Safer Spaces
+				Description: Safer Spaces is recharging!
 			}
 		}
 	}

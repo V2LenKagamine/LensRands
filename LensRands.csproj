@@ -19,6 +19,8 @@
   <ItemGroup>
     <Folder Include="Assets\Items\Accessories\" />
     <Folder Include="Assets\Effects\" />
+    <Folder Include="Assets\Items\Consumable\" />
+    <Folder Include="Assets\Buffs\" />
     <Folder Include="Assets\UI\" />
     <Folder Include="Assets\Sounds\" />
   </ItemGroup>

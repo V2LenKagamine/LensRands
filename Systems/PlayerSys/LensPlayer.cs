@@ -31,6 +31,15 @@ namespace LensRands.Systems.PlayerSys
         public bool CarrierPrimeOn;
         public readonly float CarrierPChance = 0.25f;
 
+        //Overheal
+        public float Overheal = 0;
+        public float OverhealDecay = 0.05f;
+        public float OverhealMax = 250; //Make sure to set in ResetEffects() as well. 
+        public int LifeLastFrame; //I hate this.
+        public int DamagedTimer;
+        public int DamagedTimerMax =  240;//Make sure to yadda yadda ^^^ 
+        public bool OverhealWentUp;
+
         //RoR stuff
         public bool UkeleleOn;
         public readonly float UkeleleChance = 0.25f;
@@ -45,6 +54,61 @@ namespace LensRands.Systems.PlayerSys
         public bool DiosBFOn;
         public readonly int DioMax = 10*60*60;
 
+        public bool Pennies;
+        public readonly int PenniesAmount = 3; //In copper coins.
+
+        public bool SaferOn;
+        public readonly int SaferMax = 45 * 60;
+
+        public bool AegisOn;
+        public readonly float AegisHealPercent = 0.5f;
+
+        public bool APR;
+        public readonly float APRDmg = 0.05f;
+
+        //Overrides
+        public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
+        {
+            if (Pennies)
+            {
+                SpawnMonet(0,0,0,PenniesAmount);
+            }
+        }
+        public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
+        {
+            if (Pennies)
+            {
+                SpawnMonet(0,0,0,PenniesAmount);
+            }
+        }
+        public override bool ConsumableDodge(Player.HurtInfo info)
+        {
+            if (Overheal > 0)
+            {
+                if (Overheal > info.Damage)
+                {
+                    Overheal -= info.Damage;
+                    Player.SetImmuneTimeForAllTypes(Player.longInvince ? 120 : 80);
+                    return true;
+                }
+                else
+                {
+                    int overdamage = info.Damage - (int)Overheal;
+                    info.Damage -= overdamage;
+
+                    Overheal = 0;
+                }
+            }
+            if (SaferOn)
+            {
+                Player.SetImmuneTimeForAllTypes(Player.longInvince ? 120 : 80);
+                Player.ClearBuff(ModContent.BuffType<SaferSpacesBuff>());
+                Player.AddBuff(ModContent.BuffType<SaferSpacesDebuff>(), SaferMax);
+                return true;
+            }
+            DamagedTimer = DamagedTimerMax;
+            return base.ConsumableDodge(info);
+        }
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
             if(DiosBFOn)
@@ -74,31 +138,15 @@ namespace LensRands.Systems.PlayerSys
                     if (totalhit >= UkeleleHits) { break; }
                 }
             }
-        }
-        private void OnKillEnemy(NPC target)
-        {
-            if(target.boss || target.type == NPCID.WallofFlesh)
+            if(APR && target.boss)
             {
-                for(int i = 0;i < 1;i++) //I hate this but it lets us break out if we find a new highest kill.
-                {
-                    if (NPC.downedMoonlord && HighestBossKilled <= 18) { HighestBossKilled = 19; break; }
-                    if (NPC.downedTowers && HighestBossKilled <= 17) { HighestBossKilled = 18; break; }
-                    if (NPC.downedAncientCultist && HighestBossKilled <= 16) { HighestBossKilled = 17; break; }
-                    if (NPC.downedEmpressOfLight && HighestBossKilled <= 15) { HighestBossKilled = 16; break; }
-                    if (NPC.downedFishron && HighestBossKilled <= 14) { HighestBossKilled = 15; break; }
-                    if (NPC.downedGolemBoss && HighestBossKilled <= 13) { HighestBossKilled = 14; break;  }
-                    if (NPC.downedPlantBoss && HighestBossKilled <= 12) { HighestBossKilled = 13; break; }
-                    if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3 && HighestBossKilled <= 11) {  HighestBossKilled = 12; break; }
-                    if (NPC.downedQueenSlime && HighestBossKilled <= 10) { HighestBossKilled = 11;  break; }
-                    if (Main.hardMode == true && HighestBossKilled <= 9) { HighestBossKilled = 10; break; }
-                    if (NPC.downedDeerclops && HighestBossKilled <= 8) { HighestBossKilled = 9; break; }
-                    if (NPC.downedBoss3 && HighestBossKilled <= 7) { HighestBossKilled = 8; break; }
-                    if (NPC.downedQueenBee && HighestBossKilled <= 6) { HighestBossKilled = 7; break; }
-                    if (NPC.downedBoss2 && HighestBossKilled <= 5) { HighestBossKilled = 6; break; }
-                    if (NPC.downedBoss1 && HighestBossKilled <= 4) { HighestBossKilled = 5; break; }
-                    if (NPC.downedSlimeKing && HighestBossKilled <= 3) { HighestBossKilled = 4; break; }
-                }
+                hit.Damage *= (int)(1f + APRDmg);
             }
+        }
+
+        public override void PostUpdate()
+        {
+            OverhealCalcs();
         }
 
         public override bool CanConsumeAmmo(Item weapon, Item ammo)
@@ -146,9 +194,82 @@ namespace LensRands.Systems.PlayerSys
             UkeleleOn = false;
             BungusActive = false;
             DiosBFOn = false;
+            SaferOn = false;
+            Pennies = false;
+            AegisOn = false;
+            OverhealWentUp = false;
+            APR = false;
+            //Keep at bottom.
+            OverhealMax = 250;
+            DamagedTimerMax = 240;
         }
 
+        //Util methods
 
+        private void OverhealCalcs()
+        {
+            if (Player.active && AegisOn && LifeLastFrame > 0 && DamagedTimer <= 0)
+            {
+                if (LifeLastFrame < Player.statLife - Player.lifeRegen)
+                {
+                    int difference = Player.statLife - LifeLastFrame;
+                    AddOverheal(difference * AegisHealPercent);
+                }
+                else if (Player.statLife >= Player.statLifeMax2)
+                {
+                    AddOverheal(Player.lifeRegen / 60f * AegisHealPercent);
+                }
+            }
+            else if (DamagedTimer > 0)
+            {
+                DamagedTimer--;
+            }
+            if (!OverhealWentUp && Overheal > 0)
+            {
+                Overheal -= OverhealDecay;
+            }
+            Overheal = Math.Clamp(Overheal, 0, OverhealMax);
+            LifeLastFrame = Player.statLife;
+        }
+        
+        private void AddOverheal(float amount)
+        {
+            Overheal += amount;
+            Overheal = Math.Clamp(Overheal, 0, OverhealMax);
+            OverhealWentUp = true;
+        }
+        private void SpawnMonet(int plat,int gold,int silver, int copper)
+        {
+            if (plat > 0) { Player.QuickSpawnItem(Player.GetSource_FromThis(), ItemID.PlatinumCoin, plat); }
+            if (gold > 0) { Player.QuickSpawnItem(Player.GetSource_FromThis(), ItemID.GoldCoin, gold); }
+            if (silver > 0) { Player.QuickSpawnItem(Player.GetSource_FromThis(), ItemID.SilverCoin, silver); }
+            if (copper > 0) { Player.QuickSpawnItem(Player.GetSource_FromThis(), ItemID.CopperCoin, copper); }
+        }
+        private void OnKillEnemy(NPC target)
+        {
+            if (target.boss || target.type == NPCID.WallofFlesh)
+            {
+                for (int i = 0; i < 1; i++) //I hate this but it lets us break out if we find a new highest kill.
+                {
+                    if (NPC.downedMoonlord && HighestBossKilled <= 18) { HighestBossKilled = 19; break; }
+                    if (NPC.downedTowers && HighestBossKilled <= 17) { HighestBossKilled = 18; break; }
+                    if (NPC.downedAncientCultist && HighestBossKilled <= 16) { HighestBossKilled = 17; break; }
+                    if (NPC.downedEmpressOfLight && HighestBossKilled <= 15) { HighestBossKilled = 16; break; }
+                    if (NPC.downedFishron && HighestBossKilled <= 14) { HighestBossKilled = 15; break; }
+                    if (NPC.downedGolemBoss && HighestBossKilled <= 13) { HighestBossKilled = 14; break; }
+                    if (NPC.downedPlantBoss && HighestBossKilled <= 12) { HighestBossKilled = 13; break; }
+                    if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3 && HighestBossKilled <= 11) { HighestBossKilled = 12; break; }
+                    if (NPC.downedQueenSlime && HighestBossKilled <= 10) { HighestBossKilled = 11; break; }
+                    if (Main.hardMode == true && HighestBossKilled <= 9) { HighestBossKilled = 10; break; }
+                    if (NPC.downedDeerclops && HighestBossKilled <= 8) { HighestBossKilled = 9; break; }
+                    if (NPC.downedBoss3 && HighestBossKilled <= 7) { HighestBossKilled = 8; break; }
+                    if (NPC.downedQueenBee && HighestBossKilled <= 6) { HighestBossKilled = 7; break; }
+                    if (NPC.downedBoss2 && HighestBossKilled <= 5) { HighestBossKilled = 6; break; }
+                    if (NPC.downedBoss1 && HighestBossKilled <= 4) { HighestBossKilled = 5; break; }
+                    if (NPC.downedSlimeKing && HighestBossKilled <= 3) { HighestBossKilled = 4; break; }
+                }
+            }
+        }
         public override void SaveData(TagCompound tag)
         {
             tag.Add("HighestBossKill", HighestBossKilled);

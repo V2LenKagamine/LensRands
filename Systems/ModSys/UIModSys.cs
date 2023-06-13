@@ -12,6 +12,8 @@ namespace LensRands.Systems.ModSys
         internal RealKnifeUIState realknifeUI;
         internal UserInterface RealKnifeInterface;
 
+        internal UserInterface OvershieldInterface;
+        internal OvershieldUIState OvershieldUI;
         public override void Load()
         {
             if (!Main.dedServ)
@@ -24,11 +26,17 @@ namespace LensRands.Systems.ModSys
                 //Also figure out how to properly render it.
                 RealKnifeInterface.SetState(realknifeUI);
 
+                OvershieldInterface = new UserInterface();
+                OvershieldUI = new OvershieldUIState();
+                OvershieldUI.Activate();
+                //second verse,same as the first!
+                OvershieldInterface.SetState(OvershieldUI);
             }
         }
         public override void Unload()
         {
             realknifeUI = null;
+            OvershieldUI = null;
         }
 
         private GameTime _lastUpdateUiGameTime;
@@ -39,6 +47,10 @@ namespace LensRands.Systems.ModSys
             if (RealKnifeInterface?.CurrentState != null)
             {
                 RealKnifeInterface.Update(gameTime);
+            }
+            if (OvershieldInterface?.CurrentState != null)
+            {
+                OvershieldInterface.Update(gameTime);
             }
         }
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -57,6 +69,17 @@ namespace LensRands.Systems.ModSys
                         return true;
                     },
                     InterfaceScaleType.UI));
+                layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
+                    "LensRands: OvershieldInterface",
+                    delegate
+                    {
+                        if (_lastUpdateUiGameTime != null && OvershieldInterface?.CurrentState != null)
+                        {
+                            OvershieldInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
+                        }
+                        return true;
+                    },
+               InterfaceScaleType.UI));
             }
         }
     }
