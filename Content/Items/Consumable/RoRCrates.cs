@@ -17,7 +17,10 @@ namespace LensRands.Content.Items.Consumable
         public abstract int gold { get; }
         public abstract int plat { get; }
         public long PriceToOpen => Item.buyPrice(plat, gold, silver, copper);
-        public abstract int[] LootTable { get; }
+        public abstract int[] LootTableCommon { get; }
+        public abstract int[] LootTableUncommon { get; }
+        public abstract int[] LootTableRare { get; }
+
         public override void SetDefaults()
         {
             Item.width = 16;
@@ -41,7 +44,19 @@ namespace LensRands.Content.Items.Consumable
         }
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-            itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, LootTable));
+            float chance = Main.rand.NextFloat(1f);
+            if (chance < 0.79f && LootTableCommon.Length > 0) 
+            {
+                itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, LootTableCommon));
+            }
+            if (chance > 0.79f && chance < 0.99f && LootTableUncommon.Length > 0)
+            {
+                itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, LootTableUncommon));
+            }
+            if (chance > 0.99f && LootTableRare.Length > 0)
+            {
+                itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, LootTableRare));
+            }
         }
     }
     public class RoRCrateWhite : RoRCratesBase
@@ -60,7 +75,9 @@ namespace LensRands.Content.Items.Consumable
         public override int gold => 25;
 
         public override int plat => 0;
-        public override int[] LootTable => Mod.GetContent<RORWhites>().Select(x => x.Type).ToArray();
+        public override int[] LootTableCommon => Mod.GetContent<RORWhites>().Select(x => x.Type).ToArray();
+        public override int[] LootTableUncommon => Mod.GetContent<RORGreens>().Select(x => x.Type).ToArray();
+        public override int[] LootTableRare => Mod.GetContent<RORReds>().Select(x => x.Type).ToArray();
 
     }
     public class RoRCrateGreen : RoRCratesBase
@@ -78,7 +95,9 @@ namespace LensRands.Content.Items.Consumable
         public override int gold => 0;
 
         public override int plat => 1;
-        public override int[] LootTable => Mod.GetContent<RORGreens>().Select(x => x.Type).ToArray();
+        public override int[] LootTableCommon => Mod.GetContent<RORGreens>().Select(x => x.Type).ToArray();
+        public override int[] LootTableUncommon => Mod.GetContent<RORGreens>().Select(x => x.Type).ToArray();
+        public override int[] LootTableRare => Mod.GetContent<RORReds>().Select(x => x.Type).ToArray();
     }
     public class RoRCrateRed : RoRCratesBase
     {
@@ -95,6 +114,8 @@ namespace LensRands.Content.Items.Consumable
         public override int gold => 0;
 
         public override int plat => 4;
-        public override int[] LootTable => Mod.GetContent<RORReds>().Select(x => x.Type).ToArray();
+        public override int[] LootTableCommon => Mod.GetContent<RORReds>().Select(x => x.Type).ToArray();
+        public override int[] LootTableUncommon => Mod.GetContent<RORReds>().Select(x => x.Type).ToArray();
+        public override int[] LootTableRare => Mod.GetContent<RORReds>().Select(x => x.Type).ToArray();
     }
 }

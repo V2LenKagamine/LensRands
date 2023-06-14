@@ -1,8 +1,12 @@
-﻿using LensRands.Systems;
+﻿using System;
+using LensRands.LensUtils;
+using LensRands.Systems;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 
 namespace LensRands.Content.Items.Accessories
 {
@@ -68,5 +72,93 @@ namespace LensRands.Content.Items.Accessories
         }
 
     }
+    public class ATGMK1 : RORGreens
+    {
+        public readonly int ATGChance = 5;
+        public readonly int ATGDmg = 300;
 
+        public override string Texture => base.Texture + "ATGMK1";
+
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(ATGChance,ATGDmg);
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetModPlayer<LensPlayer>().ATGOn = true;
+        }
+    }
+    public class ATGMissile : ModProjectile //Deal with it going in ror greens.
+    {
+        public override string Texture => LensRands.AssetsPath + "Projectiles/ATG";
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 14;
+            Projectile.height = 14;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.timeLeft = 15 * 60;
+            Projectile.light = 0.25f;
+            Projectile.penetrate = -1;
+            Projectile.DamageType = DamageClass.Ranged;
+        }
+        public override void AI()
+        {
+            if (Projectile.timeLeft <= 3)
+            {
+                Projectile.tileCollide = false;
+                Projectile.alpha = 255; 
+                Projectile.Resize(128, 128);
+                Projectile.knockBack = 8f;
+                LensVisualUtils.BombVisuals(Projectile.Center, 128, 128);
+            }
+            else
+            {
+                DoDusts();
+            }
+            if (Projectile.velocity != Vector2.Zero)
+            {
+                LensUtil.HomeOnEnemy(Projectile, 1200, 10f, false, 0.67f);
+                Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
+                
+            }
+            
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (Projectile.timeLeft > 3)
+            {
+                Projectile.timeLeft = 3;
+            }
+
+            Projectile.direction = target.position.X + (target.width / 2) < Projectile.position.X + (Projectile.width / 2) ?  -1 : 1;
+
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            Projectile.velocity *= 0f; 
+            Projectile.timeLeft = 3; 
+            return false; 
+        }
+        private void DoDusts()
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                float posOffsetX = 0f;
+                float posOffsetY = 0f;
+                if (i == 1)
+                {
+                    posOffsetX = Projectile.velocity.X * 0.5f;
+                    posOffsetY = Projectile.velocity.Y * 0.5f;
+                }
+                Dust fireDust = Dust.NewDustDirect(new Vector2(Projectile.position.X + 3f + posOffsetX, Projectile.position.Y + 3f + posOffsetY) - Projectile.velocity * 0.5f,
+                    Projectile.width - 8, Projectile.height - 8, DustID.Torch, 0f, 0f, 100);
+                fireDust.scale *= 2f + Main.rand.Next(10) * 0.1f;
+                fireDust.velocity *= 0.2f;
+                fireDust.noGravity = true;
+                Dust smokeDust = Dust.NewDustDirect(new Vector2(Projectile.position.X + 3f + posOffsetX, Projectile.position.Y + 3f + posOffsetY) - Projectile.velocity * 0.5f, Projectile.width - 8, Projectile.height - 8, DustID.Smoke, 0f, 0f, 100, default, 0.5f);
+                smokeDust.fadeIn = 1f + Main.rand.Next(5) * 0.1f;
+                smokeDust.velocity *= 0.05f;
+            }
+            
+        }
+    }
 }

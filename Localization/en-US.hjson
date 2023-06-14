@@ -148,8 +148,7 @@ Mods: {
 				Tooltip:
 					'''
 					Increases attack speed by {0}%.
-					Decreases attack damage by {1}%.
-					[c/FFFF00:Diluted from the trip.]
+					[c/FFFF00:That can't be comfortable.]
 					'''
 			}
 
@@ -322,7 +321,7 @@ Mods: {
 				DisplayName: Halcyon Seed
 				Tooltip:
 					'''
-					Increase Minion Damage by {0}.
+					Increase Minion Damage by {0}%.
 					[c/FFFF00:The Guardian? Impossible!]
 					'''
 			}
@@ -368,6 +367,55 @@ Mods: {
 					Increases mana regen by {1}%.
 					'''
 			}
+
+			AlienHead: {
+				DisplayName: Alien Head
+				Tooltip:
+					'''
+					Increases mana by {0}.
+					Increases mana regen by {1}%.
+					'''
+			}
+
+			LuckySeven: {
+				DisplayName: Lucky Seven
+				Tooltip:
+					'''
+					Alt fire to fire a peircing slash on a cooldown.
+					[c/FFFF00:Lucky me.]
+					'''
+			}
+
+			UnlimitedSword: {
+				DisplayName: Unlimited Sword
+				Tooltip:
+					'''
+					Rapidly slashes in a range around cursor.
+					Alt fire to unleash Final Lucky Seven, dealing
+					massive damage to all foes in a very large range
+					while freezing you in place for the duration.
+					[c/FFFF00:You'ld need to be crazy to use it's special.]
+					'''
+			}
+
+			Brilliant: {
+				DisplayName: Brilliant Behemoth
+				Tooltip:
+					'''
+					Hits Explode for {0}% damage in a small radius.
+					Reduces Damage by {1}%.
+					[c/FFFF00:Amazing you can just strap it on a weapon and it works.]
+					'''
+			}
+
+			ATGMK1: {
+				DisplayName: AtG Missile MK. 1
+				Tooltip:
+					'''
+					{0}% chance to fire a missile that
+					deals {1}% damage of the hit.
+					'''
+			}
 		}
 
 		Projectiles: {
@@ -380,6 +428,12 @@ Mods: {
 			ZarrProjectile.DisplayName: Zarr Projectile
 			FootballProjectile.DisplayName: Football Projectile
 			MonikaProjectile.DisplayName: Monika Projectile
+			LuckySevenSlash.DisplayName: Lucky Seven Slash
+			UnlimitedSwordSlash.DisplayName: Unlimited Sword Slash
+			FinalLuckySeven.DisplayName: Final Lucky Seven
+			TachyonSlash.DisplayName: Tachyon Slash
+			InfinityBlade.DisplayName: Infinity Blade
+			ATGMissile.DisplayName: A T G Missile
 		}
 
 		Buffs: {
@@ -406,6 +460,16 @@ Mods: {
 			SaferSpacesDebuff: {
 				DisplayName: (Un)Safer Spaces
 				Description: Safer Spaces is recharging!
+			}
+
+			FinalLuckySevenCooldown: {
+				DisplayName: Final Lucky Seven Cooldown
+				Description: Can't Unleash Final Lucky 7.
+			}
+
+			LuckySevenCooldown: {
+				DisplayName: Lucky Seven Cooldown
+				Description: Can't use Lucky Seven.
 			}
 		}
 	}

@@ -71,4 +71,31 @@ namespace LensRands.Content.Items.Accessories
             player.GetDamage(DamageClass.Summon) *= 1f + SpareDroneDmg;
         }
     }
+    public class AlienHead : RORReds
+    {
+        public readonly int AlienMana = 50;
+        public readonly float AlienRegen = 0.25f;
+
+        public override string Texture => base.Texture + "AlienHead";
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(AlienMana, (int)(AlienRegen * 100));
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.statManaMax2 += AlienMana;
+            player.manaRegen *= (int)(1f + AlienRegen);
+        }
+    }
+    public class Brilliant : RORReds
+    {
+        public override string Texture => base.Texture + "Brilliant";
+
+        public readonly int BrilliantDamage = 30;
+        public readonly float BrilliantDamageReduc = 0.15f;
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(BrilliantDamage, (int)(BrilliantDamageReduc * 100));
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetDamage(DamageClass.Generic) *= 1f - BrilliantDamageReduc;
+            player.GetModPlayer<LensPlayer>().BrilliantOn = true;
+        }
+    }
 }

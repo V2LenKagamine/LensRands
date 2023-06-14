@@ -9,8 +9,6 @@ using LensRands.Content.Buffs;
 using System;
 using Microsoft.Xna.Framework;
 using LensRands.Content.Items.Accessories;
-using rail;
-using Terraria.Audio;
 
 namespace LensRands.Systems
 {
@@ -93,6 +91,21 @@ namespace LensRands.Systems
         public readonly int WillRange = 300;
         public readonly float WillDamagePercent = 0.35f;
 
+        public bool BrilliantOn;
+        public readonly int BrilliantRange = 200;
+        public readonly float BrilliantDmg = 0.3f;
+
+        public bool ATGOn;
+        public readonly float ATGChance = 0.05f;
+        public readonly float ATGDmg = 3f;
+        public readonly Vector2 ATGDefaultVec = new(0,-10f);
+
+        public bool TopazOn;
+        public readonly int TopazOverheal = 10;
+
+        public bool BackupMagOn;
+        public readonly float BackupMagChance = 0.2f;
+
         //Overrides
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
@@ -156,7 +169,7 @@ namespace LensRands.Systems
             if (UkeleleOn && Main.rand.NextFloat(1f) < UkeleleChance)
             {
                 List<int> exclude = new List<int>() { target.whoAmI };
-                IEnumerable<NPC> NearNPCs = NPCUtil.FindNearbyNPCs(750, target.Center, exclude);
+                IEnumerable<NPC> NearNPCs = LensUtil.FindNearbyNPCs(750, target.Center, exclude);
                 int totalhit = 0;
                 foreach (NPC tohit in NearNPCs)
                 {
@@ -169,12 +182,12 @@ namespace LensRands.Systems
             {
                 target.GetLifeStats(out int currentlife, out int Maxlife);
                 List<int> exclude = new List<int>() { target.whoAmI };
-                IEnumerable<NPC> NearNPCs = NPCUtil.FindNearbyNPCs(WillRange, target.Center, exclude);
+                IEnumerable<NPC> NearNPCs = LensUtil.FindNearbyNPCs(WillRange, target.Center, exclude);
                 foreach (NPC tohit in NearNPCs)
                 {
                     tohit.SimpleStrikeNPC((int)(Maxlife * WillDamagePercent), hit.HitDirection, hit.Crit, hit.Knockback, hit.DamageType);
                 }
-                SmokeAndFire(target.Center, WillRange, WillRange);
+                LensVisualUtils.BombVisuals(target.Center, WillRange, WillRange);
             }
             if (LeechSeedOn && Main.rand.NextFloat(1f) < LeechSeedChance)
             {
@@ -187,6 +200,21 @@ namespace LensRands.Systems
                 {
                     target.defDefense = 0;
                 }
+            }
+            if (BrilliantOn)
+            {
+                List<int> exclude = new List<int>() { target.whoAmI };
+                IEnumerable<NPC> NearNPCs = LensUtil.FindNearbyNPCs(BrilliantRange, target.Center, exclude);
+                foreach (NPC tohit in NearNPCs)
+                {
+                    tohit.SimpleStrikeNPC((int)(hit.Damage * BrilliantDmg), hit.HitDirection, hit.Crit, hit.Knockback, hit.DamageType);
+                }
+                LensVisualUtils.BombVisuals(target.Center, BrilliantRange, BrilliantRange);
+            }
+            if (ATGOn && Main.rand.NextFloat(1f) < ATGChance)
+            {
+                Projectile.NewProjectile(Player.GetSource_FromThis(), target.Center - new Vector2(0,target.Hitbox.Height),ATGDefaultVec,ModContent.ProjectileType<ATGMissile>(),
+                    (int)(hit.Damage * ATGDmg),hit.Knockback);
             }
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
@@ -242,6 +270,10 @@ namespace LensRands.Systems
             {
                 return false;
             }
+            if(BackupMagOn && Main.rand.NextFloat(1f) < BackupMagChance)
+            {
+                return false;
+            }
             return true;
         }
 
@@ -289,52 +321,17 @@ namespace LensRands.Systems
             MercRachOn = false;
             BeadsOn = false;
             WillOn = false;
+            BrilliantOn = false;
+            ATGOn = false;
+            TopazOn = false;
+            BackupMagOn = false;
             //Keep at bottom.
             OverhealMax = Player.statLifeMax / 2;
             DamagedTimerMax = 240;
         }
 
         //Util methods
-        private void SmokeAndFire (Vector2 Pos,int Width,int Height)
-        {
-            Vector2 Pos2 = new Vector2(Pos.X - (Width/2), Pos.Y - (Height/2));
-            for (int i = 0; i < 50; i++)
-            {
-                Dust dust = Dust.NewDustDirect(Pos2, Width, Height, DustID.Smoke, 0f, 0f, 100, default, 2f);
-                dust.velocity *= 1.4f;
-            }
-
-            for (int i = 0; i < 80; i++)
-            {
-                Dust dust = Dust.NewDustDirect(Pos2, Width, Height, DustID.Torch, 0f, 0f, 100, default, 3f);
-                dust.noGravity = true;
-                dust.velocity *= 5f;
-                dust = Dust.NewDustDirect(Pos2, Width, Height, DustID.Torch, 0f, 0f, 100, default, 2f);
-                dust.velocity *= 3f;
-            }
-            for (int g = 0; g < 2; g++)
-            {
-                var goreSpawnPosition = new Vector2(Pos2.X + Width / 2 - 24f, Pos2.Y + Height / 2 - 24f);
-                Gore gore = Gore.NewGoreDirect(Player.GetSource_Misc("SmokeAndFireProcPlayer"), goreSpawnPosition, default, Main.rand.Next(61, 64), 1f);
-                gore.scale = 1.5f;
-                gore.velocity.X += 1.5f;
-                gore.velocity.Y += 1.5f;
-                gore = Gore.NewGoreDirect(Player.GetSource_Misc("SmokeAndFireProcPlayer"), goreSpawnPosition, default, Main.rand.Next(61, 64), 1f);
-                gore.scale = 1.5f;
-                gore.velocity.X -= 1.5f;
-                gore.velocity.Y += 1.5f;
-                gore = Gore.NewGoreDirect(Player.GetSource_Misc("SmokeAndFireProcPlayer"), goreSpawnPosition, default, Main.rand.Next(61, 64), 1f);
-                gore.scale = 1.5f;
-                gore.velocity.X += 1.5f;
-                gore.velocity.Y -= 1.5f;
-                gore = Gore.NewGoreDirect(Player.GetSource_Misc("SmokeAndFireProcPlayer"), goreSpawnPosition, default, Main.rand.Next(61, 64), 1f);
-                gore.scale = 1.5f;
-                gore.velocity.X -= 1.5f;
-                gore.velocity.Y -= 1.5f;
-            }
-            // Play explosion sound
-            SoundEngine.PlaySound(SoundID.Item14, Pos);
-        }
+        
         private void OverhealCalcs()
         {
             if (Player.active && AegisOn && LifeLastFrame > 0 && DamagedTimer <= 0)
@@ -397,6 +394,10 @@ namespace LensRands.Systems
                     if (NPC.downedBoss1 && HighestBossKilled <= 4) { HighestBossKilled = 5; break; }
                     if (NPC.downedSlimeKing && HighestBossKilled <= 3) { HighestBossKilled = 4; break; }
                 }
+            }
+            if (TopazOn && !target.CountsAsACritter)
+            {
+                AddOverheal(TopazOverheal);
             }
         }
         public override void SaveData(TagCompound tag)

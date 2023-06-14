@@ -31,13 +31,13 @@ namespace LensRands.Content.Items.Accessories
     public class Soldiers : RORWhites
     {
         public readonly float atkspeedinc = 0.15f;
-        public readonly float damagePen = 0.025f;
+        //public readonly float damagePen = 0.025f;
         public override string Texture => base.Texture + "Soldiers";
-        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(15, damagePen * 100);//Make sure attackspeed = arg 1, because float inprecision stupid.
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs((int)(atkspeedinc * 100));
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetAttackSpeed(DamageClass.Generic) *= 1f + atkspeedinc;
-            player.GetDamage(DamageClass.Generic) *= 1f - damagePen;
+            //player.GetDamage(DamageClass.Generic) *= 1f - damagePen;
         }
     }
     public class Bungus : RORWhites
@@ -96,6 +96,28 @@ namespace LensRands.Content.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<LensPlayer>().APR = true;
+        }
+    }
+    public class TopazBrooch : RORWhites
+    {
+        public override string Texture => base.Texture + "TopazBrooch";
+        public readonly int topaz = 10;
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(topaz);
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetModPlayer<LensPlayer>().TopazOn = true;
+        }
+    }
+    public class BackupMag : RORWhites
+    {
+        public override string Texture => base.Texture + "BackupMag";
+        public readonly int amount = 20;
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(amount);
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetModPlayer<LensPlayer>().BackupMagOn = true;
         }
     }
 }
