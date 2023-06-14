@@ -57,7 +57,7 @@ namespace LensRands.Content.Items.Consumable
 
         public override int silver => 0;
 
-        public override int gold => 20;
+        public override int gold => 25;
 
         public override int plat => 0;
         public override int[] LootTable => Mod.GetContent<RORWhites>().Select(x => x.Type).ToArray();
@@ -75,9 +75,9 @@ namespace LensRands.Content.Items.Consumable
 
         public override int silver => 0;
 
-        public override int gold => 80;
+        public override int gold => 0;
 
-        public override int plat => 0;
+        public override int plat => 1;
         public override int[] LootTable => Mod.GetContent<RORGreens>().Select(x => x.Type).ToArray();
     }
     public class RoRCrateRed : RoRCratesBase
@@ -92,9 +92,9 @@ namespace LensRands.Content.Items.Consumable
 
         public override int silver => 0;
 
-        public override int gold => 20;
+        public override int gold => 0;
 
-        public override int plat => 3;
+        public override int plat => 4;
         public override int[] LootTable => Mod.GetContent<RORReds>().Select(x => x.Type).ToArray();
     }
 }

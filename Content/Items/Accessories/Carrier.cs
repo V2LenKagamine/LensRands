@@ -1,5 +1,5 @@
 ﻿
-using LensRands.Systems.PlayerSys;
+using LensRands.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;

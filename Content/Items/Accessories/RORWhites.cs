@@ -1,8 +1,8 @@
-﻿using LensRands.Systems.PlayerSys;
-using Terraria.ID;
+﻿using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria;
+using LensRands.Systems;
 
 namespace LensRands.Content.Items.Accessories
 {
@@ -72,7 +72,7 @@ namespace LensRands.Content.Items.Accessories
     public class TougherTimes : RORWhites
     {
         public override string Texture => base.Texture + "Tougher";
-        public readonly int definc = 8;
+        public readonly int definc = 20;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(definc);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -90,7 +90,7 @@ namespace LensRands.Content.Items.Accessories
     public class ArmorPiercingRounds : RORWhites
     {
         public override string Texture => base.Texture + "APR";
-        public readonly int dmginc = 5;
+        public readonly int dmginc = 10;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(dmginc);
 
         public override void UpdateAccessory(Player player, bool hideVisual)

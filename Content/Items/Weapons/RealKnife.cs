@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using Terraria.Audio;
 using LensRands.Systems.ModSys;
-using LensRands.Systems.PlayerSys;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using LensRands.Systems;
 
 namespace LensRands.Content.Items.Weapons
 {

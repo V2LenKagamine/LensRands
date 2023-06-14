@@ -241,6 +241,133 @@ Mods: {
 					[c/FFFF00:Underpressure and surplus? Scam artists...]
 					'''
 			}
+
+			LeechSeed: {
+				DisplayName: Leech Seed
+				Tooltip:
+					'''
+					{0}% chance to heal 1 on hitting an enemy.
+					[c/FFFF00:Looks like it's not doing so hot...]
+					'''
+			}
+
+			SpareDroneParts: {
+				DisplayName: Spare Drone Parts
+				Tooltip:
+					'''
+					Increases max minions by {0}.
+					Increases minion damage by {1}%.
+					[c/FFFF00:Think this would fit a R.O.G.U.S. Unit?]
+					'''
+			}
+
+			SymScorp: {
+				DisplayName: Symbiotic Scorpion
+				Tooltip:
+					'''
+					{0}% chance to reduce an enemies
+					defence by {1} permanently.
+					[c/FFFF00:Doesn't like you, but likes everything else less.]
+					'''
+			}
+
+			ChargedPerforator: {
+				DisplayName: Charged Perforator
+				Tooltip:
+					'''
+					{0}% chance to deal {1}% extra damage.
+					[c/FFFF00:Zap.]
+					'''
+			}
+
+			BeadsOfFealty: {
+				DisplayName: Beads Of Fealty
+				Tooltip:
+					'''
+					Seems to do nothing...
+					[c/FF6060:But...]
+					'''
+			}
+
+			LightFlux: {
+				DisplayName: Light Flux Pauldron
+				Tooltip:
+					'''
+					Increases attack damage by {0}%.
+					Decreases attack speed by {1}%.
+					[c/FFFF00:An intruiging trade.]
+					'''
+			}
+
+			MercurialRachis: {
+				DisplayName: Mercurial Rachis
+				Tooltip:
+					'''
+					Increases damage dealt [c/FF6060:and received] by {0}%.
+					[c/FFFF00:Just, don't get hit; :fivehead:]
+					'''
+			}
+
+			QueensGland: {
+				DisplayName: Queen's Gland
+				Tooltip:
+					'''
+					Increases max minions by {0}.
+					Increases minion damage by {1}%.
+					[c/FFFF00:I don't actually have a comment for this item.]
+					'''
+			}
+
+			HalcyonSeed: {
+				DisplayName: Halcyon Seed
+				Tooltip:
+					'''
+					Increase Minion Damage by {0}.
+					[c/FFFF00:The Guardian? Impossible!]
+					'''
+			}
+
+			IrradiantPearl: {
+				DisplayName: Irradiant Pearl
+				Tooltip:
+					'''
+					Increases health by {0}.
+					Increases mana by {1}.
+					Increases damage by {2}%.
+					Increases attack speed by {3}%.
+					Increases defence by {4}%.
+					Increases movement speed by {5}%.
+					[c/FFFF00:Polished by beads in the Moon-Kings blood.]
+					'''
+			}
+
+			RoRPearl: {
+				DisplayName: Pearl
+				Tooltip:
+					'''
+					Increases health by {0}.
+					[c/FFFF00:Shiny.]
+					'''
+			}
+
+			WillOWisp: {
+				DisplayName: Will O' the Wisp
+				Tooltip:
+					'''
+					Enemies explode for {0}% of their max heath 
+					worth of damage in a medium radius on death.
+					[c/FFFF00:Chain Reactions sadly not possible.]
+					'''
+			}
+
+			FuelCell: {
+				DisplayName: Fuel Cell
+				Tooltip:
+					'''
+					Increases mana by {0}.
+					Increases mana regen by {1}%.
+					'''
+			}
 		}
 
 		Projectiles: {

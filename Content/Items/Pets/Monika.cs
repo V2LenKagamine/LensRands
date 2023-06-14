@@ -167,11 +167,11 @@ namespace LensRands.Content.Items.Pets
                 {
                     MonikaAction = 1;
                 }
-                else if (chance > 0.05f && chance <= 0.99f)
+                else if (chance > 0.05f && chance <= 0.995f)
                 {
                     MonikaAction = 2;
                 }
-                else if (chance > 0.99f)
+                else if (chance > 0.995f)
                 {
                     MonikaAction = 3;
                 }
@@ -221,6 +221,10 @@ namespace LensRands.Content.Items.Pets
             }
             else
             {
+                if (Projectile.frame < 5)
+                {
+                    Projectile.frame = 5;
+                }
                 Projectile.frameCounter++;
                 if (Projectile.frameCounter > animationspeed)
                 {
@@ -427,7 +431,7 @@ namespace LensRands.Content.Items.Pets
         public override bool RightClick(int buffIndex)
         {
             Player player = Main.LocalPlayer;
-            if(Main.rand.Next(4) != 3)
+            if(!Main.rand.NextBool(3))
             {
                 Main.NewText(ChatterAngry[Main.rand.Next(ChatterAngry.Count)]);
                 return false;

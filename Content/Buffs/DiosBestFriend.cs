@@ -1,7 +1,7 @@
 ﻿using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
-using LensRands.Systems.PlayerSys;
+using LensRands.Systems;
 
 namespace LensRands.Content.Buffs
 {

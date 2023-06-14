@@ -1,4 +1,4 @@
-﻿using LensRands.Systems.PlayerSys;
+﻿using LensRands.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

@@ -8,8 +8,11 @@ using Terraria.DataStructures;
 using LensRands.Content.Buffs;
 using System;
 using Microsoft.Xna.Framework;
+using LensRands.Content.Items.Accessories;
+using rail;
+using Terraria.Audio;
 
-namespace LensRands.Systems.PlayerSys
+namespace LensRands.Systems
 {
     public class LensPlayer : ModPlayer
     {
@@ -34,10 +37,10 @@ namespace LensRands.Systems.PlayerSys
         //Overheal
         public float Overheal = 0;
         public float OverhealDecay = 0.05f;
-        public float OverhealMax = 250; //Make sure to set in ResetEffects() as well. 
+        public float OverhealMax;
         public int LifeLastFrame; //I hate this.
         public int DamagedTimer;
-        public int DamagedTimerMax =  240;//Make sure to yadda yadda ^^^ 
+        public int DamagedTimerMax = 240;//Make sure to yadda yadda ^^^ 
         public bool OverhealWentUp;
 
         //RoR stuff
@@ -52,7 +55,7 @@ namespace LensRands.Systems.PlayerSys
         public readonly int BungusRange = 150;
 
         public bool DiosBFOn;
-        public readonly int DioMax = 10*60*60;
+        public readonly int DioMax = 10 * 60 * 60;
 
         public bool Pennies;
         public readonly int PenniesAmount = 3; //In copper coins.
@@ -64,21 +67,45 @@ namespace LensRands.Systems.PlayerSys
         public readonly float AegisHealPercent = 0.5f;
 
         public bool APR;
-        public readonly float APRDmg = 0.05f;
+        public readonly float APRDmg = 0.1f;
+
+        public bool LeechSeedOn;
+        public readonly float LeechSeedChance = 0.25f;
+
+        public bool SymScorpOn;
+        public readonly float SymScorpChance = 0.25f;
+        public readonly int SymScorpReduc = 2;
+
+        public bool ChargedOn;
+        public readonly float ChargedChance = 0.05f;
+        public readonly int ChargedDamage = 5;
+
+        public bool LightFluxOn;
+        public readonly float LightFluxDamageUp = 0.55f;
+        public readonly float LightFluxSpeedDown = 0.5f;
+
+        public bool MercRachOn;
+        public readonly float MercRachDmg = 0.5f;
+
+        public bool BeadsOn;
+
+        public bool WillOn;
+        public readonly int WillRange = 300;
+        public readonly float WillDamagePercent = 0.35f;
 
         //Overrides
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
             if (Pennies)
             {
-                SpawnMonet(0,0,0,PenniesAmount);
+                SpawnMonet(0, 0, 0, PenniesAmount);
             }
         }
         public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
         {
             if (Pennies)
             {
-                SpawnMonet(0,0,0,PenniesAmount);
+                SpawnMonet(0, 0, 0, PenniesAmount);
             }
         }
         public override bool ConsumableDodge(Player.HurtInfo info)
@@ -111,15 +138,15 @@ namespace LensRands.Systems.PlayerSys
         }
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
-            if(DiosBFOn)
+            if (DiosBFOn)
             {
-                Player.Heal(Player.statLifeMax2 - Player.statLife);  
+                Player.Heal((Player.statLifeMax2 - Player.statLife) / 2);
                 Player.ClearBuff(ModContent.BuffType<DiosBestFriendBuff>());
                 Player.AddBuff(ModContent.BuffType<DiosBestFriendDebuff>(), DioMax);
-                Main.NewText(string.Format("{0}'s Best Friend takes the blow,reviving {0}!", Player.name), Color.Red);
+                Main.NewText(string.Format("{0}'s Best Friend takes the blow,reviving {0} with half health!", Player.name), Color.Red);
                 return false;
             }
-            return base.PreKill(damage, hitDirection, pvp,ref playSound,ref genGore,ref damageSource);
+            return base.PreKill(damage, hitDirection, pvp, ref playSound, ref genGore, ref damageSource);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -129,18 +156,74 @@ namespace LensRands.Systems.PlayerSys
             if (UkeleleOn && Main.rand.NextFloat(1f) < UkeleleChance)
             {
                 List<int> exclude = new List<int>() { target.whoAmI };
-                IEnumerable<NPC> NearNPCs = NPCUtil.FindNearbyNPCs(750, target.Center,exclude);
+                IEnumerable<NPC> NearNPCs = NPCUtil.FindNearbyNPCs(750, target.Center, exclude);
                 int totalhit = 0;
-                foreach(NPC tohit in NearNPCs)
+                foreach (NPC tohit in NearNPCs)
                 {
-                    tohit.SimpleStrikeNPC((int)(hit.Damage * UkeDamage),hit.HitDirection,hit.Crit,hit.Knockback,hit.DamageType);
+                    tohit.SimpleStrikeNPC((int)(hit.Damage * UkeDamage), hit.HitDirection, hit.Crit, hit.Knockback, hit.DamageType);
                     totalhit++;
                     if (totalhit >= UkeleleHits) { break; }
                 }
             }
-            if(APR && target.boss)
+            if (!target.active && WillOn)
             {
-                hit.Damage *= (int)(1f + APRDmg);
+                target.GetLifeStats(out int currentlife, out int Maxlife);
+                List<int> exclude = new List<int>() { target.whoAmI };
+                IEnumerable<NPC> NearNPCs = NPCUtil.FindNearbyNPCs(WillRange, target.Center, exclude);
+                foreach (NPC tohit in NearNPCs)
+                {
+                    tohit.SimpleStrikeNPC((int)(Maxlife * WillDamagePercent), hit.HitDirection, hit.Crit, hit.Knockback, hit.DamageType);
+                }
+                SmokeAndFire(target.Center, WillRange, WillRange);
+            }
+            if (LeechSeedOn && Main.rand.NextFloat(1f) < LeechSeedChance)
+            {
+                Player.Heal(1);
+            }
+            if (target.active && SymScorpOn && Main.rand.NextFloat(1f) < SymScorpChance)
+            {
+                target.defDefense -= SymScorpReduc;
+                if (target.defDefense < 0)
+                {
+                    target.defDefense = 0;
+                }
+            }
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (ChargedOn && Main.rand.NextFloat(1f) < ChargedChance)
+            {
+                modifiers.FinalDamage *= 1 + ChargedDamage;
+            }
+            if (APR && target.boss)
+            {
+                modifiers.FinalDamage *= (int)(1f + APRDmg);
+            }
+        }
+        public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
+        {
+            if (LightFluxOn)
+            {
+                damage *= 1f + LightFluxDamageUp;
+            }
+            if (MercRachOn)
+            {
+                damage *= 1f + MercRachDmg;
+            }
+        }
+        public override float UseSpeedMultiplier(Item item)
+        {
+            if (LightFluxOn)
+            {
+                return LightFluxSpeedDown;
+            }
+            return base.UseSpeedMultiplier(item);
+        }
+        public override void OnHurt(Player.HurtInfo info)
+        {
+            if (MercRachOn)
+            {
+                info.Damage = (int)(info.Damage * (1f + MercRachDmg));
             }
         }
 
@@ -164,7 +247,7 @@ namespace LensRands.Systems.PlayerSys
 
         public override void UpdateLifeRegen()
         {
-            if(BungusActive && Player.active)
+            if (BungusActive && Player.active)
             {
                 Player.lifeRegen += BungusHeal;
                 for (int i = 0; i < Main.player.Length; i++)
@@ -199,13 +282,59 @@ namespace LensRands.Systems.PlayerSys
             AegisOn = false;
             OverhealWentUp = false;
             APR = false;
+            LeechSeedOn = false;
+            SymScorpOn = false;
+            ChargedOn = false;
+            LightFluxOn = false;
+            MercRachOn = false;
+            BeadsOn = false;
+            WillOn = false;
             //Keep at bottom.
-            OverhealMax = 250;
+            OverhealMax = Player.statLifeMax / 2;
             DamagedTimerMax = 240;
         }
 
         //Util methods
+        private void SmokeAndFire (Vector2 Pos,int Width,int Height)
+        {
+            Vector2 Pos2 = new Vector2(Pos.X - (Width/2), Pos.Y - (Height/2));
+            for (int i = 0; i < 50; i++)
+            {
+                Dust dust = Dust.NewDustDirect(Pos2, Width, Height, DustID.Smoke, 0f, 0f, 100, default, 2f);
+                dust.velocity *= 1.4f;
+            }
 
+            for (int i = 0; i < 80; i++)
+            {
+                Dust dust = Dust.NewDustDirect(Pos2, Width, Height, DustID.Torch, 0f, 0f, 100, default, 3f);
+                dust.noGravity = true;
+                dust.velocity *= 5f;
+                dust = Dust.NewDustDirect(Pos2, Width, Height, DustID.Torch, 0f, 0f, 100, default, 2f);
+                dust.velocity *= 3f;
+            }
+            for (int g = 0; g < 2; g++)
+            {
+                var goreSpawnPosition = new Vector2(Pos2.X + Width / 2 - 24f, Pos2.Y + Height / 2 - 24f);
+                Gore gore = Gore.NewGoreDirect(Player.GetSource_Misc("SmokeAndFireProcPlayer"), goreSpawnPosition, default, Main.rand.Next(61, 64), 1f);
+                gore.scale = 1.5f;
+                gore.velocity.X += 1.5f;
+                gore.velocity.Y += 1.5f;
+                gore = Gore.NewGoreDirect(Player.GetSource_Misc("SmokeAndFireProcPlayer"), goreSpawnPosition, default, Main.rand.Next(61, 64), 1f);
+                gore.scale = 1.5f;
+                gore.velocity.X -= 1.5f;
+                gore.velocity.Y += 1.5f;
+                gore = Gore.NewGoreDirect(Player.GetSource_Misc("SmokeAndFireProcPlayer"), goreSpawnPosition, default, Main.rand.Next(61, 64), 1f);
+                gore.scale = 1.5f;
+                gore.velocity.X += 1.5f;
+                gore.velocity.Y -= 1.5f;
+                gore = Gore.NewGoreDirect(Player.GetSource_Misc("SmokeAndFireProcPlayer"), goreSpawnPosition, default, Main.rand.Next(61, 64), 1f);
+                gore.scale = 1.5f;
+                gore.velocity.X -= 1.5f;
+                gore.velocity.Y -= 1.5f;
+            }
+            // Play explosion sound
+            SoundEngine.PlaySound(SoundID.Item14, Pos);
+        }
         private void OverhealCalcs()
         {
             if (Player.active && AegisOn && LifeLastFrame > 0 && DamagedTimer <= 0)
@@ -231,14 +360,14 @@ namespace LensRands.Systems.PlayerSys
             Overheal = Math.Clamp(Overheal, 0, OverhealMax);
             LifeLastFrame = Player.statLife;
         }
-        
+
         private void AddOverheal(float amount)
         {
             Overheal += amount;
             Overheal = Math.Clamp(Overheal, 0, OverhealMax);
             OverhealWentUp = true;
         }
-        private void SpawnMonet(int plat,int gold,int silver, int copper)
+        private void SpawnMonet(int plat, int gold, int silver, int copper)
         {
             if (plat > 0) { Player.QuickSpawnItem(Player.GetSource_FromThis(), ItemID.PlatinumCoin, plat); }
             if (gold > 0) { Player.QuickSpawnItem(Player.GetSource_FromThis(), ItemID.GoldCoin, gold); }
@@ -277,12 +406,12 @@ namespace LensRands.Systems.PlayerSys
         }
         public override void LoadData(TagCompound tag)
         {
-            if(tag.ContainsKey("HighestBossKill"))
+            if (tag.ContainsKey("HighestBossKill"))
             {
                 HighestBossKilled = tag.GetAsInt("HighestBossKill");
                 base.LoadData(tag);
             }
-            
+
         }
 
     }

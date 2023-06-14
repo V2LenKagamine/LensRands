@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria;
-using LensRands.Systems.PlayerSys;
+using LensRands.Systems;
 
 namespace LensRands.Content.Items.Accessories
 {
@@ -44,6 +44,31 @@ namespace LensRands.Content.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<LensPlayer>().AegisOn = true;
+        }
+    }
+    public class SymScorp : RORReds
+    {
+        public readonly int SymScorpReduc = 2;
+        public readonly int SymScorpChance = 25;
+        public override string Texture => base.Texture + "SymScorp";
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(SymScorpChance,SymScorpReduc);
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetModPlayer<LensPlayer>().SymScorpOn = true;
+        }
+    }
+    public class SpareDroneParts : RORReds
+    {
+        public readonly int SpareDroneMinions = 2;
+        public readonly float SpareDroneDmg = 0.05f;
+        public override string Texture => base.Texture + "SpareDroneParts";
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(SpareDroneMinions,(int)(SpareDroneDmg * 100));
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.maxMinions += SpareDroneMinions;
+            player.GetDamage(DamageClass.Summon) *= 1f + SpareDroneDmg;
         }
     }
 }
