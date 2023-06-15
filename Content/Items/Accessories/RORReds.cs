@@ -98,4 +98,18 @@ namespace LensRands.Content.Items.Accessories
             player.GetModPlayer<LensPlayer>().BrilliantOn = true;
         }
     }
+    public class Brainstalks : RORReds
+    {
+        public override string Texture => base.Texture + "Brainstalks";
+        public readonly int BrainstalksRestore = 40;
+        public readonly int BrainstalksMaxMana = 50;
+        public readonly float BrainstalksManaReduc = 0.05f;
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(BrainstalksRestore,BrainstalksMaxMana,(int)(BrainstalksManaReduc *100));
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.statManaMax2 += BrainstalksMaxMana;
+            player.manaCost *= 1f - BrainstalksManaReduc;
+            player.GetModPlayer<LensPlayer>().BrainstalksOn = true;
+        }
+    }
 }

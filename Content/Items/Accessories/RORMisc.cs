@@ -54,6 +54,23 @@ namespace LensRands.Content.Items.Accessories
             player.GetModPlayer<LensPlayer>().MercRachOn = true;
         }
     }
+    public class Gesture : RORLunar
+    {
+        public override string Texture => base.Texture + "Gesture";
+        public readonly float Manarate = 0.5f;
+        public readonly int DmgInc = 25;
+
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs((int)(Manarate*100),DmgInc);
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.manaCost *= 1f - Manarate;
+            if (player.statMana >= player.statManaMax2)
+            {
+                player.AddBuff(ModContent.BuffType<GestureOverload>(), 2);
+            }
+        }
+    }
     public abstract class RORBoss : ModItem
     {
         public override string Texture => LensRands.AssetsPath + "Items/Accessories/";
@@ -105,6 +122,20 @@ namespace LensRands.Content.Items.Accessories
             player.GetDamage(DamageClass.Summon) *= 1f + HalcyonDmg;
         }
     } 
+
+    public class TitanicKnurl : RORBoss
+    {
+        public override string Texture => base.Texture + "TitanicKnurl";
+        public readonly int KnurlHealth = 50;
+        public readonly int KnurlRegen = 4;
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(KnurlHealth,KnurlRegen);
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.statLifeMax2 += KnurlHealth;
+            player.lifeRegen += KnurlRegen;
+        }
+    }
     public class RoRPearl : RORBoss
     {
         public override string Texture => base.Texture + "Pearl";
@@ -173,12 +204,28 @@ namespace LensRands.Content.Items.Accessories
         private readonly int SaferTimer = 45; //45 Seconds
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(SaferTimer);
 
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<TougherTimes>();
+        }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             if (!player.buffType.Contains(ModContent.BuffType<SaferSpacesBuff>()) && !player.buffType.Contains(ModContent.BuffType<SaferSpacesDebuff>()))
             {
                 player.AddBuff(ModContent.BuffType<SaferSpacesBuff>(), 10);
             }
+        }
+    }
+    public class LostSeers : RORVoid
+    {
+        public override string Texture => base.Texture + "LostSeers";
+        public readonly float amount = 10f;
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs((int)amount);
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetCritChance(DamageClass.Generic) += amount;
+            player.GetModPlayer<LensPlayer>().LostSeersOn = true;
         }
     }
 }

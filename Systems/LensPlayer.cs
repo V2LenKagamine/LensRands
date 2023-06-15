@@ -108,6 +108,16 @@ namespace LensRands.Systems
 
         public bool HarvesterScytheOn;
         public readonly int HarvestScytheHeal = 10;
+        public readonly float HarvestScytheChance = 0.5f;
+
+        public bool BrainstalksOn;
+        public readonly int BrainstalkRestore = 40;
+
+        public bool GestureOverloaded;
+        public readonly float GestureDamageInc = 0.25f;
+
+        public bool LostSeersOn;
+
 
         //Overrides
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
@@ -169,6 +179,14 @@ namespace LensRands.Systems
         {
             if (!target.active)
             { OnKillEnemy(target,hit,damageDone); }
+
+            if (LostSeersOn && Player.GetTotalCritChance(DamageClass.Generic) > 1f && hit.Crit)
+            {
+                if(Main.rand.NextFloat(1f) < Player.GetTotalCritChance(DamageClass.Generic) - 1f)
+                {
+                    hit.Damage *= 5;
+                }
+            } 
             if (UkeleleOn && Main.rand.NextFloat(1f) < UkeleleChance)
             {
                 List<int> exclude = new List<int>() { target.whoAmI };
@@ -219,6 +237,10 @@ namespace LensRands.Systems
                 Projectile.NewProjectile(Player.GetSource_FromThis(), target.Center - new Vector2(0,target.Hitbox.Height),ATGDefaultVec,ModContent.ProjectileType<ATGMissile>(),
                     (int)(hit.Damage * ATGDmg),hit.Knockback);
             }
+            if (HarvesterScytheOn && hit.DamageType == DamageClass.Melee && hit.Crit && Main.rand.NextFloat(1f) < HarvestScytheChance)
+            {
+                Player.Heal(HarvestScytheHeal);
+            }
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
@@ -255,6 +277,10 @@ namespace LensRands.Systems
             if (MercRachOn)
             {
                 info.Damage = (int)(info.Damage * (1f + MercRachDmg));
+            }
+            if (GestureOverloaded) 
+            {
+                info.Damage = (int)(info.Damage * (1f + GestureDamageInc));
             }
         }
 
@@ -328,6 +354,10 @@ namespace LensRands.Systems
             ATGOn = false;
             TopazOn = false;
             BackupMagOn = false;
+            BrainstalksOn = false;
+            GestureOverloaded = false;
+            HarvesterScytheOn = false;
+            LostSeersOn = false;
             //Keep at bottom.
             OverhealMax = Player.statLifeMax / 2;
             DamagedTimerMax = 240;
@@ -402,9 +432,9 @@ namespace LensRands.Systems
             {
                 AddOverheal(TopazOverheal);
             }
-            if(HarvesterScytheOn && hit.Crit)
+            if (BrainstalksOn)
             {
-                Player.Heal(HarvestScytheHeal);
+                Player.statMana = Math.Clamp(Player.statMana + BrainstalkRestore,0,Player.statManaMax2);
             }
         }
         public override void SaveData(TagCompound tag)

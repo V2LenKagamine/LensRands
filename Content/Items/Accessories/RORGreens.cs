@@ -163,16 +163,17 @@ namespace LensRands.Content.Items.Accessories
     }
     public class HarvestScythe : RORGreens
     {
-        public readonly float ScytheChance = 0.05f;
+        public readonly float ScytheChance = 5f;
         public readonly int ScytheHeal = 10;
+        public readonly int ScytheProc = 50;
 
         public override string Texture => base.Texture + "HarvesterScythe";
 
-        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs((int)(ScytheChance*100), ScytheHeal);
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs((int)ScytheChance,ScytheProc,ScytheHeal);
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<LensPlayer>().HarvesterScytheOn = true;
-            player.GetCritChance(DamageClass.Generic) += ScytheChance;
+            player.GetCritChance(DamageClass.Melee) += ScytheChance;
         }
     }
 }

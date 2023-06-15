@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using LensRands.Content.Items.Accessories;
+using LensRands.Content.Items.Pets;
+using LensRands.Content.Items.Placeable;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
@@ -124,7 +126,13 @@ namespace LensRands.Content.Items.Consumable
         public override string Texture => LensRands.AssetsPath + "Items/Consumable/LunarPod";
         public readonly int CoinsToOpen = 1;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(CoinsToOpen);
-        public int[] LootTable => Mod.GetContent<RORLunar>().Select(x => x.Type).ToArray();
+        public int[] AuxLoot => new int[]
+        {
+            ModContent.ItemType<Monika>(),
+            ModContent.ItemType<MarkovBox>()
+        };
+        public int[] LootTable => Mod.GetContent<RORLunar>().Select(x => x.Type).ToArray().Concat(AuxLoot).ToArray();
+
         public override void SetDefaults()
         {
             Item.width = 16;
@@ -158,7 +166,7 @@ namespace LensRands.Content.Items.Consumable
         public override void SetStaticDefaults()
         {
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6,9));
-            ItemID.Sets.AnimatesAsSoul[Item.type] = true; // Makes the item have an animation while in world (not held.). Use in combination with RegisterItemAnimation
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true;
         }
 
         public override void SetDefaults()

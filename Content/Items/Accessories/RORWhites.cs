@@ -75,16 +75,13 @@ namespace LensRands.Content.Items.Accessories
         public readonly int definc = 20;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(definc);
 
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<SaferSpaces>();
+        }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.statDefense += definc;
-        }
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddCustomShimmerResult(ModContent.ItemType<SaferSpaces>())
-                .AddCondition(Condition.InJourneyMode)
-                .Register();
         }
     }
     public class ArmorPiercingRounds : RORWhites
@@ -118,6 +115,17 @@ namespace LensRands.Content.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<LensPlayer>().BackupMagOn = true;
+        }
+    }
+    public class LensMakers : RORWhites
+    {
+        public override string Texture => base.Texture + "LensMakers";
+        public readonly float amount = 20f;
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs((int)amount);
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetCritChance(DamageClass.Generic) += amount;
         }
     }
 }

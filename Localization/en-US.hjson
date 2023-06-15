@@ -430,8 +430,9 @@ Mods: {
 				DisplayName: Harvester's Scythe
 				Tooltip:
 					'''
-					Adds {0}% critical chance.
-					Critical [c/FF6060:kills] heal for {1} health.
+					Adds {0}% melee critical chance.
+					Melee damage crits have a {1}% 
+					chance to heal you for {2} health.
 					[c/FFFF00:Rusted, and yet, so sharp.]
 					'''
 			}
@@ -472,15 +473,80 @@ Mods: {
 
 			LunarCoin: {
 				DisplayName: Lunar Coin
-				Tooltip: A coin from a distant planets moon.
+				Tooltip:
+					'''
+					A coin from a distant planets moon.
+					[c/FFFF00:Its motion defies logic.]
+					'''
 			}
 
 			LunarPod: {
 				DisplayName: Lunar Pod
 				Tooltip:
 					'''
-					Contains a random Lunar item.
+					Contains objects that defy logic.
 					Needs {0} Lunar Coin(s) to open.
+					'''
+			}
+
+			Brainstalks: {
+				DisplayName: Brainstalks
+				Tooltip:
+					'''
+					Max mana increased by {1}.
+					Decreases mana conumption by {2}%.
+					Gain {0} mana on killing an enemy.
+					[c/FFFF00:The stalks say they're perfectly safe.]
+					[c/FFFF00:We really can't see why you're concerned.]
+					'''
+			}
+
+			TitanicKnurl: {
+				DisplayName: Titanic Knurl
+				Tooltip:
+					'''
+					Max health increased by {0}.
+					Health regen increased by {1}.
+					'''
+			}
+
+			Gesture: {
+				DisplayName: Gesture of the Drowned
+				Tooltip:
+					'''
+					Reduces mana costs by {0}%.
+					When at full mana, become Overloaded,
+					increasing damage taken by {1}%.
+					[c/FFFF00:I see no downside.]
+					'''
+			}
+
+			MarkovBox: {
+				DisplayName: Matt Money - Markov
+				Tooltip:
+					'''
+					[c/9E4638:I lost contact with that copy.]
+					[c/9E4638:What happened to them?]
+					'''
+			}
+
+			LensMakers: {
+				DisplayName: Lens Maker's Glasses
+				Tooltip:
+					'''
+					Adds {0}% crit chance.
+					[c/FFFF00:No, they're not MY glasses.]
+					'''
+			}
+
+			LostSeers: {
+				DisplayName: Lost Seer's Lenses
+				Tooltip:
+					'''
+					Adds {0}% crit chance.
+					Critical chance over 100% gives crits a
+					chance to "Hypercrit" for 10x damage.
+					[c/FFFF00:Got the Stax.]
 					'''
 			}
 		}
@@ -544,6 +610,13 @@ Mods: {
 				DisplayName: R.O.G.U.S. Unit
 				Description: Bading!
 			}
+
+			GestureOverload: {
+				DisplayName: Mana Overload!
+				Description: Damage taken increased by 25%
+			}
 		}
+
+		Tiles.MarkovBoxTile.MapEntry: Markov Music Box
 	}
 }

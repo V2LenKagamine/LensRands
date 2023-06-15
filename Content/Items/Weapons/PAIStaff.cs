@@ -78,6 +78,9 @@ namespace LensRands.Content.Items.Weapons
             Projectile.DamageType = DamageClass.Summon; // Declares the damage type (needed for it to deal damage)
             Projectile.minionSlots = 1f; // Amount of slots this minion occupies from the total minion slots available to the player (more on that later)
             Projectile.penetrate = -1; // Needed so the minion doesn't despawn on collision with enemies or tiles
+
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 4;
         }
 
         public override bool? CanCutTiles()
@@ -247,7 +250,7 @@ namespace LensRands.Content.Items.Weapons
                     Projectile.Resize(ClaymoreRange,ClaymoreRange);
                     Projectile.velocity = Vector2.Zero;
                     LensVisualUtils.BombVisuals(Projectile.Center, ClaymoreRange,ClaymoreRange);
-                    ClaymoreTimer = 10;
+                    ClaymoreTimer = 3;
                 }
             }
             else
