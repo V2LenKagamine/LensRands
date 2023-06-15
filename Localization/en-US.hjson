@@ -416,6 +416,73 @@ Mods: {
 					deals {1}% damage of the hit.
 					'''
 			}
+
+			BackupMag: {
+				DisplayName: Backup Magazine
+				Tooltip:
+					'''
+					Decreases ammo usage by {0}%.
+					[c/FFFF00:Sometimes you just need a tad more bullets.]
+					'''
+			}
+
+			HarvestScythe: {
+				DisplayName: Harvester's Scythe
+				Tooltip:
+					'''
+					Adds {0}% critical chance.
+					Critical [c/FF6060:kills] heal for {1} health.
+					[c/FFFF00:Rusted, and yet, so sharp.]
+					'''
+			}
+
+			TopazBrooch: {
+				DisplayName: Topaz Brooch
+				Tooltip:
+					'''
+					Grants {0} Overheal on kill.
+					[c/FFFF00:You feel][c/9E4638: Someone][c/FFFF00: looking at you expectantly.]
+					'''
+			}
+
+			PAIStaff: {
+				DisplayName: Personal AI Device
+				Tooltip:
+					'''
+					Feeling lonely or depressed? Simply Summon a buddy with this
+					Nanotrasen Brand Personal AI Unit!
+					Better yet, strap some C4 onto it and send it at your enemies!
+					Due to its robust casing, it won't even take a scratch!
+					[c/FFFF00:Warning: R.O.G.U.S. Brand PAI's are notably volitile and will]
+					[c/FFFF00:likely laugh hysterically when told to do this.]
+					'''
+			}
+
+			EmpathyCores: {
+				DisplayName: Empathy Cores
+				Tooltip:
+					'''
+					Grants {0} max minions.
+					Minion damage inceased by {1}% per max minion slot.
+					[c/FFFF00:Camaraderie is something our robot soldiers never had.]
+					[c/FFFF00:Without it, they never stood a chance against real men.]
+					[c/FFFF00:With this new upgrade, that changes.]
+					'''
+			}
+
+			LunarCoin: {
+				DisplayName: Lunar Coin
+				Tooltip: A coin from a distant planets moon.
+			}
+
+			LunarPod: {
+				DisplayName: Lunar Pod
+				Tooltip:
+					'''
+					Contains a random Lunar item.
+					Needs {0} Lunar Coin(s) to open.
+					'''
+			}
 		}
 
 		Projectiles: {
@@ -434,6 +501,7 @@ Mods: {
 			TachyonSlash.DisplayName: Tachyon Slash
 			InfinityBlade.DisplayName: Infinity Blade
 			ATGMissile.DisplayName: A T G Missile
+			ROGUSUnit.DisplayName: R.O.G.U.S. Unit
 		}
 
 		Buffs: {
@@ -470,6 +538,11 @@ Mods: {
 			LuckySevenCooldown: {
 				DisplayName: Lucky Seven Cooldown
 				Description: Can't use Lucky Seven.
+			}
+
+			PAIBuff: {
+				DisplayName: R.O.G.U.S. Unit
+				Description: Bading!
 			}
 		}
 	}

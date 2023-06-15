@@ -59,8 +59,8 @@ namespace LensRands.Content.Items.Accessories
     }
     public class FuelCell : RORGreens 
     {
-        public readonly int FuelMana = 100;
-        public readonly float FuelRegen = 0.15f;
+        public readonly int FuelMana = 50;
+        public readonly float FuelRegen = 0.25f;
 
         public override string Texture => base.Texture + "FuelCell";
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(FuelMana,(int)(FuelRegen*100));
@@ -159,6 +159,20 @@ namespace LensRands.Content.Items.Accessories
                 smokeDust.velocity *= 0.05f;
             }
             
+        }
+    }
+    public class HarvestScythe : RORGreens
+    {
+        public readonly float ScytheChance = 0.05f;
+        public readonly int ScytheHeal = 10;
+
+        public override string Texture => base.Texture + "HarvesterScythe";
+
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs((int)(ScytheChance*100), ScytheHeal);
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetModPlayer<LensPlayer>().HarvesterScytheOn = true;
+            player.GetCritChance(DamageClass.Generic) += ScytheChance;
         }
     }
 }

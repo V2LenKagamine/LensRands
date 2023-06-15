@@ -73,8 +73,8 @@ namespace LensRands.Content.Items.Accessories
     }
     public class AlienHead : RORReds
     {
-        public readonly int AlienMana = 50;
-        public readonly float AlienRegen = 0.25f;
+        public readonly int AlienMana = 100;
+        public readonly float AlienRegen = 0.15f;
 
         public override string Texture => base.Texture + "AlienHead";
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(AlienMana, (int)(AlienRegen * 100));

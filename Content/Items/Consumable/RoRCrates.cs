@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using LensRands.Content.Items.Accessories;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
@@ -117,5 +118,55 @@ namespace LensRands.Content.Items.Consumable
         public override int[] LootTableCommon => Mod.GetContent<RORReds>().Select(x => x.Type).ToArray();
         public override int[] LootTableUncommon => Mod.GetContent<RORReds>().Select(x => x.Type).ToArray();
         public override int[] LootTableRare => Mod.GetContent<RORReds>().Select(x => x.Type).ToArray();
+    }
+    public class LunarPod : ModItem
+    {
+        public override string Texture => LensRands.AssetsPath + "Items/Consumable/LunarPod";
+        public readonly int CoinsToOpen = 1;
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(CoinsToOpen);
+        public int[] LootTable => Mod.GetContent<RORLunar>().Select(x => x.Type).ToArray();
+        public override void SetDefaults()
+        {
+            Item.width = 16;
+            Item.height = 16;
+            Item.rare = ItemRarityID.Blue;
+            Item.useStyle = 1;
+            Item.autoReuse = true;
+            Item.consumable = true;
+            Item.useTime = 15;
+            Item.useAnimation = 15;
+            Item.maxStack = 999;
+        }
+
+        public override bool CanRightClick()
+        {
+            return Main.LocalPlayer.HasItem(ModContent.ItemType<LunarCoin>());
+        }
+        public override void OnConsumeItem(Player player)
+        {
+            Main.LocalPlayer.ConsumeItem(ModContent.ItemType<LunarCoin>());
+        }
+        public override void ModifyItemLoot(ItemLoot itemLoot)
+        {
+            itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, LootTable));
+        }
+    }
+    public class LunarCoin : ModItem
+    {
+        
+        public override string Texture => LensRands.AssetsPath + "Items/Misc/LunarCoin";
+        public override void SetStaticDefaults()
+        {
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6,9));
+            ItemID.Sets.AnimatesAsSoul[Item.type] = true; // Makes the item have an animation while in world (not held.). Use in combination with RegisterItemAnimation
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 32;
+            Item.height = 32;
+            Item.rare = ItemRarityID.Blue;
+            Item.maxStack = 9999;
+        }
     }
 }

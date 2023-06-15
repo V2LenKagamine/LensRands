@@ -139,6 +139,21 @@ namespace LensRands.Content.Items.Accessories
         }
     }
 
+    public class EmpathyCores : RORBoss
+    {
+        public override string Texture => base.Texture + "EmpathyCores";
+        public readonly int MoreMinions = 2;
+        public readonly float DamagePerMinion = 0.025f;
+
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(MoreMinions,DamagePerMinion *100);
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.maxMinions += MoreMinions;
+            player.GetDamage(DamageClass.Summon) *= 1f + (player.maxMinions * DamagePerMinion);
+        }
+    }
+
     public abstract class RORVoid : ModItem
     {
         public override string Texture => LensRands.AssetsPath + "Items/Accessories/";

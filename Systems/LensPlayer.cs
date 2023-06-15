@@ -106,6 +106,9 @@ namespace LensRands.Systems
         public bool BackupMagOn;
         public readonly float BackupMagChance = 0.2f;
 
+        public bool HarvesterScytheOn;
+        public readonly int HarvestScytheHeal = 10;
+
         //Overrides
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
@@ -165,7 +168,7 @@ namespace LensRands.Systems
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (!target.active)
-            { OnKillEnemy(target); }
+            { OnKillEnemy(target,hit,damageDone); }
             if (UkeleleOn && Main.rand.NextFloat(1f) < UkeleleChance)
             {
                 List<int> exclude = new List<int>() { target.whoAmI };
@@ -371,7 +374,7 @@ namespace LensRands.Systems
             if (silver > 0) { Player.QuickSpawnItem(Player.GetSource_FromThis(), ItemID.SilverCoin, silver); }
             if (copper > 0) { Player.QuickSpawnItem(Player.GetSource_FromThis(), ItemID.CopperCoin, copper); }
         }
-        private void OnKillEnemy(NPC target)
+        private void OnKillEnemy(NPC target,NPC.HitInfo hit,int damagedone)
         {
             if (target.boss || target.type == NPCID.WallofFlesh)
             {
@@ -398,6 +401,10 @@ namespace LensRands.Systems
             if (TopazOn && !target.CountsAsACritter)
             {
                 AddOverheal(TopazOverheal);
+            }
+            if(HarvesterScytheOn && hit.Crit)
+            {
+                Player.Heal(HarvestScytheHeal);
             }
         }
         public override void SaveData(TagCompound tag)

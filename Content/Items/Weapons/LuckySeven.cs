@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 using LensRands.Content.Buffs;
+using Mono.Cecil;
 
 namespace LensRands.Content.Items.Weapons
 {
@@ -51,6 +52,13 @@ namespace LensRands.Content.Items.Weapons
                 return base.Shoot(player, source, position, velocity, type, damage, knockback);
             }
             return false;
+        }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            if (player.altFunctionUse == 2 && !player.HasBuff<LuckySevenCooldown>())
+            {
+                damage *= 3;
+            }
         }
     }
     public class UnlimitedSword : ModItem

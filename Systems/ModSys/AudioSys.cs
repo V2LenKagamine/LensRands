@@ -12,5 +12,7 @@ namespace LensRands.Systems.ModSys
         public static readonly SoundStyle Monika = new(LensRands.AssetsPath + "Sounds/MonikaSummon");
 
         public static readonly SoundStyle BEES = new(LensRands.AssetsPath + "Sounds/breefcase") { MaxInstances = 1 };
+
+        public static readonly SoundStyle BADING = new(LensRands.AssetsPath + "Sounds/BADING");
     }
 }
