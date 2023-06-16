@@ -609,6 +609,21 @@ Mods: {
 					[c/FFFF00:Help ling absorbing me maint.]
 					'''
 			}
+
+			WizardStaff: {
+				DisplayName: Staff of 101 Dank Memes
+				Tooltip:
+					'''
+					This staff, when used on a 'friend' will have
+					one of several effects placed onto either the
+					caster or target. Most of which are not helpful
+					in the slightest, or downright harmful.
+					Luckily no serious long term effects can be noticed.
+					Just note missing means making yourself the target.
+					[c/FFFF00:For safety's sake, can't be used on/as a hardcore character.]
+					[c/FFFF00:You'll thank me later for doing that.]
+					'''
+			}
 		}
 
 		Projectiles: {
@@ -630,6 +645,7 @@ Mods: {
 			ROGUSUnit.DisplayName: R.O.G.U.S. Unit
 			ThrowingKnifeProjectile.DisplayName: Throwing Knife Projectile
 			SThrowingKnifeProjectile.DisplayName: S Throwing Knife Projectile
+			WizardStaffProjectile.DisplayName: Wizard Staff Projectile
 		}
 
 		Buffs: {

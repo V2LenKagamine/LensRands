@@ -140,7 +140,7 @@ namespace LensRands.Content.Items.Pets
             player.GetModPlayer<LensPlayer>().MonikasListening = true;
             if (!player.dead && player.HasBuff(ModContent.BuffType<MonikaBuff>()))
             {
-                Projectile.timeLeft = 2; 
+                Projectile.timeLeft = 2;
             }
 
             bool fast = Movement(player);
@@ -162,14 +162,14 @@ namespace LensRands.Content.Items.Pets
                 }
 
             }
-            switch(MonikaAnimation)
+            switch (MonikaAnimation)
             {
                 case 1: { AnimateBlink(fast); break; }
                 case 2: { AnimateNormal(fast); break; }
                 case 3: { AnimateGlitch(fast); break; }
                 default: { MonikaAnimation = 1; break; }
             }
-            if (Projectile.owner == Main.myPlayer)
+            if (Projectile.owner == Main.myPlayer) // Only chat with senpai.
             {
                 if (ChatterCooldown > 0)
                 {
@@ -179,33 +179,34 @@ namespace LensRands.Content.Items.Pets
                 {
                     JustCustomChatted = false;
                 }
-                if (!JustCustomChatted && (Main.GameUpdateCount % (5*60)) == 0)
+                if (!JustCustomChatted && (Main.GameUpdateCount % (5 * 60)) == 0)
                 {
                     Respond(player);
                 }
-            }
-            if (MonikaAction == 0)
-            {
-                float chance = Main.rand.NextFloat(1f);
-                if (chance > 0f && chance <= 0.05f)
+
+                if (MonikaAction == 0)
                 {
-                    MonikaAction = 1;
+                    float chance = Main.rand.NextFloat(1f);
+                    if (chance > 0f && chance <= 0.05f)
+                    {
+                        MonikaAction = 1;
+                    }
+                    else if (chance > 0.05f && chance <= 0.995f)
+                    {
+                        MonikaAction = 2;
+                    }
+                    else if (chance > 0.995f)
+                    {
+                        MonikaAction = 3;
+                    }
                 }
-                else if (chance > 0.05f && chance <= 0.995f)
+                switch (MonikaAction)
                 {
-                    MonikaAction = 2;
+                    case 1: { MonikaChatterCommon(player); break; }
+                    case 2: { MonikaPonder(); break; }
+                    case 3: { MonikaChatterRare(player); break; }
+                    default: { MonikaAction = 2; break; }
                 }
-                else if (chance > 0.995f)
-                {
-                    MonikaAction = 3;
-                }
-            }
-            switch(MonikaAction)
-            {
-                case 1: { MonikaChatterCommon(player); break; }
-                case 2: { MonikaPonder(); break; }
-                case 3: { MonikaChatterRare(player); break; }
-                default: { MonikaAction = 2; break; }
             }
         }
         public override void Kill(int timeLeft)

@@ -14,5 +14,7 @@ namespace LensRands.Systems.ModSys
         public static readonly SoundStyle BEES = new(LensRands.AssetsPath + "Sounds/breefcase") { MaxInstances = 1 };
 
         public static readonly SoundStyle BADING = new(LensRands.AssetsPath + "Sounds/BADING");
+
+        public static readonly SoundStyle GetBentLoser = new(LensRands.AssetsPath + "Sounds/Explodeurdickandsmallurass");
     }
 }

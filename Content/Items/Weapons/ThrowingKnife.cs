@@ -175,7 +175,6 @@ namespace LensRands.Content.Items.Weapons
             Projectile.rotation += MathHelper.ToRadians(rotate);
             if (Bounces <= 0)
             {
-                Projectile.tileCollide = false; //Just fucking beam their ass.
                 LensUtil.HomeOnEnemy(Projectile, 600f, 20f, false, 6f);
             }
             else
