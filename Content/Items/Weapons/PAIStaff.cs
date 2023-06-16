@@ -16,7 +16,7 @@ namespace LensRands.Content.Items.Weapons
         public override string Texture => LensRands.AssetsPath + "Items/Weapons/ROGUS";
         public override void SetDefaults()
         {
-            Item.damage = 400;
+            Item.damage = 250;
             Item.knockBack = 3f;
             Item.mana = 10; 
             Item.width = 32;
@@ -235,7 +235,7 @@ namespace LensRands.Content.Items.Weapons
             if (foundTarget)
             {
                
-                if (distanceFromTarget > 60f)
+                if (distanceFromTarget > 5f)
                 {
                     Vector2 direction = targetCenter - Projectile.Center;
                     direction.Normalize();

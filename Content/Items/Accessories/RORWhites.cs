@@ -122,6 +122,10 @@ namespace LensRands.Content.Items.Accessories
         public override string Texture => base.Texture + "LensMakers";
         public readonly float amount = 20f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs((int)amount);
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<LostSeers>();
+        }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

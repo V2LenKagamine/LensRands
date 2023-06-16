@@ -136,6 +136,21 @@ namespace LensRands.Content.Items.Accessories
             player.lifeRegen += KnurlRegen;
         }
     }
+
+    public class EmpathyCores : RORBoss
+    {
+        public override string Texture => base.Texture + "EmpathyCores";
+        public readonly int MoreMinions = 2;
+        public readonly float DamagePerMinion = 0.025f;
+
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(MoreMinions, DamagePerMinion * 100);
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.maxMinions += MoreMinions;
+            player.GetDamage(DamageClass.Summon) *= 1f + (player.maxMinions * DamagePerMinion);
+        }
+    }
     public class RoRPearl : RORBoss
     {
         public override string Texture => base.Texture + "Pearl";
@@ -157,7 +172,8 @@ namespace LensRands.Content.Items.Accessories
         public readonly float PearlDefence = 0.1f;
         public readonly float PearlRunSpeed = 0.1f;
         public readonly float PearlAtkSpeed = 0.1f;
-        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(PearlHealth,PearlMana,(int)(PearlDmg * 100), (int)(PearlAtkSpeed * 100), (int)(PearlDefence * 100), (int)(PearlRunSpeed * 100));
+        public readonly float crit = 10f;
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(PearlHealth,PearlMana,(int)(PearlDmg * 100), (int)(PearlAtkSpeed * 100),crit,(int)(PearlDefence * 100), (int)(PearlRunSpeed * 100));
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -167,23 +183,10 @@ namespace LensRands.Content.Items.Accessories
             player.moveSpeed *= 1f + PearlRunSpeed;
             player.GetDamage(DamageClass.Generic) *= 1f + PearlDmg;
             player.GetAttackSpeed(DamageClass.Generic) *= 1f + PearlAtkSpeed;
+            player.GetCritChance(DamageClass.Generic) += crit;
         }
     }
 
-    public class EmpathyCores : RORBoss
-    {
-        public override string Texture => base.Texture + "EmpathyCores";
-        public readonly int MoreMinions = 2;
-        public readonly float DamagePerMinion = 0.025f;
-
-        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(MoreMinions,DamagePerMinion *100);
-
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            player.maxMinions += MoreMinions;
-            player.GetDamage(DamageClass.Summon) *= 1f + (player.maxMinions * DamagePerMinion);
-        }
-    }
 
     public abstract class RORVoid : ModItem
     {
@@ -222,10 +225,31 @@ namespace LensRands.Content.Items.Accessories
         public readonly float amount = 10f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs((int)amount);
 
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<LensMakers>();
+        }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetCritChance(DamageClass.Generic) += amount;
             player.GetModPlayer<LensPlayer>().LostSeersOn = true;
+        }
+    }
+    public class LysateCell : RORVoid
+    {
+        public override string Texture => base.Texture + "LysateCell";
+        public readonly int amount = 2;
+        public readonly float manaregenpen = 0.5f;
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(amount,(int)(manaregenpen * 100));
+
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<FuelCell>();
+        }
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.statManaMax2 += (player.statManaMax * amount) - player.statManaMax;
+            player.manaRegen = (int)(player.manaRegen * (1f - manaregenpen));
         }
     }
 }

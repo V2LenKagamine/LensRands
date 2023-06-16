@@ -41,6 +41,8 @@ namespace LensRands.Systems
         public int DamagedTimerMax = 240;//Make sure to yadda yadda ^^^ 
         public bool OverhealWentUp;
 
+        public bool MonikasListening;
+
         //RoR stuff
         public bool UkeleleOn;
         public readonly float UkeleleChance = 0.25f;
@@ -117,6 +119,8 @@ namespace LensRands.Systems
         public readonly float GestureDamageInc = 0.25f;
 
         public bool LostSeersOn;
+
+        public int SpinelDebuffsTotal = 0;
 
 
         //Overrides
@@ -330,6 +334,15 @@ namespace LensRands.Systems
                 Player.lifeRegen += BungusHeal;
             }
         }
+        public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
+        {
+            SpinelDebuffsTotal = 0;
+        }
+
+        public override void PostNurseHeal(NPC nurse, int health, bool removeDebuffs, int price)
+        {
+            SpinelDebuffsTotal = 0;
+        }
 
         public override void ResetEffects()
         {
@@ -440,15 +453,13 @@ namespace LensRands.Systems
         public override void SaveData(TagCompound tag)
         {
             tag.Add("HighestBossKill", HighestBossKilled);
+            tag.Add("SpinelDebuffs", SpinelDebuffsTotal);
             base.SaveData(tag);
         }
         public override void LoadData(TagCompound tag)
         {
-            if (tag.ContainsKey("HighestBossKill"))
-            {
-                HighestBossKilled = tag.GetAsInt("HighestBossKill");
-                base.LoadData(tag);
-            }
+            if (tag.ContainsKey("HighestBossKill")) { HighestBossKilled = tag.GetAsInt("HighestBossKill"); }
+            if (tag.ContainsKey("SpinelDebuffs")) { SpinelDebuffsTotal = tag.GetAsInt("SpinelDebuffs"); }
 
         }
 

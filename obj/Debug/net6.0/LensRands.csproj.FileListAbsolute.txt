@@ -1,0 +1,5 @@
+C:\Users\user\Documents\My Games\Terraria\tModLoader\ModSources\LensRands\obj\Debug\net6.0\LensRands.csproj.AssemblyReference.cache
+C:\Users\user\Documents\My Games\Terraria\tModLoader\ModSources\LensRands\obj\Debug\net6.0\LensRands.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Documents\My Games\Terraria\tModLoader\ModSources\LensRands\obj\Debug\net6.0\LensRands.AssemblyInfoInputs.cache
+C:\Users\user\Documents\My Games\Terraria\tModLoader\ModSources\LensRands\obj\Debug\net6.0\LensRands.AssemblyInfo.cs
+C:\Users\user\Documents\My Games\Terraria\tModLoader\ModSources\LensRands\obj\Debug\net6.0\LensRands.csproj.CoreCompileInputs.cache

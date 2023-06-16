@@ -64,7 +64,10 @@ namespace LensRands.Content.Items.Accessories
 
         public override string Texture => base.Texture + "FuelCell";
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(FuelMana,(int)(FuelRegen*100));
-
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<LysateCell>();
+        }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.statManaMax2 += FuelMana;

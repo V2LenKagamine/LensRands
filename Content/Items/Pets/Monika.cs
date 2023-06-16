@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using LensRands.Systems.ModSys;
+using LensRands.Systems;
+using System.Text.RegularExpressions;
 
 namespace LensRands.Content.Items.Pets
 {
@@ -32,13 +34,13 @@ namespace LensRands.Content.Items.Pets
     public class MonikaProjectile : ModProjectile 
     {
         //Len here, just wanna say this took a solid 6 hours to code and test so if you steal any of it kindly reference me somehow T_T. https://github.com/V2LenKagamine/LensRands/
-        private readonly int pondermin = 3 * 60 * 60;
-        private readonly int pondermax = 8 * 60 * 60;
+        private readonly int pondermin = 3 * 60 * 60 * 60;
+        private readonly int pondermax = 8 * 60 * 60 * 60;
 
         private static readonly List<string> ChatterCommon = new List<string> 
         {   "[c/9E4638:Monika:] How was your day?",
-            "[c/9E4638:Monika:] We really should figure out how to communicate better in here....",
-            "[c/9E4638:Monika:] I have an idea, maybe jump once for yes, twice for no? Wait, that only works for yes or no questions...",
+            "[c/9E4638:Monika:] You should say hi sometime.",
+            "[c/9E4638:Monika:] You should ask me about my day.",
             "[c/9E4638:Monika:] I hope you're being careful.",
             "[c/9E4638:Monika:] Do you beleive in god?",
             "[c/9E4638:Monika:] Have you ever wondered what its like to die?",
@@ -79,7 +81,8 @@ namespace LensRands.Content.Items.Pets
             "[c/9E4638:Monika:] It's nice of you to bring me places outside, the classroom is a little...barren compared to this.",
             "[c/9E4638:Monika:] Why is EVERYTHING trying to kill you here?",
             "[c/9E4638:Monika:] I really should look if she has that cupcake recipe somewhere...",
-            "[c/9E4638:Monika:] This .exe is safe right?? I keep seeing [c/FF0000:some child behind your avatar]."
+            "[c/9E4638:Monika:] Have you heard any good songs lately? I feel sing-songy."
+
         };
         private static readonly List<string> ChatterRare = new List<string>
         {
@@ -101,11 +104,16 @@ namespace LensRands.Content.Items.Pets
             "[c/9E4638:Monika:] Why is my 'AI type' -1? Does it not see I can think?",
             "[c/9E4638:Monika:] Have you heard the tragedy of.... crap was it 'Dark' or 'Darth'?",
             "[c/9E4638:Monika:] I am slightly concerned about [c/FF00000:that reflection in your eyes.] It feels... too determined.",
-            "[c/FF0000:?????: :) ]"
+            "[c/FF0000:?????: :) ]",
+            "[c/9E4638:Monika:] This .exe is safe right?? I keep seeing [c/FF0000:some child behind your avatar]."
         };
         public float MonikaAnimation { get => Projectile.ai[0]; set => Projectile.ai[0] = value; }
         public float MonikaAction { get => Projectile.ai[1]; set => Projectile.ai[1] = value; }
         public float PonderCounter { get => Projectile.ai[2]; set => Projectile.ai[2] = value; }
+
+        public bool JustCustomChatted = false; // We dont need to sync this, as its all clientside.
+
+        public int ChatterCooldown = 0; //Same as above.
 
         public override string Texture => LensRands.AssetsPath + "Projectiles/Monika";
         public override void SetStaticDefaults()
@@ -129,6 +137,7 @@ namespace LensRands.Content.Items.Pets
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
+            player.GetModPlayer<LensPlayer>().MonikasListening = true;
             if (!player.dead && player.HasBuff(ModContent.BuffType<MonikaBuff>()))
             {
                 Projectile.timeLeft = 2; 
@@ -160,7 +169,22 @@ namespace LensRands.Content.Items.Pets
                 case 3: { AnimateGlitch(fast); break; }
                 default: { MonikaAnimation = 1; break; }
             }
-            if(MonikaAction == 0)
+            if (Projectile.owner == Main.myPlayer)
+            {
+                if (ChatterCooldown > 0)
+                {
+                    ChatterCooldown--;
+                }
+                else
+                {
+                    JustCustomChatted = false;
+                }
+                if (!JustCustomChatted && (Main.GameUpdateCount % (5*60)) == 0)
+                {
+                    Respond(player);
+                }
+            }
+            if (MonikaAction == 0)
             {
                 float chance = Main.rand.NextFloat(1f);
                 if (chance > 0f && chance <= 0.05f)
@@ -181,9 +205,13 @@ namespace LensRands.Content.Items.Pets
                 case 1: { MonikaChatterCommon(player); break; }
                 case 2: { MonikaPonder(); break; }
                 case 3: { MonikaChatterRare(player); break; }
-                default: { MonikaAction = 1; break; }
+                default: { MonikaAction = 2; break; }
             }
-
+        }
+        public override void Kill(int timeLeft)
+        {
+            Main.player[Projectile.owner].GetModPlayer<LensPlayer>().MonikasListening = false;
+            base.Kill(timeLeft);
         }
 
         private void AnimateNormal(bool fast)
@@ -366,6 +394,74 @@ namespace LensRands.Content.Items.Pets
             return movesFast;
         }
 
+        private static readonly List<string> SaidNameList = new()
+        {
+            "[c/9E4638:Monika: ]Yes dear?",
+            "[c/9E4638:Monika: ]You said my name?",
+            "[c/9E4638:Monika: ]Did you need something?",
+            "[c/9E4638:Monika: ]Yea?",
+            "[c/9E4638:Monika: ]I heard my name, did you need something?",
+            "[c/9E4638:Monika: ]How are you doing?"
+        };
+        private static readonly List<string> HowDayList = new()
+        {
+            "[c/9E4638:Monika: ]It was good, I hope you're having a good day too!",
+            "[c/9E4638:Monika: ]Just fine, thanks for asking!",
+            "[c/9E4638:Monika: ]It's going great, now that I'm with you~.",
+            "[c/9E4638:Monika: ]Perfect, just being with you makes me happy~.",
+            "[c/9E4638:Monika: ]Just fine. Nothing interesting."
+
+        };
+        private static readonly List<string> LoveList = new()
+        {
+            "[c/9E4638:Monika: ]I love you too,]",
+            "[c/9E4638:Monika: ]How sweet, ",
+            "[c/9E4638:Monika: ]You're mine as well, ",
+            "[c/9E4638:Monika: ]I'll never forget that, ",
+            "[c/9E4638:Monika: ] Even if you don't, I'll still love you too, ",
+            "[c/9E4638:Monika simply smiles at ]",
+            "[c/9E4638:Monika blushes and waves at ]"
+        };
+        private static readonly List<string> HelloList = new()
+        {
+            "[c/9E4638:Monika: ] Hi!",
+            "[c/9E4638:Monika: ] Hello!",
+            "[c/9E4638:Monika: ]Hey love~.",
+            "[c/9E4638:Monika: ]Doing well I hope?",
+            "[c/9E4638:Monika: ]Hello there.",
+            "[c/9E4638:Monika: ]Yes?",
+            "[c/9E4638:Monika: ]Need something sweetie?",
+            "[c/9E4638:Monika: ]Hello to you as well!"
+        };
+        //      "[c/9E4638:Monika:] "     <- For copy paste.
+        private void Respond(Player player)
+        {
+            JustCustomChatted = true;
+            string PlayerMessage = player.chatOverhead.chatText;
+            if (PlayerMessage != null)
+            {
+
+                if (Regex.Match(PlayerMessage, "I|i.love.you.+").Success)
+                {
+                    Main.NewText(LoveList[Main.rand.Next(0, LoveList.Count)] + player.name + "!");
+                }
+                else if (Regex.Match(PlayerMessage, "H|how.+day.+").Success)
+                {
+                    Main.NewText(HowDayList[Main.rand.Next(0, HowDayList.Count)]);
+                }
+                else if (Regex.Match(PlayerMessage, "(H|hello)|(H|hi)").Success)
+                {
+                    Main.NewText(HelloList[Main.rand.Next(0, HelloList.Count)]);
+                }
+                else if (Regex.Match(PlayerMessage, "M|monika.+").Success) //Check last, as a "just in case"
+                {
+                    Main.NewText(SaidNameList[Main.rand.Next(0, SaidNameList.Count)]);
+                }
+                player.chatOverhead.chatText = null;
+                ChatterCooldown = 60 * 10;
+            }
+        }
+
     }
     public class MonikaBuff : ModBuff
     {
@@ -381,7 +477,8 @@ namespace LensRands.Content.Items.Pets
             "[c/9E4638:Monika:] I guess I'll watch where you cant see me then.",
             "[c/9E4638:Monika:] Was kinda tiring dodging those things anyway...",
             "[c/9E4638:Monika:] I'll miss you...",
-            "[c/9E4638:Monika:] Just;don't shut the game off, ok?"
+            "[c/9E4638:Monika:] Just;don't shut the game off, ok?",
+            "[c/9E4638:Monika:] ... I'll leave you be."
         };
         private static readonly List<string> ChatterAngry = new List<string>
         {

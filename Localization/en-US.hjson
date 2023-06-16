@@ -334,8 +334,9 @@ Mods: {
 					Increases mana by {1}.
 					Increases damage by {2}%.
 					Increases attack speed by {3}%.
-					Increases defence by {4}%.
-					Increases movement speed by {5}%.
+					Increases critical chance by {4}%.
+					Increases defence by {5}%.
+					Increases movement speed by {6}%.
 					[c/FFFF00:Polished by beads in the Moon-Kings blood.]
 					'''
 			}
@@ -549,6 +550,65 @@ Mods: {
 					[c/FFFF00:Got the Stax.]
 					'''
 			}
+
+			LysateCell: {
+				DisplayName: Lysate Cell
+				Tooltip:
+					'''
+					Base mana multiplied by {0}.
+					Mana regeneration multiplied by {1}%.
+					'''
+			}
+
+			SpinelTonic: {
+				DisplayName: Spinel Tonic
+				Tooltip:
+					'''
+					Usable
+					Lasts 20 Seconds
+					Contains an alien stimulant, increases
+					max health, max mana, damage, defence,
+					crit chance, and move speed significantly.
+					When the stimulants run out, severely cripples
+					the same stats untill healed by a professional.
+					This "withdrawl" stacks.
+					[c/FFFF00:Just don't stop using it.]
+					'''
+			}
+
+			ThrowingKnife: {
+				DisplayName: Weighted Knife
+				Tooltip:
+					'''
+					Throws out a Weighted Knife that 
+					seems to always hit its mark.
+					[c/CD6D47:Test]
+					'''
+			}
+
+			StrengthenedThrowingKnife: {
+				DisplayName: Strengthened Weighted Knife
+				Tooltip:
+					'''
+					Throws out a Weighted Knife that 
+					seems to always hit its mark.
+					[c/CD6D47:Test]
+					'''
+			}
+
+			StunProd: {
+				DisplayName: Stun Baton
+				Tooltip:
+					'''
+					Nanotrasen Brand stun device.
+					Commonly used by Shit-curity to
+					"detain" and "interrogate" rouge
+					greytiders. It's "Harm/Stun" switch
+					seems to be stick on "Harm" from
+					age and repeated bashings.
+					[c/FFFF00:Help ling absorbing me maint.]
+					'''
+			}
 		}
 
 		Projectiles: {
@@ -568,6 +628,8 @@ Mods: {
 			InfinityBlade.DisplayName: Infinity Blade
 			ATGMissile.DisplayName: A T G Missile
 			ROGUSUnit.DisplayName: R.O.G.U.S. Unit
+			ThrowingKnifeProjectile.DisplayName: Throwing Knife Projectile
+			SThrowingKnifeProjectile.DisplayName: S Throwing Knife Projectile
 		}
 
 		Buffs: {
@@ -614,6 +676,16 @@ Mods: {
 			GestureOverload: {
 				DisplayName: Mana Overload!
 				Description: Damage taken increased by 25%
+			}
+
+			SpinelBuff: {
+				DisplayName: Spinel Tonic
+				Description: You feel great! Most stats multiplied by 20-30%. Tonic Affliction does not effect you.
+			}
+
+			SpinelDebuff: {
+				DisplayName: Tonic Affliction
+				Description: You feel terrible. Most stats reduced by 5% per stack. You should see a doctor. Does nothing while under Spinel Tonic buff.
 			}
 		}
 
