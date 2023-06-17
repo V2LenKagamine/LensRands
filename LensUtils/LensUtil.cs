@@ -45,7 +45,7 @@ namespace LensRands.LensUtils
 
             return closestNPC;
         }
-        //From https://github.com/Zeodexic/tsorcRevamp/blob/main/
+        //From https://github.com/Zeodexic/tsorcRevamp/blob/main/, modfied.
         ///<summary> 
         ///Call in a projectile's AI to allow the projectile to home on enemies
         ///</summary>         
@@ -55,13 +55,13 @@ namespace LensRands.LensUtils
         ///<param name="rotateTowards">Should the projectile maintain topSpeed speed and rotate towards targets, instead of standard homing?</param>
         ///<param name="homingStrength">The homing strength coefficient. Unused if rotateTowards.</param>
         ///<param name="needsLineOfSight">Does the projectile need line of sight to home on a target?</param>
-        public static void HomeOnEnemy(Projectile projectile, float homingRadius, float topSpeed, bool rotateTowards = false, float homingStrength = 1f, bool needsLineOfSight = false)
+        public static void HomeOnEnemy(Projectile projectile, float homingRadius, float topSpeed, out bool foundTarget,bool rotateTowards = false, float homingStrength = 1f, bool needsLineOfSight = false)
         {
-            if (!projectile.active || !projectile.friendly) return;
+            if (!projectile.active || !projectile.friendly) { foundTarget = false; return; };
             const int BASE_STRENGTH = 30;
 
             Vector2 targetLocation = Vector2.UnitY;
-            bool foundTarget = false;
+            foundTarget = false;
             float distance = 9999999;
 
             for (int i = 0; i < 200; i++)

@@ -119,7 +119,7 @@ namespace LensRands.Content.Items.Accessories
             }
             if (Projectile.velocity != Vector2.Zero)
             {
-                LensUtil.HomeOnEnemy(Projectile, 1200, 10f, false, 0.67f);
+                LensUtil.HomeOnEnemy(Projectile, 1200, 10f,out _,false, 0.67f);
                 Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
                 
             }

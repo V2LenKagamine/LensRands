@@ -379,11 +379,11 @@ Mods: {
 			}
 
 			LuckySeven: {
-				DisplayName: Lucky Seven
+				DisplayName: Veiled Sword
 				Tooltip:
 					'''
 					Alt fire to fire a peircing slash on a cooldown.
-					[c/FFFF00:Lucky me.]
+					[c/E51111:This is the decider!]
 					'''
 			}
 
@@ -395,7 +395,7 @@ Mods: {
 					Alt fire to unleash Final Lucky Seven, dealing
 					massive damage to all foes in a very large range
 					while freezing you in place for the duration.
-					[c/FFFF00:You'ld need to be crazy to use it's special.]
+					[c/E51111:This is our path to the future!]
 					'''
 			}
 

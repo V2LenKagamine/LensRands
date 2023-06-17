@@ -7,6 +7,7 @@ using System.IO;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Terraria.Audio;
+using static Humanizer.In;
 
 namespace LensRands.Content.Items.Memes
 {
@@ -42,7 +43,8 @@ namespace LensRands.Content.Items.Memes
 
         public float WaitForIt { get => Projectile.ai[2]; set => Projectile.ai[2] = value; }
         public int WhoWeHit = -1;
-        public int WhoFiredIt = -1;
+        public bool HitSomething = false;
+        public bool DoneFuckedUp = false;
 
         private static readonly List<string> ProjTypes = new() 
         {
@@ -64,10 +66,9 @@ namespace LensRands.Content.Items.Memes
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
         }
-        
         public override void AI()
         {
-            Player owner = Main.player[WhoFiredIt];
+            Player owner = Main.player[Projectile.owner];
             if (WhatToDoToday == 0 && Main.myPlayer == Projectile.owner)
             {
                 WhatToDoToday = Main.rand.Next(0, ProjTypes.Count);
@@ -80,18 +81,17 @@ namespace LensRands.Content.Items.Memes
             {
                 case "PenisBlast!":
                     {
+                        BootlegOnHit(owner);
                         TickTock(out bool timetodie);
                         if (timetodie && WhoWeHit != -1)
                         {
-                            Main.player[WhoWeHit].Hurt(PlayerDeathReason.ByCustomReason(Main.player[WhoWeHit].name + " got their penis exploded!"),200,Projectile.direction);
-                            if ((Main.player[WhoWeHit].statLife-200) > 0)
-                            {
-                                owner.KillMe(PlayerDeathReason.ByCustomReason(owner.name + " didn't kill with the memestaff!"),owner.statLifeMax2,Projectile.direction);
-                            }
+                            Player victim = Main.player[WhoWeHit];
+                            victim.Hurt(PlayerDeathReason.ByCustomReason(Main.player[WhoWeHit].name + " got their penis exploded!"),victim.statLifeMax2/2,Projectile.direction);
                         }
                         else if (timetodie)
-                        { 
-                            owner.KillMe(PlayerDeathReason.ByCustomReason(owner.name + " whiffed the memestaff!"), owner.statLifeMax2, Projectile.direction); 
+                        {
+                            DoneFuckedUp = true;
+                            ForceSync();
                         }
                         break;
                     }
@@ -104,6 +104,22 @@ namespace LensRands.Content.Items.Memes
             float rotate = Projectile.velocity.X > 0 ? 22.5f : -22.5f;
             Projectile.spriteDirection = Projectile.velocity.X > 0 ? 1 : -1;
             Projectile.rotation += MathHelper.ToRadians(rotate);
+            if(Projectile.timeLeft == 1) { BlastWillAndTestament(owner); }
+        }
+        private void BlastWillAndTestament(Player owner)
+        {
+            if (WhoWeHit != -1)
+            {
+                Player victim = Main.player[WhoWeHit];
+                if (!victim.dead)
+                {
+                    owner.KillMe(PlayerDeathReason.ByCustomReason(owner.name + " didn't kill with the memestaff!"), owner.statLifeMax2, Projectile.direction);
+                }
+            }
+            else if (DoneFuckedUp)
+            {
+                owner.KillMe(PlayerDeathReason.ByCustomReason(owner.name + " missed with the memestaff!"), owner.statLifeMax2, Projectile.direction);
+            }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -112,7 +128,7 @@ namespace LensRands.Content.Items.Memes
                 case "PenisBlast!":
                     {
                         WaitForIt = (4 * 60) + 15;
-                        Projectile.timeLeft = (4 * 60) + 20;
+                        Projectile.timeLeft = (4 * 60) + 25;
                         SoundEngine.PlaySound(AudioSys.GetBentLoser, Projectile.position);
                         YouCantSeeMe();
                         ForceSync();
@@ -126,15 +142,15 @@ namespace LensRands.Content.Items.Memes
             }
             return false;
         }
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        private void DoTheFunny(Player player)
         {
             switch (ProjTypes[(int)WhatToDoToday])
             {
                 case "PenisBlast!":
                     {
                         WaitForIt = (4 * 60) + 15;
-                        Projectile.timeLeft = (4 * 60) + 20;
-                        WhoWeHit = target.whoAmI;
+                        Projectile.timeLeft = (4 * 60) + 25;
+                        WhoWeHit = player.whoAmI;
                         SoundEngine.PlaySound(AudioSys.GetBentLoser, Projectile.position);
                         YouCantSeeMe();
                         ForceSync();
@@ -147,9 +163,21 @@ namespace LensRands.Content.Items.Memes
                     }
             }
         }
-        public override bool CanHitPlayer(Player target)
+
+        private void BootlegOnHit(Player owner)
         {
-            return target.whoAmI != WhoFiredIt && target.difficulty != 2;
+            if (!HitSomething)
+            {
+                foreach (Player player in Main.player)
+                {
+                    if (player == owner) { continue; }
+                    if (Projectile.Hitbox.Intersects(player.Hitbox) && player.difficulty != 2)
+                    {
+                        HitSomething = true;
+                        DoTheFunny(player);
+                    }
+                }
+            }
         }
         private void TickTock(out bool Dingdong)
         {
@@ -165,13 +193,9 @@ namespace LensRands.Content.Items.Memes
         }
         private void SetupTheBomb()
         {
-            Projectile.hostile = true;
             Projectile.penetrate = 1;
             WaitForIt = 1200;
             DoneSetup = true;
-            WhoFiredIt = Projectile.owner;
-            Projectile.owner = -1;
-            Projectile.damage = 1;
         }
         private void YouCantSeeMe()
         {
@@ -184,7 +208,7 @@ namespace LensRands.Content.Items.Memes
         }
         private void ForceSync()
         {
-            if (Main.netMode != NetmodeID.SinglePlayer) // needs called on both sides so shooter knows when projectile hits.
+            if (Main.netMode != NetmodeID.MultiplayerClient) 
             {
                 Projectile.netUpdate = true;
             }
@@ -194,12 +218,14 @@ namespace LensRands.Content.Items.Memes
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(WhoWeHit);
-            writer.Write(WhoFiredIt);
+            writer.Write(HitSomething);
+            writer.Write(DoneFuckedUp);
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             WhoWeHit = reader.ReadInt32();
-            WhoFiredIt = reader.ReadInt32();
+            HitSomething = reader.ReadBoolean();
+            DoneFuckedUp = reader.ReadBoolean();
         }
     }
 }

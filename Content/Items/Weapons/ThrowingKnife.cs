@@ -23,11 +23,11 @@ namespace LensRands.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;
 
             Item.DamageType = DamageClass.Melee;
-            Item.damage = 55;
+            Item.damage = 35;
             Item.crit = 15;
 
             Item.shoot = ModContent.ProjectileType<ThrowingKnifeProjectile>();
-            Item.shootSpeed = 15f; 
+            Item.shootSpeed = 10f; 
             Item.UseSound = SoundID.Item1;
         }
     }
@@ -74,11 +74,11 @@ namespace LensRands.Content.Items.Weapons
             Projectile.rotation += MathHelper.ToRadians(rotate);
             if (Bounces <= 0)
             {
-                LensUtil.HomeOnEnemy(Projectile,600f,20f,false,1.5f);
+                LensUtil.HomeOnEnemy(Projectile,600f,20f,out _,false,1.5f);
             }
             else
             {
-                LensUtil.HomeOnEnemy(Projectile, 600f, 20f, false, 0.05f);
+                LensUtil.HomeOnEnemy(Projectile, 600f, 20f, out _, false, 0.05f);
             }
             
         }
@@ -87,14 +87,29 @@ namespace LensRands.Content.Items.Weapons
             if (Bounces > 0)
             {
                 Bounces -= 1;
-                if (Projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > 1f)
+                if (Bounces == 1)
                 {
-                    Projectile.velocity.X = oldVelocity.X * -1f;
+                    if (Projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > 1f)
+                    {
+                        Projectile.velocity.X = oldVelocity.X * -0.75f;
+                    }
+                    if (Projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 1f)
+                    {
+                        Projectile.velocity.Y = oldVelocity.Y * -0.75f;
+                    }
                 }
-                if (Projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 1f)
+                else
                 {
-                    Projectile.velocity.Y = oldVelocity.Y * -1f;
+                    if (Projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > 1f)
+                    {
+                        Projectile.velocity.X = oldVelocity.X * -1.5f;
+                    }
+                    if (Projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 1f)
+                    {
+                        Projectile.velocity.Y = oldVelocity.Y * -1.5f;
+                    }
                 }
+                Projectile.damage = (int)(Projectile.damage * 1.5f);
                 return false;
             }
             return true;
@@ -120,7 +135,7 @@ namespace LensRands.Content.Items.Weapons
             Item.crit = 15;
 
             Item.shoot = ModContent.ProjectileType<SThrowingKnifeProjectile>();
-            Item.shootSpeed = 15f;
+            Item.shootSpeed = 10f;
             Item.UseSound = SoundID.Item1;
         }
         public override void AddRecipes()
@@ -175,11 +190,12 @@ namespace LensRands.Content.Items.Weapons
             Projectile.rotation += MathHelper.ToRadians(rotate);
             if (Bounces <= 0)
             {
-                LensUtil.HomeOnEnemy(Projectile, 600f, 20f, false, 6f);
+                LensUtil.HomeOnEnemy(Projectile, 600f, 20f, out bool targetFound,false, 6f);
+                Projectile.tileCollide = !targetFound;
             }
             else
             {
-                LensUtil.HomeOnEnemy(Projectile, 600f, 20f, false, 0.2f);
+                LensUtil.HomeOnEnemy(Projectile, 600f, 20f, out _,false, 0.2f);
             }
 
         }
@@ -188,14 +204,29 @@ namespace LensRands.Content.Items.Weapons
             if (Bounces > 0)
             {
                 Bounces -= 1;
-                if (Projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > 1f)
+                if (Bounces == 1)
                 {
-                    Projectile.velocity.X = oldVelocity.X * -1f;
+                    if (Projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > 1f)
+                    {
+                        Projectile.velocity.X = oldVelocity.X * -0.75f;
+                    }
+                    if (Projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 1f)
+                    {
+                        Projectile.velocity.Y = oldVelocity.Y * -0.75f;
+                    }
                 }
-                if (Projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 1f)
+                else
                 {
-                    Projectile.velocity.Y = oldVelocity.Y * -1f;
+                    if (Projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > 1f)
+                    {
+                        Projectile.velocity.X = oldVelocity.X * -1.5f;
+                    }
+                    if (Projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 1f)
+                    {
+                        Projectile.velocity.Y = oldVelocity.Y * -1.5f;
+                    }
                 }
+                Projectile.damage = (int)(Projectile.damage * 1.5f);
                 return false;
             }
             return true;

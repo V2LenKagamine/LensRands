@@ -235,8 +235,12 @@ namespace LensRands.Content.Items.Weapons
             if (foundTarget)
             {
                
-                if (distanceFromTarget > 5f)
+                if (distanceFromTarget > 10f)
                 {
+                    if (Projectile.friendly)
+                    {
+                        Projectile.friendly = false;
+                    }
                     Vector2 direction = targetCenter - Projectile.Center;
                     direction.Normalize();
                     direction *= speed;

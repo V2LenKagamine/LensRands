@@ -442,11 +442,11 @@ namespace LensRands.Content.Items.Pets
             if (PlayerMessage != null)
             {
 
-                if (Regex.Match(PlayerMessage, "I|i.love.you.+").Success)
+                if (Regex.Match(PlayerMessage, "(I|i).love.you.+").Success)
                 {
                     Main.NewText(LoveList[Main.rand.Next(0, LoveList.Count)] + player.name + "!");
                 }
-                else if (Regex.Match(PlayerMessage, "H|how.+day.+").Success)
+                else if (Regex.Match(PlayerMessage, "(H|how).+day.+").Success)
                 {
                     Main.NewText(HowDayList[Main.rand.Next(0, HowDayList.Count)]);
                 }
@@ -454,7 +454,7 @@ namespace LensRands.Content.Items.Pets
                 {
                     Main.NewText(HelloList[Main.rand.Next(0, HelloList.Count)]);
                 }
-                else if (Regex.Match(PlayerMessage, "M|monika.+").Success) //Check last, as a "just in case"
+                else if (Regex.Match(PlayerMessage, "(M|monika).+").Success) //Check last, as a "just in case"
                 {
                     Main.NewText(SaidNameList[Main.rand.Next(0, SaidNameList.Count)]);
                 }

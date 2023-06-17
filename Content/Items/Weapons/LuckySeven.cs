@@ -8,7 +8,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 using LensRands.Content.Buffs;
-using Mono.Cecil;
 
 namespace LensRands.Content.Items.Weapons
 {
@@ -40,13 +39,21 @@ namespace LensRands.Content.Items.Weapons
             Item.shootSpeed = 40f;
             Item.UseSound = SoundID.Item1;
         }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.Muramasa)
+                .AddIngredient(ItemID.MeteoriteBar, 20)
+                .AddTile(TileID.Anvils)
+                .Register();
+        }
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (player.altFunctionUse == 2 && !player.HasBuff<LuckySevenCooldown>())
+            if (player.whoAmI == Main.myPlayer &&  player.altFunctionUse == 2 && !player.HasBuff<LuckySevenCooldown>())
             {
                 player.AddBuff(ModContent.BuffType<LuckySevenCooldown>(), LuckySevenMaxCooldown);
                 return base.Shoot(player, source, position, velocity, type, damage, knockback);
@@ -55,7 +62,7 @@ namespace LensRands.Content.Items.Weapons
         }
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (player.altFunctionUse == 2 && !player.HasBuff<LuckySevenCooldown>())
+            if (player.whoAmI == Main.myPlayer && player.altFunctionUse == 2 && !player.HasBuff<LuckySevenCooldown>())
             {
                 damage *= 3;
             }
@@ -94,9 +101,17 @@ namespace LensRands.Content.Items.Weapons
         {
             return true;
         }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<LuckySeven>())
+                .AddIngredient(ItemID.LunarBar,10)
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (player.altFunctionUse == 2)
+            if (player.whoAmI == Main.myPlayer && player.altFunctionUse == 2)
             {
                 return false;
             }
@@ -104,7 +119,7 @@ namespace LensRands.Content.Items.Weapons
         }
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (player.altFunctionUse == 2 && !player.HasBuff<FinalLuckySevenCooldown>())
+            if (player.whoAmI == Main.myPlayer && player.altFunctionUse == 2 && !player.HasBuff<FinalLuckySevenCooldown>())
             {
                 player.AddBuff(ModContent.BuffType<FinalLuckySevenCooldown>(), FinalLuckySevenMaxCooldown);
                 Projectile.NewProjectile(Item.GetSource_FromThis(),player.Center,Vector2.Zero,ModContent.ProjectileType<FinalLuckySeven>(),damage,knockback);
