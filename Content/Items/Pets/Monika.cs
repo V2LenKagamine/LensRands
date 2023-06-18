@@ -442,7 +442,7 @@ namespace LensRands.Content.Items.Pets
             if (PlayerMessage != null)
             {
 
-                if (Regex.Match(PlayerMessage, "(I|i).love.you.+").Success)
+                if (Regex.Match(PlayerMessage, "I|i.love.you.+").Success)
                 {
                     Main.NewText(LoveList[Main.rand.Next(0, LoveList.Count)] + player.name + "!");
                 }

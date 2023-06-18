@@ -29,7 +29,7 @@ namespace LensRands.Content.Items.Consumable
             Item.width = 16;
             Item.height = 16;
             Item.rare = ItemRarityID.White;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.autoReuse = true;
             Item.consumable = true;
             Item.useTime = 15;
@@ -129,7 +129,8 @@ namespace LensRands.Content.Items.Consumable
         public int[] AuxLoot => new int[]
         {
             ModContent.ItemType<Monika>(),
-            ModContent.ItemType<MarkovBox>()
+            ModContent.ItemType<MarkovBox>(),
+            ModContent.ItemType<YourDemiseBox>()
         };
         public int[] LootTable => Mod.GetContent<RORLunar>().Select(x => x.Type).ToArray().Concat(AuxLoot).ToArray();
 
@@ -138,7 +139,7 @@ namespace LensRands.Content.Items.Consumable
             Item.width = 16;
             Item.height = 16;
             Item.rare = ItemRarityID.Blue;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.autoReuse = true;
             Item.consumable = true;
             Item.useTime = 15;

@@ -455,7 +455,7 @@ Mods: {
 					Nanotrasen Brand Personal AI Unit!
 					Better yet, strap some C4 onto it and send it at your enemies!
 					Due to its robust casing, it won't even take a scratch!
-					[c/FFFF00:Warning: R.O.G.U.S. Brand PAI's are notably volitile and will]
+					[c/FFFF00:Warning: R.O.G.U.S. Brand PAI's are notably volatile and will]
 					[c/FFFF00:likely laugh hysterically when told to do this.]
 					'''
 			}
@@ -624,6 +624,15 @@ Mods: {
 					[c/FFFF00:You'll thank me later for doing that.]
 					'''
 			}
+
+			YourDemiseBox: {
+				DisplayName: Your Demise EX - DPZ
+				Tooltip:
+				'''
+				[c/9E4638:Should have known better than to]
+				[c/9E4638:mess with others love lifes.]
+				'''
+			}
 		}
 
 		Projectiles: {
@@ -705,6 +714,9 @@ Mods: {
 			}
 		}
 
-		Tiles.MarkovBoxTile.MapEntry: Markov Music Box
+		Tiles: {
+			MarkovBoxTile.MapEntry: Markov Music Box
+			YourDemiseBoxTile.MapEntry: Your Demise Box Tile
+		}
 	}
 }

@@ -25,4 +25,19 @@ namespace LensRands.Content.Items.Placeable
             Item.DefaultToMusicBox(ModContent.TileType<MarkovBoxTile>(), 0);
         }
     }
+    public class YourDemiseBox : ModItem
+    {
+        public override string Texture => LensRands.AssetsPath + "Items/Placeables/YourDemise";
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.CanGetPrefixes[Type] = false; 
+            ItemID.Sets.ShimmerTransformToItem[Type] = ItemID.MusicBox; 
+            MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Assets/Music/DPZ-YourDemiseEX"), ModContent.ItemType<YourDemiseBox>(), ModContent.TileType<YourDemiseBoxTile>());
+        }
+
+        public override void SetDefaults()
+        {
+            Item.DefaultToMusicBox(ModContent.TileType<YourDemiseBoxTile>(), 0);
+        }
+    }
 }
