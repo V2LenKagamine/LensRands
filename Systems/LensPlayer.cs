@@ -22,10 +22,15 @@ namespace LensRands.Systems
 
         //Misc
         public int HighestBossKilled = 0;
+        public bool MonikasListening;
+
         //RealKnife
         public bool KnifeOut = false;
         public float KnifeTimer = 0f;
-
+        //SU References
+        public bool RoseQuarts;
+        public bool RoseDefended;
+        public readonly float RoseDamageReduc = 0.05f;
         //Carrier & Carrier prime
         public bool CarrierOn;
         public readonly float CarrierChance = 0.1f;
@@ -41,7 +46,7 @@ namespace LensRands.Systems
         public int DamagedTimerMax = 240;//Make sure to yadda yadda ^^^ 
         public bool OverhealWentUp;
 
-        public bool MonikasListening;
+        
 
         //RoR stuff
         public bool UkeleleOn;
@@ -123,6 +128,7 @@ namespace LensRands.Systems
         public int SpinelDebuffsTotal = 0;
 
 
+
         //Overrides
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
@@ -130,12 +136,34 @@ namespace LensRands.Systems
             {
                 SpawnMonet(0, 0, 0, PenniesAmount);
             }
+            if (RoseQuarts && Main.netMode == NetmodeID.SinglePlayer)
+            {
+                AddOverheal(hurtInfo.Damage * 0.4f);
+            }
+            else if (RoseQuarts && !RoseDefended)
+            {
+                foreach (Player player in LensUtil.FindNearbyPlayers(800, Player.position, Player, true))
+                {
+                    player.GetModPlayer<LensPlayer>().AddOverheal(hurtInfo.Damage * 0.6f);
+                }
+            }
         }
         public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
         {
             if (Pennies)
             {
                 SpawnMonet(0, 0, 0, PenniesAmount);
+            }
+            if (RoseQuarts && Main.netMode == NetmodeID.SinglePlayer)
+            {
+                AddOverheal(hurtInfo.Damage * 0.4f);
+            }
+            else if (RoseQuarts && !RoseDefended)
+            {
+                foreach (Player player in LensUtil.FindNearbyPlayers(800, Player.position, Player, true))
+                {
+                    player.GetModPlayer<LensPlayer>().AddOverheal(hurtInfo.Damage * 0.6f);
+                }
             }
         }
         public override bool ConsumableDodge(Player.HurtInfo info)
@@ -286,6 +314,10 @@ namespace LensRands.Systems
             {
                 info.Damage = (int)(info.Damage * (1f + GestureDamageInc));
             }
+            if (RoseQuarts)
+            {
+                info.Damage = (int)(info.Damage * (1f - RoseDamageReduc));
+            }
         }
 
         public override void PostUpdate()
@@ -309,7 +341,6 @@ namespace LensRands.Systems
             }
             return true;
         }
-
         public override void UpdateLifeRegen()
         {
             if (BungusActive && Player.active)
@@ -346,6 +377,9 @@ namespace LensRands.Systems
 
         public override void ResetEffects()
         {
+            RoseQuarts = false;
+            RoseDefended = false;
+            //ROR
             CarrierOn = false;
             CarrierPrimeOn = false;
             UkeleleOn = false;

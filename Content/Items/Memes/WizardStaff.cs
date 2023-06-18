@@ -7,7 +7,6 @@ using System.IO;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Terraria.Audio;
-using static Humanizer.In;
 
 namespace LensRands.Content.Items.Memes
 {
@@ -48,7 +47,8 @@ namespace LensRands.Content.Items.Memes
 
         private static readonly List<string> ProjTypes = new() 
         {
-             "PenisBlast!"
+             "PenisBlast!",
+             "Speen"
         };
         public override void SetDefaults()
         {
@@ -77,11 +77,11 @@ namespace LensRands.Content.Items.Memes
             {
                 SetupTheBomb();
             }
+            BootlegOnHit(owner);
             switch (ProjTypes[(int)WhatToDoToday])
             {
                 case "PenisBlast!":
-                    {
-                        BootlegOnHit(owner);
+                    {   
                         TickTock(out bool timetodie);
                         if (timetodie && WhoWeHit != -1)
                         {
@@ -92,6 +92,15 @@ namespace LensRands.Content.Items.Memes
                         {
                             DoneFuckedUp = true;
                             ForceSync();
+                        }
+                        break;
+                    }
+                case "Speen":
+                    {
+                        if (WhoWeHit != -1 && Main.GameUpdateCount % 10 == 0)
+                        {
+                            Player victim = Main.player[WhoWeHit];
+                            victim.direction *= -1;
                         }
                         break;
                     }
@@ -108,7 +117,7 @@ namespace LensRands.Content.Items.Memes
         }
         private void BlastWillAndTestament(Player owner)
         {
-            if (WhoWeHit != -1)
+            if (WhoWeHit != -1 && WhoWeHit != Projectile.owner && !DoneFuckedUp)
             {
                 Player victim = Main.player[WhoWeHit];
                 if (!victim.dead)
@@ -130,8 +139,13 @@ namespace LensRands.Content.Items.Memes
                         WaitForIt = (4 * 60) + 15;
                         Projectile.timeLeft = (4 * 60) + 25;
                         SoundEngine.PlaySound(AudioSys.GetBentLoser, Projectile.position);
-                        YouCantSeeMe();
-                        ForceSync();
+                        break;
+                    }
+                case "Speen":
+                    {
+                        Projectile.timeLeft = (2 * 60);
+                        WhoWeHit = Projectile.owner;
+                        SoundEngine.PlaySound(AudioSys.Speen, Projectile.position);
                         break;
                     }
                 default:
@@ -140,6 +154,8 @@ namespace LensRands.Content.Items.Memes
                         break;
                     }
             }
+            YouCantSeeMe();
+            ForceSync();
             return false;
         }
         private void DoTheFunny(Player player)
@@ -152,8 +168,13 @@ namespace LensRands.Content.Items.Memes
                         Projectile.timeLeft = (4 * 60) + 25;
                         WhoWeHit = player.whoAmI;
                         SoundEngine.PlaySound(AudioSys.GetBentLoser, Projectile.position);
-                        YouCantSeeMe();
-                        ForceSync();
+                        break;
+                    }
+                case "Speen":
+                    {
+                        Projectile.timeLeft = (2 * 60);
+                        WhoWeHit = player.whoAmI;
+                        SoundEngine.PlaySound(AudioSys.Speen, Projectile.position);
                         break;
                     }
                 default:
@@ -162,6 +183,8 @@ namespace LensRands.Content.Items.Memes
                         break;
                     }
             }
+            YouCantSeeMe();
+            ForceSync();
         }
 
         private void BootlegOnHit(Player owner)

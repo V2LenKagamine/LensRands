@@ -20,6 +20,19 @@ namespace LensRands.LensUtils
             }
         }
 
+        public static IEnumerable<Player> FindNearbyPlayers(float range,Vector2 worldPos, Player sourcePlayer = null,bool CheckTeam = false, List<int> ignorePlayers = null)
+        {
+            ignorePlayers ??= new List<int>();
+            if (CheckTeam)
+            {
+                return Main.player.Where(player => player.DistanceSQ(worldPos) < range * range && sourcePlayer.team == player.team && !ignorePlayers.Contains(player.whoAmI));
+            }
+            else
+            {
+                return Main.player.Where(player => player.DistanceSQ(worldPos) < range * range && !ignorePlayers.Contains(player.whoAmI));
+            }
+        }
+
         public static NPC FindClosestNPC(float range, Vector2 worldPos, bool checkCollision = true, List<int> excludedNPCs = null)
         {
             excludedNPCs ??= new List<int>();

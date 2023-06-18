@@ -145,7 +145,7 @@ namespace LensRands.Content.Items.Pets
 
             bool fast = Movement(player);
 
-            if (MonikaAnimation == 0)
+            if (MonikaAnimation == 0 && Projectile.owner == Main.myPlayer)
             {
                 float chance = Main.rand.NextFloat(1f);
                 if (chance > 0f && chance <= 0.2f)
@@ -329,10 +329,10 @@ namespace LensRands.Content.Items.Pets
             float velDistanceChange = 2f;
 
             // Calculates the desired resting position, aswell as some vectors used in velocity/rotation calculations
-            int dir = player.direction;
+            int dir = -player.direction;
             Projectile.direction = Projectile.spriteDirection = dir;
 
-            Vector2 desiredCenterRelative = new Vector2(dir == 1 ? dir * 30 : dir * 45 , -60f);
+            Vector2 desiredCenterRelative = new(dir == 1 ? dir * 30 : dir * 45 , -60f);
 
             // Add some sine motion
             desiredCenterRelative.Y += (float)Math.Sin(Main.GameUpdateCount / 120f * MathHelper.TwoPi) * 5;

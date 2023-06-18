@@ -63,7 +63,7 @@ namespace LensRands.Content.Items.Weapons
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (player.GetModPlayer<LensPlayer>().HighestBossKilled < 5)
+            if (player.GetModPlayer<LensPlayer>().HighestBossKilled < 8)
             {
                 return false;
             }
@@ -73,7 +73,7 @@ namespace LensRands.Content.Items.Weapons
                 player.GetModPlayer<LensPlayer>().KnifeTimer = 0;
                 return base.Shoot(player, source, position, velocity, type, damage, knockback);
             }
-            if (player.altFunctionUse == 2 && !player.GetModPlayer<LensPlayer>().KnifeOut && player.statMana != 0)
+            if (player.altFunctionUse == 2 && !player.GetModPlayer<LensPlayer>().KnifeOut && player.statMana == player.statManaMax2)
             {
                 player.GetModPlayer<LensPlayer>().KnifeOut = true;
                 player.statMana -= player.statMana;
@@ -87,7 +87,7 @@ namespace LensRands.Content.Items.Weapons
             if (player.altFunctionUse == 2 && player.GetModPlayer<LensPlayer>().KnifeOut)
             {
                 LensPlayer plmp = player.GetModPlayer<LensPlayer>();
-                int newdamage = player.statManaMax / 2 + damage;
+                int newdamage = player.statManaMax2 / 10 + damage;
                 int timerint = (int)Math.Round(plmp.KnifeTimer);
                 int timer;
                 if (timerint <= 47)
@@ -111,7 +111,8 @@ namespace LensRands.Content.Items.Weapons
                         }
                     case 2:
                         {
-                            newdamage += newdamage * 5;
+                            newdamage = (int)(newdamage * 3.5f);
+                            player.statMana = player.statManaMax2;
                             SoundEngine.PlaySound(AudioSys.RealSlash, player.position);
                             break;
                         }
@@ -132,21 +133,21 @@ namespace LensRands.Content.Items.Weapons
         {
             new KeyValuePair<int, int>(0,5), //No bosses.
             new KeyValuePair<int, int>(4,17), //Slime King
-            new KeyValuePair<int, int>(5,25), //Eye,Projectile Gained.
+            new KeyValuePair<int, int>(5,25), //Eye.
             new KeyValuePair<int, int>(6,30), //Worm/Brain
             new KeyValuePair<int, int>(7,35), //Bee
-            new KeyValuePair<int, int>(8,39), //Skele
-            new KeyValuePair<int, int>(9,43), //Deer
-            new KeyValuePair<int, int>(10,45), //Woll
-            new KeyValuePair<int, int>(11,50), //Queen
-            new KeyValuePair<int, int>(12,65), //All Mechs
-            new KeyValuePair<int, int>(13,80), //Plant
-            new KeyValuePair<int, int>(14,105), //Golem
+            new KeyValuePair<int, int>(8,39), //Skele, projectile gained
+            new KeyValuePair<int, int>(9,42), //Deer
+            new KeyValuePair<int, int>(10,50), //Woll
+            new KeyValuePair<int, int>(11,55), //Queen
+            new KeyValuePair<int, int>(12,70), //All Mechs
+            new KeyValuePair<int, int>(13,90), //Plant
+            new KeyValuePair<int, int>(14,110), //Golem
             new KeyValuePair<int, int>(15,130), //Feesh
-            new KeyValuePair<int, int>(16,135), //Empress
-            new KeyValuePair<int, int>(17,145), //CultyBoi
-            new KeyValuePair<int, int>(18,155), //All towers
-            new KeyValuePair<int, int>(19,195), //Moonlol
+            new KeyValuePair<int, int>(16,140), //Empress
+            new KeyValuePair<int, int>(17,150), //CultyBoi
+            new KeyValuePair<int, int>(18,160), //All towers
+            new KeyValuePair<int, int>(19,215), //Moonlol
         };
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
@@ -190,19 +191,34 @@ namespace LensRands.Content.Items.Weapons
         {
             Projectile.width = 32;               //The width of projectile hitbox
             Projectile.height = 124;              //The height of projectile hitbox
-            Projectile.aiStyle = 27;             //The ai style of the projectile, please reference the source code of Terraria
+            Projectile.aiStyle = -1;             //The ai style of the projectile, please reference the source code of Terraria
             Projectile.friendly = true;         //Can the projectile deal damage to enemies?
             Projectile.hostile = false;         //Can the projectile deal damage to the player?
             Projectile.DamageType = DamageClass.Melee;
             Projectile.penetrate = -1;           //How many monsters the projectile can penetrate. (OnTileCollide below also decrements penetrate for bounces as well)
             Projectile.timeLeft = 60;          //The live time for the projectile (60 = 1 second, so 600 is 10 seconds)
-            Projectile.light = 1f;            //How much light emit around the projectile
             Projectile.ignoreWater = true;          //Does the projectile's speed be influenced by water?
             Projectile.tileCollide = false;          //Can the projectile collide with tiles?
             Projectile.extraUpdates = 0;            //Set to above 0 if you want the projectile to update multiple time in a frame
 
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 5;
+            Projectile.localNPCHitCooldown = 10;
+        }
+        public override void AI()
+        {
+            Lighting.AddLight(Projectile.Center, 1f, 0f, 0f);
+            Projectile.alpha += 4;
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(45f);
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (Main.myPlayer == Projectile.owner)
+            {
+                Vector2 vel2 = new(Main.rand.NextFloat(-0.5f, 0.5f), 1f);
+                Projectile p = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), target.position, vel2, ModContent.ProjectileType<RealKnife999>(), 0, 0);
+                p.rotation = MathHelper.ToRadians(Main.rand.NextFloat(-15f, 16f));
+            }
         }
     }
 
@@ -213,20 +229,49 @@ namespace LensRands.Content.Items.Weapons
         public override void SetDefaults()
         {
             Projectile.width = 16;               //The width of projectile hitbox
-            Projectile.height = 32;              //The height of projectile hitbox
-            Projectile.aiStyle = 27;             //The ai style of the projectile, please reference the source code of Terraria
+            Projectile.height = 16;              //The height of projectile hitbox
+            Projectile.aiStyle = -1;             //The ai style of the projectile, please reference the source code of Terraria
             Projectile.friendly = true;         //Can the projectile deal damage to enemies?
             Projectile.hostile = false;         //Can the projectile deal damage to the player?
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.penetrate = -1;           //How many monsters the projectile can penetrate. (OnTileCollide below also decrements penetrate for bounces as well)
+            Projectile.penetrate = 1;           //How many monsters the projectile can penetrate. (OnTileCollide below also decrements penetrate for bounces as well)
             Projectile.timeLeft = 30;          //The live time for the projectile (60 = 1 second, so 600 is 10 seconds)
-            Projectile.light = 0.25f;            //How much light emit around the projectile
             Projectile.ignoreWater = true;          //Does the projectile's speed be influenced by water?
             Projectile.tileCollide = false;          //Can the projectile collide with tiles?
             Projectile.extraUpdates = 0;            //Set to above 0 if you want the projectile to update multiple time in a frame
 
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
+            Projectile.localNPCHitCooldown = 20;
+        }
+        public override void AI()
+        {
+            Lighting.AddLight(Projectile.Center, 1f, 0f, 0f);
+            Projectile.alpha += 20;
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(45f);
+        }
+    }
+    public class RealKnife999 : ModProjectile
+    {
+
+        public override string Texture => LensRands.AssetsPath + "Projectiles/RealKnife999";
+        public override void SetDefaults()
+        {
+            Projectile.width = 1;               //The width of projectile hitbox
+            Projectile.height = 1;              //The height of projectile hitbox
+            Projectile.aiStyle = -1;             //The ai style of the projectile, please reference the source code of Terraria
+            Projectile.friendly = false;         //Can the projectile deal damage to enemies?
+            Projectile.hostile = false;         //Can the projectile deal damage to the player?
+            Projectile.penetrate = -1;           //How many monsters the projectile can penetrate. (OnTileCollide below also decrements penetrate for bounces as well)
+            Projectile.timeLeft = 45;          //The live time for the projectile (60 = 1 second, so 600 is 10 seconds)            //How much light emit around the projectile
+            Projectile.ignoreWater = true;          //Does the projectile's speed be influenced by water?
+            Projectile.tileCollide = false;          //Can the projectile collide with tiles?
+            Projectile.extraUpdates = 0;            //Set to above 0 if you want the projectile to update multiple time in a frame
+        }
+        public override void AI()
+        {
+            Projectile.alpha += 20;
+            Lighting.AddLight(Projectile.Center, 1f, 0f, 0f);
+            Projectile.velocity *= 0.8f;
         }
     }
 }

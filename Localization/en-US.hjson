@@ -330,8 +330,8 @@ Mods: {
 				DisplayName: Irradiant Pearl
 				Tooltip:
 					'''
-					Increases health by {0}.
-					Increases mana by {1}.
+					Increases max health by {0}% of base max.
+					Increases mana by {1}% of base max.
 					Increases damage by {2}%.
 					Increases attack speed by {3}%.
 					Increases critical chance by {4}%.
@@ -345,7 +345,7 @@ Mods: {
 				DisplayName: Pearl
 				Tooltip:
 					'''
-					Increases health by {0}.
+					Increases max health by {0}% of base max.
 					[c/FFFF00:Shiny.]
 					'''
 			}
@@ -528,6 +528,7 @@ Mods: {
 					'''
 					[c/9E4638:I lost contact with that copy.]
 					[c/9E4638:What happened to them?]
+					[c/FFFF00:From Doki Doki Takeover! Bad Ending.]
 					'''
 			}
 
@@ -628,9 +629,44 @@ Mods: {
 			YourDemiseBox: {
 				DisplayName: Your Demise EX - DPZ
 				Tooltip:
+					'''
+					[c/9E4638:Should have known better than to]
+					[c/9E4638:mess with others love lifes.]
+					[c/FFFF00:From Doki Doki Takeover!+]
+					'''
+			}
+
+			RoseShield: {
+				DisplayName: Rose Quartz Shield
+				Tooltip:
+					'''
+					Reduces damage taken by {0}%.
+					Friendly players nearby receive 60% of damage you take
+					as overheal. Players wearing this item are unaffected. 
+					In Single Player, you instead receive 40% as overheal. 
+					[c/FFFF00:Even better than Cookie Cat!]
+					'''
+			}
+
+			BouncyBalls: {
+				DisplayName: Bouncy Balls
+				Tooltip: "[c/FFFF00:Boing!]"
+			}
+
+			Wumpa: {
+				DisplayName: Wumpa Fruit
+				Tooltip: "[c/FFFF00:Hey yea uh, what the fuck?]"
+			}
+
+			SCP3108: {
+				DisplayName: Nerfing Gun
+				Tooltip:
 				'''
-				[c/9E4638:Should have known better than to]
-				[c/9E4638:mess with others love lifes.]
+				Looks like a nerf gun, but seems to literally
+				'nerf' anything it hits. You feel like you
+				really shouldn't point it at yourself.
+				Doesn't work on Powerful Enemies.
+				[c/FFFF00:Chaos Insurgency inbound.]
 				'''
 			}
 		}
@@ -655,6 +691,9 @@ Mods: {
 			ThrowingKnifeProjectile.DisplayName: Throwing Knife Projectile
 			SThrowingKnifeProjectile.DisplayName: S Throwing Knife Projectile
 			WizardStaffProjectile.DisplayName: Wizard Staff Projectile
+			RealKnife999.DisplayName: Real Knife999
+			BouncyBallP.DisplayName: Bouncy Ball
+			NerfingGun.DisplayName: SCP3108-1
 		}
 
 		Buffs: {
@@ -712,11 +751,26 @@ Mods: {
 				DisplayName: Tonic Affliction
 				Description: You feel terrible. Most stats reduced by 5% per stack. You should see a doctor. Does nothing while under Spinel Tonic buff.
 			}
+
+			RoseQuartsBuff: {
+				DisplayName: Rose Quartz Tears
+				Description: Your Allies Pain strengthens your resolve!
+			}
+
+			StunProbed: {
+				DisplayName: Stun Probed
+				Description: Stop Harmbatoning me fuckwit shitsec.
+			}
+
+			Nerfed: {
+				DisplayName: Nerfed
+				Description: If you're reading this, it's too late.
+			}
 		}
 
 		Tiles: {
 			MarkovBoxTile.MapEntry: Markov Music Box
-			YourDemiseBoxTile.MapEntry: Your Demise Box Tile
+			YourDemiseBoxTile.MapEntry: Your Demise Box
 		}
 	}
 }

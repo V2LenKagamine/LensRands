@@ -16,5 +16,7 @@ namespace LensRands.Systems.ModSys
         public static readonly SoundStyle BADING = new(LensRands.AssetsPath + "Sounds/BADING");
 
         public static readonly SoundStyle GetBentLoser = new(LensRands.AssetsPath + "Sounds/Explodeurdickandsmallurass");
+
+        public static readonly SoundStyle Speen = new(LensRands.AssetsPath + "Sounds/speen");
     }
 }
