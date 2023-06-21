@@ -21,6 +21,7 @@ namespace LensRands.Content.Items.Memes
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<NerfingGun>();
             Item.shootSpeed = 6f;
+            Item.value = Item.buyPrice(0, 7, 50, 0);
         }
     }
     public class NerfingGun : ModProjectile
@@ -33,7 +34,7 @@ namespace LensRands.Content.Items.Memes
             Projectile.aiStyle = -1;             //The ai style of the projectile, please reference the source code of Terraria
             Projectile.friendly = true;         //Can the projectile deal damage to enemies?
             Projectile.hostile = false;         //Can the projectile deal damage to the player?
-            Projectile.penetrate = -1;           //How many monsters the projectile can penetrate. (OnTileCollide below also decrements penetrate for bounces as well)
+            Projectile.penetrate = 1;           //How many monsters the projectile can penetrate. (OnTileCollide below also decrements penetrate for bounces as well)
             Projectile.timeLeft = 300;          //The live time for the projectile (60 = 1 second, so 600 is 10 seconds)
             Projectile.ignoreWater = true;          //Does the projectile's speed be influenced by water?
             Projectile.tileCollide = true;          //Can the projectile collide with tiles?

@@ -20,9 +20,10 @@
     <Folder Include="Assets\Items\Accessories\" />
     <Folder Include="Assets\Effects\" />
     <Folder Include="Assets\Items\Consumable\" />
-    <Folder Include="Assets\Buffs\" />
+    <Folder Include="Assets\Items\Toys\" />
     <Folder Include="Assets\UI\" />
     <Folder Include="Assets\Sounds\" />
+    <Folder Include="Content\Items\Toys\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EasyPacketsLib">

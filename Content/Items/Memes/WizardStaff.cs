@@ -28,6 +28,7 @@ namespace LensRands.Content.Items.Memes
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<WizardStaffProjectile>();
             Item.shootSpeed = 16f;
+            Item.value = Item.buyPrice(0, 8, 00, 8);
         }
         public override bool CanUseItem(Player player)
         {

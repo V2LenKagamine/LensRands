@@ -18,6 +18,7 @@ namespace LensRands.Content.Items.Accessories
             Item.height = 32;
             Item.rare = ItemRarityID.Red;
             Item.accessory = true;
+            Item.value = Item.buyPrice(0, 50, 0, 0);
         }
     }
     public class DiosBestFriend : RORReds

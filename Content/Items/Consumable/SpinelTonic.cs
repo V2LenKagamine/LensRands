@@ -18,6 +18,7 @@ namespace LensRands.Content.Items.Consumable
             Item.useTime = 15;
             Item.useAnimation = 15;
             Item.maxStack = 1;
+            Item.value = Item.buyPrice(0, 7, 50, 0);
         }
         public override bool? UseItem(Player player)
         {

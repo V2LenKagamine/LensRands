@@ -32,6 +32,8 @@ namespace LensRands.Content.Items.Weapons
             Item.crit = 100;
 
             Item.UseSound = SoundID.Item1;
+
+            Item.value = Item.buyPrice(0, 5, 0, 0);
         }
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {

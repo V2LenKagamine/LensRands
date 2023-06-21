@@ -29,6 +29,8 @@ namespace LensRands.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<ThrowingKnifeProjectile>();
             Item.shootSpeed = 10f; 
             Item.UseSound = SoundID.Item1;
+
+            Item.value = Item.buyPrice(0, 2, 50, 0);
         }
     }
     public class ThrowingKnifeProjectile : ModProjectile
@@ -137,6 +139,8 @@ namespace LensRands.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<SThrowingKnifeProjectile>();
             Item.shootSpeed = 10f;
             Item.UseSound = SoundID.Item1;
+
+            Item.value = Item.buyPrice(0, 10, 0, 0);
         }
         public override void AddRecipes()
         {

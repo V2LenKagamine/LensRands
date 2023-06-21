@@ -9,9 +9,9 @@ namespace LensRands.LensUtils
     public static class LensVisualUtils
     {
         private static readonly EntitySource_Misc LensVisualsES = new("LensRands:VisualEffect");
-        public static void BombVisuals(Vector2 Pos, int Width, int Height)
+        public static void BombVisuals(Vector2 Center, int Width, int Height)
         {
-            Vector2 Pos2 = new Vector2(Pos.X - (Width / 2), Pos.Y - (Height / 2));
+            Vector2 Pos2 = new Vector2(Center.X - (Width / 2), Center.Y - (Height / 2));
             for (int i = 0; i < 50; i++)
             {
                 Dust dust = Dust.NewDustDirect(Pos2, Width, Height, DustID.Smoke, 0f, 0f, 100, default, 2f);
@@ -47,7 +47,7 @@ namespace LensRands.LensUtils
                 gore.velocity.Y -= 1.5f;
             }
             // Play explosion sound
-            SoundEngine.PlaySound(SoundID.Item14, Pos);
+            SoundEngine.PlaySound(SoundID.Item14, Pos2);
         }
     }
 }

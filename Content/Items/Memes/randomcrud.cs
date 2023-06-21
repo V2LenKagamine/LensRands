@@ -18,6 +18,7 @@ namespace LensRands.Content.Items.Memes
             Item.width = Item.height = 32;
             Item.rare = ItemRarityID.Orange;
             Item.maxStack = 30;
+            Item.value = Item.buyPrice(25, 0, 0, 0); // I mean its a 1/1000 so.
         }
     }
 }

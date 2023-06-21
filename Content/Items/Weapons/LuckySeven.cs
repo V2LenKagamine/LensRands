@@ -38,6 +38,8 @@ namespace LensRands.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<InfinityBlade>();
             Item.shootSpeed = 40f;
             Item.UseSound = SoundID.Item1;
+
+            Item.value = Item.buyPrice(0, 2, 50, 0);
         }
         public override void AddRecipes()
         {
@@ -96,6 +98,8 @@ namespace LensRands.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<TachyonSlash>();
             Item.shootSpeed = 0f;
             Item.UseSound = SoundID.Item1;
+
+            Item.value = Item.buyPrice(0, 7, 7, 7);
         }
         public override bool AltFunctionUse(Player player)
         {

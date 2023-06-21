@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace LensRands.Content.Items.Weapons
+namespace LensRands.Content.Items.Memes
 {
     public class StoneLuigi : ModItem
     {
@@ -37,11 +37,12 @@ namespace LensRands.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;
             Item.shoot = ModContent.ProjectileType<FootballProjectile>();
             Item.shootSpeed = 16f;
+            Item.value = Item.buyPrice(0, 0,0,1);
         }
 
     }
 
-    public class FootballProjectile : ModProjectile 
+    public class FootballProjectile : ModProjectile
     {
         public override string Texture => LensRands.AssetsPath + "Items/Weapons/Football";
 
@@ -49,22 +50,22 @@ namespace LensRands.Content.Items.Weapons
         private readonly int ttl = 1200;
         public override void SetDefaults()
         {
-            Projectile.width = 16; 
-            Projectile.height = 16; 
+            Projectile.width = 16;
+            Projectile.height = 16;
             Projectile.aiStyle = 0;
-            Projectile.friendly = true; 
-            Projectile.hostile = false; 
+            Projectile.friendly = true;
+            Projectile.hostile = false;
             Projectile.DamageType = DamageClass.Ranged;
-            Projectile.penetrate = 5;
+            Projectile.penetrate = 1;
             Projectile.timeLeft = ttl;
             Projectile.light = 0f;
-            Projectile.ignoreWater = true;
-            Projectile.tileCollide = true; 
+            Projectile.ignoreWater = false;
+            Projectile.tileCollide = true;
         }
 
         public override void AI()
         {
-            if (Projectile.timeLeft <= (ttl - dropdelay))
+            if (Projectile.timeLeft <= ttl - dropdelay)
             {
                 Projectile.velocity.X *= 0.99f;
                 Projectile.velocity.Y += 0.45f;

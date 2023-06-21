@@ -34,6 +34,7 @@ namespace LensRands.Content.Items.Weapons
             Item.DamageType = DamageClass.Ranged;
             Item.buffType = ModContent.BuffType<PAIBuff>();
             Item.shoot = ModContent.ProjectileType<ROGUSUnit>();
+            Item.value = Item.buyPrice(0, 2, 50, 0);
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

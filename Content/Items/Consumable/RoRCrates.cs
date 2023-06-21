@@ -176,6 +176,7 @@ namespace LensRands.Content.Items.Consumable
             Item.height = 32;
             Item.rare = ItemRarityID.Blue;
             Item.maxStack = 9999;
+            Item.value = Item.buyPrice(0, 2, 50, 0);
         }
     }
 }

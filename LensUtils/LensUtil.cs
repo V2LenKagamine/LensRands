@@ -58,6 +58,14 @@ namespace LensRands.LensUtils
 
             return closestNPC;
         }
+
+        public static void ProjectileROTATE(Projectile projectile,float rotationpertick)
+        {
+            float rotate = projectile.velocity.X > 0 ? rotationpertick : -rotationpertick;
+            projectile.spriteDirection = projectile.velocity.X > 0 ? 1 : -1;
+            projectile.rotation += MathHelper.ToRadians(rotate);
+        }
+
         //From https://github.com/Zeodexic/tsorcRevamp/blob/main/, modfied.
         ///<summary> 
         ///Call in a projectile's AI to allow the projectile to home on enemies

@@ -16,8 +16,8 @@ namespace LensRands.Common.DropRules
                 globalLoot.Add(ItemDropRule.Common(ModContent.ItemType<RoRCrateWhite>(), 250));
                 globalLoot.Add(ItemDropRule.Common(ModContent.ItemType<RoRCrateGreen>(), 500));
                 globalLoot.Add(ItemDropRule.Common(ModContent.ItemType<RoRCrateRed>(), 750));
-                globalLoot.Add(ItemDropRule.Common(ModContent.ItemType<LunarCoin>(), 250));
             }
+            globalLoot.Add(ItemDropRule.Common(ModContent.ItemType<LunarCoin>(), 500));
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
@@ -48,11 +48,12 @@ namespace LensRands.Common.DropRules
                     npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RoRCrateRed>(), 16));
                     npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RoRPearl>(), 100));
                 }
+                if (npc.type == NPCID.VoodooDemon) { npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RpgLauncher>(), 100)); }
             }
             if(npc.type == NPCID.QueenBee) { npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<QueensGland>(), 10)); }
             if(npc.boss)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LunarPod>(), 5));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LunarPod>(), 10));
             }
             if (npc.type == NPCID.WallofFlesh)
             {

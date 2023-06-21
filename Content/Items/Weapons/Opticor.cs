@@ -34,6 +34,7 @@ namespace LensRands.Content.Items.Weapons
             Item.UseSound = SoundID.Item13;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.noMelee = true;
+            Item.value = Item.buyPrice(0, 2, 50, 0);
         }
 
         public override void AddRecipes()

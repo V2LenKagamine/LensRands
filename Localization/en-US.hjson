@@ -63,7 +63,10 @@ Mods: {
 				Tooltip:
 					'''
 					A knife from a lost timeline.
-					Seems to grow sharper as you gain strength.
+					Grows Sharper as you gain Strength.
+					Gains an Alt Fire and Projectile after Skeletron.
+					Alt Fire uses your Max Mana.
+					Time Alt Fire Perfecltly to refund it's cost.
 					[c/FF0000:Finally.]
 					'''
 			}
@@ -661,13 +664,165 @@ Mods: {
 			SCP3108: {
 				DisplayName: Nerfing Gun
 				Tooltip:
-				'''
-				Looks like a nerf gun, but seems to literally
-				'nerf' anything it hits. You feel like you
-				really shouldn't point it at yourself.
-				Doesn't work on Powerful Enemies.
-				[c/FFFF00:Chaos Insurgency inbound.]
-				'''
+					'''
+					Looks like a nerf gun, but seems to literally
+					'nerf' anything it hits. You feel like you
+					really shouldn't point it at yourself.
+					Doesn't work on Powerful Enemies.
+					[c/FFFF00:Chaos Insurgency inbound.]
+					'''
+			}
+
+			RpgLauncher: {
+				DisplayName: R.P.G. Launcher
+				Tooltip:
+					'''
+					Costs 20 Health to fire.
+					Launches Rocket Propelled...Guides?
+					'You are a terrible person.'
+					'''
+			}
+
+			EndlessMunitions1: {
+				DisplayName: Endless Munitions Alpha
+				Tooltip:
+					'''
+					Ranged damage adjusted by {0}%
+					Do not consume any ammo.
+					You still require at least 1 of the
+					ammo type you want to shoot.
+					'''
+			}
+
+			EndlessMunitions2: {
+				DisplayName: Endless Munitions Beta
+				Tooltip:
+					'''
+					Ranged damage adjusted by {0}%
+					Do not consume any ammo.
+					You still require at least 1 of the
+					ammo type you want to shoot.
+					'''
+			}
+
+			EndlessMunitions3: {
+				DisplayName: Endless Munitions Epsilon
+				Tooltip:
+					'''
+					Ranged damage adjusted by {0}%
+					Do not consume any ammo.
+					You still require at least 1 of the
+					ammo type you want to shoot.
+					'''
+			}
+
+			EndlessMunitions4: {
+				DisplayName: Endless Munitions Zeta
+				Tooltip:
+					'''
+					Do not consume any ammo.
+					You still require at least 1 of the
+					ammo type you want to shoot.
+					'''
+			}
+
+			EndlessMunitions5: {
+				DisplayName: Endless Munitions Ultima
+				Tooltip:
+					'''
+					Ranged damage adjusted by {0}%
+					Do not consume any ammo.
+					You still require at least 1 of the
+					ammo type you want to shoot.
+					'''
+			}
+
+			EndlessMunitions6: {
+				DisplayName: Endless Munitions Omega
+				Tooltip:
+					'''
+					Ranged damage adjusted by {0}%
+					Do not consume any ammo.
+					You still require at least 1 of the
+					ammo type you want to shoot.
+					'''
+			}
+
+			ManadTopaz: {
+				DisplayName: Mana-loaded Topaz
+				Tooltip:
+					'''
+					A simple gem loaded with mana.
+					This one lowers enemy defence,
+					but does little on it's own.
+					'''
+			}
+
+			ManadSapphire: {
+				DisplayName: Mana-loaded Sapphire
+				Tooltip:
+					'''
+					A simple gem loaded with mana.
+					This one frostburns enemies.
+					'''
+			}
+
+			ManadRuby: {
+				DisplayName: Mana-loaded Ruby
+				Tooltip:
+					'''
+					A simple gem loaded with mana.
+					This one sets things on fire!
+					'''
+			}
+
+			ManadEmerald: {
+				DisplayName: Mana-loaded Emerald
+				Tooltip:
+					'''
+					A simple gem loaded with mana.
+					This one posions enemies.
+					'''
+			}
+
+			ManadDiamond: {
+				DisplayName: Mana-loaded Diamond
+				Tooltip:
+					'''
+					A simple gem loaded with mana.
+					This one can pierce an extra enemy.
+					'''
+			}
+
+			ManadAmethyst: {
+				DisplayName: Mana-loaded Amethyst
+				Tooltip:
+					'''
+					A simple gem loaded with mana.
+					This one confuses enemies.
+					'''
+			}
+
+			GemBoulder: {
+				DisplayName: Mana-loaded Gem Boulder
+				Tooltip:
+					'''
+					A conglomerate of several mana gems formed into
+					a boulder. The boulder will pierce, then shatter into
+					it's component gems. Alt fire to summon a gravity-affected
+					version that does more damage and pierces more.
+					'''
+			}
+
+			AsheRifle: {
+				DisplayName: Ashe's Venom
+				Tooltip:
+					'''
+					Lever action Caravan Rifle, Alt fire to throw a stick of
+					dynamite that can be shot by any of your own projectiles
+					to deal more damage than both combined.
+					[c/FFFF00:BOB! Do Something!]
+					'''
 			}
 		}
 
@@ -694,6 +849,16 @@ Mods: {
 			RealKnife999.DisplayName: Real Knife999
 			BouncyBallP.DisplayName: Bouncy Ball
 			NerfingGun.DisplayName: SCP3108-1
+			RocketGuide.DisplayName: Rocket Guide
+			TopazP.DisplayName: Topaz P
+			SapphireP.DisplayName: Sapphire P
+			RubyP.DisplayName: Ruby P
+			EmeraldP.DisplayName: Emerald P
+			DiamondP.DisplayName: Diamond P
+			AmethystP.DisplayName: Amethyst P
+			GemBoulderP.DisplayName: Gem Boulder P
+			RollingGemBoulderP.DisplayName: Rolling Gem Boulder P
+			AsheDynamite.DisplayName: Ashe Dynamite
 		}
 
 		Buffs: {

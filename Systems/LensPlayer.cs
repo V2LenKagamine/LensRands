@@ -23,6 +23,7 @@ namespace LensRands.Systems
         //Misc
         public int HighestBossKilled = 0;
         public bool MonikasListening;
+        public bool EndlessMunitionsOn;
 
         //RealKnife
         public bool KnifeOut = false;
@@ -327,6 +328,10 @@ namespace LensRands.Systems
 
         public override bool CanConsumeAmmo(Item weapon, Item ammo)
         {
+            if (EndlessMunitionsOn)
+            {
+                return false;
+            }
             if (CarrierOn && Main.rand.NextFloat(1f) < CarrierChance)
             {
                 return false;
@@ -379,6 +384,7 @@ namespace LensRands.Systems
         {
             RoseQuarts = false;
             RoseDefended = false;
+            EndlessMunitionsOn = false;
             //ROR
             CarrierOn = false;
             CarrierPrimeOn = false;

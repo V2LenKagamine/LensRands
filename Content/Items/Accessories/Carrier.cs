@@ -29,6 +29,7 @@ namespace LensRands.Content.Items.Accessories
             Item.height = 32;
             Item.rare = ItemRarityID.Green;
             Item.accessory = true;
+            Item.value = Item.buyPrice(0, 2, 50, 0);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -57,6 +58,7 @@ namespace LensRands.Content.Items.Accessories
             Item.height = 32;
             Item.rare = ItemRarityID.Blue;
             Item.accessory = true;
+            Item.value = Item.buyPrice(0, 7, 50, 0);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

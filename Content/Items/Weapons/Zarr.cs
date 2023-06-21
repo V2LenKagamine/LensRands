@@ -178,14 +178,6 @@ namespace LensRands.Content.Items.Weapons
             }
 
         }
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Padd Jomm Kuva Zarr");
-            /* Tooltip.SetDefault("A gun from the Void." + 
-                "\n'I havent seen [c/FFFF00:Them] in a while." + 
-                "\nhope [c/FFFF00:They] dont mind me borrowing it.'"); */
-        }
         public override void SetDefaults()
         {
             Item.useAmmo = AmmoID.Bullet;
