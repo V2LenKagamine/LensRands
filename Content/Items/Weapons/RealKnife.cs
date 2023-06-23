@@ -40,6 +40,7 @@ namespace LensRands.Content.Items.Weapons
             Item.height = 56;
             Item.scale = 0.7f;
             Item.rare = ItemRarityID.Master;
+            Item.knockBack = 0.5f;
 
             Item.useStyle = ItemUseStyleID.Swing;
 
@@ -108,19 +109,19 @@ namespace LensRands.Content.Items.Weapons
                 {
                     case 1:
                         {
-                            newdamage += timer * 5;
+                            newdamage += (int)(newdamage * (timer/100f));
                             break;
                         }
                     case 2:
                         {
-                            newdamage = (int)(newdamage * 3.5f);
+                            newdamage *= 3;
                             player.statMana = player.statManaMax2;
                             SoundEngine.PlaySound(AudioSys.RealSlash, player.position);
                             break;
                         }
                     case 3:
                         {
-                            newdamage += (100 - timer) * 5;
+                            newdamage += (int)(newdamage * ((100 - timer)/100f));
                             break;
                         }
                 }

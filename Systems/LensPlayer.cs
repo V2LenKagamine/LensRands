@@ -24,6 +24,7 @@ namespace LensRands.Systems
         public int HighestBossKilled = 0;
         public bool MonikasListening;
         public bool EndlessMunitionsOn;
+        public bool Minty;
 
         //RealKnife
         public bool KnifeOut = false;
@@ -379,12 +380,12 @@ namespace LensRands.Systems
         {
             SpinelDebuffsTotal = 0;
         }
-
         public override void ResetEffects()
         {
             RoseQuarts = false;
             RoseDefended = false;
             EndlessMunitionsOn = false;
+            Minty = false;
             //ROR
             CarrierOn = false;
             CarrierPrimeOn = false;

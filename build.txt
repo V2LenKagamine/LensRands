@@ -1,6 +1,6 @@
 displayName = Len's Randoms
 author = Len Kagamine
-version = 0.1.0.3
+version = 0.1.0.5
 Side = Both
 modReferences = EasyPacketsLib
 buildIgnore = stuff/*

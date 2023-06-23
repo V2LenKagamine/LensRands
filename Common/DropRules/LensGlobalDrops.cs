@@ -1,7 +1,12 @@
-﻿using LensRands.Content.Items.Accessories;
+﻿using System;
+using System.Linq;
+using LensRands.Content.Items.Accessories;
 using LensRands.Content.Items.Consumable;
+using LensRands.Content.Items.Placeable;
 using LensRands.Content.Items.Weapons;
+using LensRands.Systems;
 using Terraria;
+using Terraria.Enums;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -58,6 +63,32 @@ namespace LensRands.Common.DropRules
             if (npc.type == NPCID.WallofFlesh)
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ThrowingKnife>(), 5));
+            }
+        }
+
+        public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)
+        {
+            Player player = Main.player[Main.myPlayer];
+            if (player.GetModPlayer<LensPlayer>().Minty)
+            {
+                long buyprice;
+                foreach (Item item in items)
+                {
+                    if (item is not null && !item.IsAir)
+                    {
+                        player.GetItemExpectedPrice(item, out _, out buyprice);
+                        item.shopCustomPrice = (int?)Math.Round(buyprice * 0.95f);
+                    }
+                }
+            }
+        }
+        public override void SetupTravelShop(int[] shop, ref int nextSlot)
+        {
+            int[] PossibleVendors = Mod.GetContent<Vendor>().Select(x => x.Type).ToArray();
+            if (Main.rand.NextBool())
+            {
+                shop[nextSlot] = PossibleVendors[Main.rand.Next(PossibleVendors.Count())];
+                nextSlot++;
             }
         }
     }

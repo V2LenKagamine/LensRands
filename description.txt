@@ -9,3 +9,7 @@ Several RiskOfRain themed items/mechanics.
 Monika pet.
 Some Warframe Items.
 Some stupid memes and injoke items.
+Early Game Gem weapons.
+Stolen code and assets.
+
+Code stealable at https://github.com/V2LenKagamine/LensRands

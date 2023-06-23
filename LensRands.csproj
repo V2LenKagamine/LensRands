@@ -21,9 +21,12 @@
     <Folder Include="Assets\Effects\" />
     <Folder Include="Assets\Items\Consumable\" />
     <Folder Include="Assets\Items\Toys\" />
+    <Folder Include="Assets\Items\Weapons\Gems\" />
+    <Folder Include="Assets\Projectiles\Gems\" />
     <Folder Include="Assets\UI\" />
     <Folder Include="Assets\Sounds\" />
     <Folder Include="Content\Items\Toys\" />
+    <Folder Include="Extras\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EasyPacketsLib">

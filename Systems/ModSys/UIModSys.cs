@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using LensRands.Content.Items.Placeable;
 
 namespace LensRands.Systems.ModSys
 {
@@ -14,12 +15,14 @@ namespace LensRands.Systems.ModSys
 
         internal UserInterface OvershieldInterface;
         internal OvershieldUIState OvershieldUI;
+
+        internal UserInterface VendorInterface;
+        internal VendorUIState VendorUI;
         public override void Load()
         {
             if (!Main.dedServ)
             {
                 RealKnifeInterface = new UserInterface();
-
                 realknifeUI = new RealKnifeUIState();
                 realknifeUI.Activate();
                 //If UI is being screwy remove this line
@@ -31,12 +34,18 @@ namespace LensRands.Systems.ModSys
                 OvershieldUI.Activate();
                 //second verse,same as the first!
                 OvershieldInterface.SetState(OvershieldUI);
+
+
+                VendorInterface = new UserInterface();
+                VendorUI = new VendorUIState();
+                VendorUI.Activate();
             }
         }
         public override void Unload()
         {
             realknifeUI = null;
             OvershieldUI = null;
+            VendorUI = null;
         }
 
         private GameTime _lastUpdateUiGameTime;
@@ -51,6 +60,10 @@ namespace LensRands.Systems.ModSys
             if (OvershieldInterface?.CurrentState != null)
             {
                 OvershieldInterface.Update(gameTime);
+            }
+            if(VendorInterface?.CurrentState != null)
+            {
+                VendorInterface.Update(gameTime);
             }
         }
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -80,7 +93,23 @@ namespace LensRands.Systems.ModSys
                         return true;
                     },
                InterfaceScaleType.UI));
+                layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
+                    "LensRands: VendorInterface",
+                    delegate {
+                        if (VendorInterface?.CurrentState != null)
+                            VendorInterface.Draw(Main.spriteBatch, new GameTime());
+                        return true;
+                    },
+                    InterfaceScaleType.UI));
             }
+        }
+        public void ShowVendorUI()
+        {
+            VendorInterface?.SetState(VendorUI);
+        }
+        public void HideVendorUI()
+        {
+            VendorInterface?.SetState(null);
         }
     }
 }

@@ -480,6 +480,7 @@ Mods: {
 				Tooltip:
 					'''
 					A coin from a distant planets moon.
+					Might sell well, but you feel theres a better use.
 					[c/FFFF00:Its motion defies logic.]
 					'''
 			}
@@ -824,6 +825,60 @@ Mods: {
 					[c/FFFF00:BOB! Do Something!]
 					'''
 			}
+
+			PlantBulb: {
+				DisplayName: Suspicious Plant Bulb
+				Tooltip: Summons Plantera when used in the jungle.
+			}
+
+			AccessoriesVendor: {
+				DisplayName: Accessories Vendor
+				Tooltip:
+					'''
+					A deployable vending machine that contains many accessories
+					and other bits and bobs you may have trouble obtaining.
+					Explains why you couldn't find them when you needed them...
+					'''
+			}
+
+			BossVendor: {
+				DisplayName: Boss Summon Vendor
+				Tooltip:
+					'''
+					A deployable vending machine that has items
+					to summon big bads. Never seems to run out of them.
+					If you can kill them, it basically prints money.
+					'''
+			}
+
+			CombatPotionVendor: {
+				DisplayName: Combat Potion Vendor
+				Tooltip:
+					'''
+					A deployable vending machine that creates potions
+					from an internal buffer of seemingly neverending ingredients.
+					Come to think of it you've also never seen anyone collect your money.
+					'''
+			}
+
+			GeneralBlocksVendor: {
+				DisplayName: General Blocks Vendor
+				Tooltip:
+					'''
+					A deployable vending machine that has a variety of both
+					common and not so common blocks to build with.
+					Some assembly may be required for specific building blocks, however.
+					'''
+			}
+
+			Mimnt: {
+				DisplayName: Mint
+				Tooltip:
+					'''
+					Makes your breath so minty fresh,
+					shops provide a discount.
+					'''
+			}
 		}
 
 		Projectiles: {
@@ -930,6 +985,11 @@ Mods: {
 			Nerfed: {
 				DisplayName: Nerfed
 				Description: If you're reading this, it's too late.
+			}
+
+			MintyBuff: {
+				DisplayName: Minty Breath
+				Description: Your breath feels cold. But atleast it smells nice.
 			}
 		}
 
