@@ -173,7 +173,7 @@ namespace LensRands.Content.Items.Weapons
         {
             Item.height = 16;
             Item.width = 16;
-            Item.mana = 5;
+            Item.mana = 20;
             Item.damage = 55;
             Item.crit = 4;
             Item.DamageType = DamageClass.Magic;

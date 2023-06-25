@@ -53,6 +53,7 @@ namespace LensRands.Content.Items.Weapons
                 Item.useStyle = ItemUseStyleID.Swing;
                 Item.noUseGraphic = true;
                 Item.useTime = 15;
+                Item.UseSound = SoundID.DD2_GoblinBomberThrow;
                 Item.useAnimation = 15;
                 if (cooldown > 0) { return false; }       
             }
@@ -62,6 +63,7 @@ namespace LensRands.Content.Items.Weapons
                 Item.useAnimation = 35;
                 Item.useStyle = ItemUseStyleID.Shoot;
                 Item.noUseGraphic = false;
+                Item.UseSound = SoundID.Item11;
             }
 
             return base.CanUseItem(Player);
@@ -146,11 +148,11 @@ namespace LensRands.Content.Items.Weapons
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (Projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > 0.1f)
+            if (Projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > 0.05f)
             {
                 Projectile.velocity.X = oldVelocity.X * -0.60f;
             }
-            if (Projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 0.1f)
+            if (Projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 0.05f)
             {
                 Projectile.velocity.Y = oldVelocity.Y * -0.33f;
             }

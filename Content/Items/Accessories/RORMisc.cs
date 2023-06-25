@@ -159,7 +159,7 @@ namespace LensRands.Content.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.statLifeMax2 += (int)(player.statLifeMax * (1f + PearlHealth));
+            player.statLifeMax2 += (int)(player.statLifeMax * PearlHealth);
         }
     }
 
@@ -177,8 +177,8 @@ namespace LensRands.Content.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.statLifeMax2 += (int)(player.statLifeMax * (1f + PearlHealth));
-            player.statManaMax2 += (int)(player.statManaMax * (1f + PearlMana));
+            player.statLifeMax2 += (int)(player.statLifeMax * PearlHealth);
+            player.statManaMax2 += (int)(player.statManaMax * PearlMana);
             player.statDefense *= 1f + PearlDefence;
             player.moveSpeed *= 1f + PearlRunSpeed;
             player.GetDamage(DamageClass.Generic) *= 1f + PearlDmg;

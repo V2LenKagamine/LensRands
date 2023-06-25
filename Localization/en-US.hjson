@@ -858,6 +858,7 @@ Mods: {
 					A deployable vending machine that creates potions
 					from an internal buffer of seemingly neverending ingredients.
 					Come to think of it you've also never seen anyone collect your money.
+					This one sells combat related potions and buffs.
 					'''
 			}
 
@@ -878,6 +879,76 @@ Mods: {
 					Makes your breath so minty fresh,
 					shops provide a discount.
 					'''
+			}
+
+			UtilPotionVendor: {
+				DisplayName: Utility Potion Vendor
+				Tooltip:
+					'''
+					A deployable vending machine that creates potions
+					from an internal buffer of seemingly neverending ingredients.
+					Come to think of it you've also never seen anyone collect your money.
+					This one sells utility related potions and buffs.
+					'''
+			}
+
+			HolyHandGrenade: {
+				DisplayName: Holy Hand Grenade
+				Tooltip:
+					'''
+					"First shalt thou take out the Holy Pin. 
+					Then shalt thou count to three, no more, no less...."
+					'''
+			}
+
+			MutationStation: {
+				DisplayName: Mutation Station
+				Tooltip:
+					'''
+					If you don't have a mutation buff, Using this 
+					station will give you a random Mutation buff,
+					with variying mostly positive effects.
+					'''
+			}
+
+			SavathunRounds: {
+				DisplayName: Worm Rounds
+				Tooltip: Poisions enemies on hit.
+			}
+
+			SavathunRoundsHM: {
+				DisplayName: Savathun Rounds
+				Tooltip:
+					'''
+					Enemies hit are inflicted with Venom.
+					Enemies directly killed with this projectile will explode.
+					This explosion also inflicts Venom.
+					'''
+			}
+
+			CryoGel: {
+				DisplayName: Glacial Gel
+				Tooltip: Hit Enemies are Frostburnt instead.
+			}
+
+			PoisonGel: {
+				DisplayName: Radiated Gel
+				Tooltip: Hit Enemies are Poisoned instead.
+			}
+
+			CursedGel: {
+				DisplayName: Cursed Gel
+				Tooltip: Burns hotter, and somehow longer, than normal gel.
+			}
+
+			IchorGel: {
+				DisplayName: Ichor-Infused Gel
+				Tooltip: Reduces Enemy defence instead of burning them.
+			}
+
+			FishingVendor: {
+				DisplayName: Fishing Vendor
+				Tooltip: ""
 			}
 		}
 
@@ -914,6 +985,13 @@ Mods: {
 			GemBoulderP.DisplayName: Gem Boulder P
 			RollingGemBoulderP.DisplayName: Rolling Gem Boulder P
 			AsheDynamite.DisplayName: Ashe Dynamite
+			HolyHandGrenadeProj.DisplayName: Holy Hand Grenade
+			SavathunProjectile.DisplayName: Worm Projectile
+			SavathunProjectileHM.DisplayName: Savathun Projectile
+			CryoGelProjectile.DisplayName: Cryo Gel Projectile
+			PoisonGelProjectile.DisplayName: Poison Gel Projectile
+			CursedGelProjectile.DisplayName: Cursed Gel Projectile
+			IchorGelProjectile.DisplayName: Ichor Gel Projectile
 		}
 
 		Buffs: {
@@ -990,6 +1068,26 @@ Mods: {
 			MintyBuff: {
 				DisplayName: Minty Breath
 				Description: Your breath feels cold. But atleast it smells nice.
+			}
+
+			AmmoDuplicator: {
+				DisplayName: Ammo Reservation
+				Description: 20% less ammo consumption.
+			}
+
+			DeadInside: {
+				DisplayName: Dead Inside
+				Description: gain 50% extra max life, but half life regeneration.
+			}
+
+			OpenWounds: {
+				DisplayName: Open Wounds
+				Description: Hits inflict bleed.
+			}
+
+			SlowingStrikes: {
+				DisplayName: Slowing Strikes
+				Description: Hits inflict slow.
 			}
 		}
 

@@ -28,6 +28,10 @@ namespace LensRands.Content.Items.Placeable
     {
         public override int ToCreate => ModContent.TileType<CombatPotVendorTile>();
     }
+    public class UtilPotionVendor : Vendor
+    {
+        public override int ToCreate => ModContent.TileType<UtilPotVendorTile>();
+    }
     public class GeneralBlocksVendor : Vendor
     {
         public override int ToCreate => ModContent.TileType<GeneralBlocksVendorTile>();
@@ -39,5 +43,9 @@ namespace LensRands.Content.Items.Placeable
     public class BossVendor : Vendor
     {
         public override int ToCreate => ModContent.TileType<BossFightVendorTile>();
+    }
+    public class FishingVendor : Vendor
+    {
+        public override int ToCreate => ModContent.TileType<FishingVendorTile>();
     }
 }

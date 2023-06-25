@@ -26,6 +26,11 @@ namespace LensRands.Systems
         public bool EndlessMunitionsOn;
         public bool Minty;
 
+        public bool OpenWoundsBuff;
+        public bool SlowingStrikesBuff;
+
+        public bool AmmoDuplicatorBuff;
+        public readonly float AmmoDupeChance = 0.2f;
         //RealKnife
         public bool KnifeOut = false;
         public float KnifeTimer = 0f;
@@ -275,6 +280,16 @@ namespace LensRands.Systems
             {
                 Player.Heal(HarvestScytheHeal);
             }
+
+            if(OpenWoundsBuff)
+            {
+                target.AddBuff(ModContent.BuffType<OpenWounds>(), 600);
+            }
+
+            if(SlowingStrikesBuff)
+            {
+                target.AddBuff(ModContent.BuffType<SlowingStrikes>(), 600);
+            }
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
@@ -333,15 +348,8 @@ namespace LensRands.Systems
             {
                 return false;
             }
-            if (CarrierOn && Main.rand.NextFloat(1f) < CarrierChance)
-            {
-                return false;
-            }
-            if (CarrierPrimeOn && Main.rand.NextFloat(1f) < CarrierPChance)
-            {
-                return false;
-            }
-            if(BackupMagOn && Main.rand.NextFloat(1f) < BackupMagChance)
+            float consumeChanceTotal = CarrierChance + CarrierPChance + BackupMagChance + AmmoDupeChance;
+            if (CarrierOn && Main.rand.NextFloat(1f) < consumeChanceTotal)
             {
                 return false;
             }
@@ -386,6 +394,10 @@ namespace LensRands.Systems
             RoseDefended = false;
             EndlessMunitionsOn = false;
             Minty = false;
+
+            OpenWoundsBuff = false;
+            SlowingStrikesBuff = false;
+            AmmoDuplicatorBuff = false;
             //ROR
             CarrierOn = false;
             CarrierPrimeOn = false;

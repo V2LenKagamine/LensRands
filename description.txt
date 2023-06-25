@@ -13,3 +13,5 @@ Early Game Gem weapons.
 Stolen code and assets.
 
 Code stealable at https://github.com/V2LenKagamine/LensRands
+Code by Len Kagamine unless otherwise noted in comments
+Spritework by either Len Kagamine or Seth

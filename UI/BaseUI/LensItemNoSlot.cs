@@ -17,7 +17,7 @@ namespace LensRands.UI.BaseUI
         public LensItemNoSlot(int itemID,int price = 0,float scale = 1f)
         {
             this.scale = scale;
-            this.price = price == 0 ? (int)(new Item(itemID).value * 7.5f) : price;
+            this.price = price == 0 ? (int)(new Item(itemID).value * 3f) : price;
             itemType = itemID;
             Width.Set(32f * scale, 0f);
             Height.Set(32f * scale, 0f);

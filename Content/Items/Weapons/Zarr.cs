@@ -262,43 +262,46 @@ namespace LensRands.Content.Items.Weapons
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, launchVelocity, Projectile.type, Projectile.damage / 2, Projectile.knockBack, Main.myPlayer, 0, 1);
                 }
             }
-            // Smoke Dust spawn
-            for (int i = 0; i < 50; i++)
+            if (Projectile.ai[1] == 0)
             {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 2f);
-                dust.velocity *= 1.4f;
-            }
+                // Smoke Dust spawn
+                for (int i = 0; i < 25; i++)
+                {
+                    Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 2f);
+                    dust.velocity *= 1.4f;
+                }
 
-            // Fire Dust spawn
-            for (int i = 0; i < 80; i++)
-            {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 3f);
-                dust.noGravity = true;
-                dust.velocity *= 5f;
-                dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 2f);
-                dust.velocity *= 3f;
-            }
+                // Fire Dust spawn
+                for (int i = 0; i < 40; i++)
+                {
+                    Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 3f);
+                    dust.noGravity = true;
+                    dust.velocity *= 5f;
+                    dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 2f);
+                    dust.velocity *= 3f;
+                }
 
-            // Large Smoke Gore spawn
-            for (int g = 0; g < 2; g++)
-            {
-                var goreSpawnPosition = new Vector2(Projectile.position.X + Projectile.width / 2 - 24f, Projectile.position.Y + Projectile.height / 2 - 24f);
-                Gore gore = Gore.NewGoreDirect(Projectile.GetSource_FromThis(), goreSpawnPosition, default, Main.rand.Next(61, 64), 1f);
-                gore.scale = 1.5f;
-                gore.velocity.X += 1.5f;
-                gore.velocity.Y += 1.5f;
-                gore = Gore.NewGoreDirect(Projectile.GetSource_FromThis(), goreSpawnPosition, default, Main.rand.Next(61, 64), 1f);
-                gore.scale = 1.5f;
-                gore.velocity.X -= 1.5f;
-                gore.velocity.Y += 1.5f;
-                gore = Gore.NewGoreDirect(Projectile.GetSource_FromThis(), goreSpawnPosition, default, Main.rand.Next(61, 64), 1f);
-                gore.scale = 1.5f;
-                gore.velocity.X += 1.5f;
-                gore.velocity.Y -= 1.5f;
-                gore = Gore.NewGoreDirect(Projectile.GetSource_FromThis(), goreSpawnPosition, default, Main.rand.Next(61, 64), 1f);
-                gore.scale = 1.5f;
-                gore.velocity.X -= 1.5f;
-                gore.velocity.Y -= 1.5f;
+                // Large Smoke Gore spawn
+                for (int g = 0; g < 2; g++)
+                {
+                    var goreSpawnPosition = new Vector2(Projectile.position.X + Projectile.width / 2 - 24f, Projectile.position.Y + Projectile.height / 2 - 24f);
+                    Gore gore = Gore.NewGoreDirect(Projectile.GetSource_FromThis(), goreSpawnPosition, default, Main.rand.Next(61, 64), 1f);
+                    gore.scale = 1.5f;
+                    gore.velocity.X += 1.5f;
+                    gore.velocity.Y += 1.5f;
+                    gore = Gore.NewGoreDirect(Projectile.GetSource_FromThis(), goreSpawnPosition, default, Main.rand.Next(61, 64), 1f);
+                    gore.scale = 1.5f;
+                    gore.velocity.X -= 1.5f;
+                    gore.velocity.Y += 1.5f;
+                    gore = Gore.NewGoreDirect(Projectile.GetSource_FromThis(), goreSpawnPosition, default, Main.rand.Next(61, 64), 1f);
+                    gore.scale = 1.5f;
+                    gore.velocity.X += 1.5f;
+                    gore.velocity.Y -= 1.5f;
+                    gore = Gore.NewGoreDirect(Projectile.GetSource_FromThis(), goreSpawnPosition, default, Main.rand.Next(61, 64), 1f);
+                    gore.scale = 1.5f;
+                    gore.velocity.X -= 1.5f;
+                    gore.velocity.Y -= 1.5f;
+                }
             }
             // Play explosion sound
             SoundEngine.PlaySound(SoundID.Item14, Projectile.position);

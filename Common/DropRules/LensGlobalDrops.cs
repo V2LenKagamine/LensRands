@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using LensRands.Content.Items.Accessories;
 using LensRands.Content.Items.Consumable;
 using LensRands.Content.Items.Placeable;
@@ -64,6 +65,10 @@ namespace LensRands.Common.DropRules
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ThrowingKnife>(), 5));
             }
+            if(npc.type == NPCID.SkeletronHead)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MutationStation>(), 2));
+            }
         }
 
         public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)
@@ -79,6 +84,16 @@ namespace LensRands.Common.DropRules
                         player.GetItemExpectedPrice(item, out _, out buyprice);
                         item.shopCustomPrice = (int?)Math.Round(buyprice * 0.95f);
                     }
+                }
+            }
+        }
+        public override void ModifyShop(NPCShop shop)
+        {
+            if (shop.NpcType == NPCID.ArmsDealer && shop.Name == "Shop")
+            {
+                if (!shop.TryGetEntry(ItemID.Gel, out _))
+                {
+                    shop.InsertAfter(ItemID.MusketBall, ItemID.Gel);
                 }
             }
         }
