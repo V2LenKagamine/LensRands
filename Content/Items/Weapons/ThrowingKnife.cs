@@ -30,7 +30,7 @@ namespace LensRands.Content.Items.Weapons
             Item.shootSpeed = 10f; 
             Item.UseSound = SoundID.Item1;
 
-            Item.value = Item.buyPrice(0, 2, 50, 0);
+            Item.value = Item.sellPrice(0, 2, 50, 0);
         }
     }
     public class ThrowingKnifeProjectile : ModProjectile
@@ -71,9 +71,7 @@ namespace LensRands.Content.Items.Weapons
             {
                 Projectile.velocity.Y += 0.33f;
             }
-            float rotate = Projectile.velocity.X > 0 ? 22.5f : -22.5f;
-            Projectile.spriteDirection = Projectile.velocity.X > 0 ? 1 : -1;
-            Projectile.rotation += MathHelper.ToRadians(rotate);
+            LensUtil.ProjectileROTATE(Projectile,22.5f);
             if (Bounces <= 0)
             {
                 LensUtil.HomeOnEnemy(Projectile,600f,20f,out _,false,1.5f);
@@ -91,25 +89,11 @@ namespace LensRands.Content.Items.Weapons
                 Bounces -= 1;
                 if (Bounces == 1)
                 {
-                    if (Projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > 1f)
-                    {
-                        Projectile.velocity.X = oldVelocity.X * -0.75f;
-                    }
-                    if (Projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 1f)
-                    {
-                        Projectile.velocity.Y = oldVelocity.Y * -0.75f;
-                    }
+                    LensUtil.ProjectileBounce(Projectile,oldVelocity,.75f,.75f);
                 }
                 else
                 {
-                    if (Projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > 1f)
-                    {
-                        Projectile.velocity.X = oldVelocity.X * -1.5f;
-                    }
-                    if (Projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 1f)
-                    {
-                        Projectile.velocity.Y = oldVelocity.Y * -1.5f;
-                    }
+                    LensUtil.ProjectileBounce(Projectile, oldVelocity, 1.5f, 1.5f);
                 }
                 Projectile.damage = (int)(Projectile.damage * 1.5f);
                 return false;

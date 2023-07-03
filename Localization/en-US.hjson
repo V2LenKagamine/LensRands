@@ -316,7 +316,6 @@ Mods: {
 					'''
 					Increases max minions by {0}.
 					Increases minion damage by {1}%.
-					[c/FFFF00:I don't actually have a comment for this item.]
 					'''
 			}
 
@@ -878,6 +877,8 @@ Mods: {
 					'''
 					Makes your breath so minty fresh,
 					shops provide a discount.
+					Although, unhappy shopkeepers might not
+					appreciate the smooth-talking attempts...
 					'''
 			}
 
@@ -950,6 +951,218 @@ Mods: {
 				DisplayName: Fishing Vendor
 				Tooltip: ""
 			}
+
+			IceSpear: {
+				DisplayName: Artificer's Icicle.
+				Tooltip:
+					'''
+					Conjures an Ice-spear barely above Absolute Zero
+					to deal massive damage to enemies, executing (non boss)
+					targets below 20% health, and boss targets below 5% health. 
+					Deals less damage when not fully charged.
+					Charges over 3 seconds.
+					[c/FFFF00:Slow to charge, and hard to hit;But that damage...]
+					'''
+			}
+
+			ManaWell6: {
+				DisplayName: Mana Well Omega
+				Tooltip:
+					'''
+					Magic damage adjusted by {0}%
+					You do not consume mana.
+					'''
+			}
+
+			ManaWell5: {
+				DisplayName: Mana Well Ultima
+				Tooltip:
+					'''
+					Magic damage adjusted by {0}%
+					You do not consume mana.
+					'''
+			}
+
+			ManaWell4: {
+				DisplayName: Mana Well Zeta
+				Tooltip: You do not consume mana.
+			}
+
+			ManaWell3: {
+				DisplayName: Mana Well Epsilon
+				Tooltip:
+					'''
+					Magic damage adjusted by {0}%
+					You do not consume mana.
+					'''
+			}
+
+			ManaWell2: {
+				DisplayName: Mana Well Beta
+				Tooltip:
+					'''
+					Magic damage adjusted by {0}%
+					You do not consume mana.
+					'''
+			}
+
+			ManaWell1: {
+				DisplayName: Mana Well Alpha
+				Tooltip:
+					'''
+					Magic damage adjusted by {0}%
+					You do not consume mana.
+					'''
+			}
+
+			CursedFlower: {
+				DisplayName: Cursed Flower
+				Tooltip:
+					'''
+					Inflicts Cursed Flames, bounces and pierces multiple times.
+					[c/FFFF00:What do you mean there's already an item like this?]
+					'''
+			}
+
+			IchorFlower: {
+				DisplayName: Ichor Flower
+				Tooltip: Inflicts targets with Ichor,bounces and pierces multiple times.
+			}
+
+			RainbowFlower: {
+				DisplayName: Rainbow Flower
+				Tooltip:
+					'''
+					Inflicts Ichor,Burning,Cursed flames,and Frostburn on targets.
+					Bounces and pierces multiple times.
+					'''
+			}
+
+			GemBoulderHM: {
+				DisplayName: Mana Over-loaded Gem Boulder
+				Tooltip:
+					'''
+					A boulder of gems infused with souls of both
+					darkness and overbearing light. Primary fire now
+					bounces, alt fire now is faster and more bouncy,
+					and both penetrate and shatter multiple times.
+					'''
+			}
+
+			MartianHomingRounds: {
+				DisplayName: Martian Homing Rounds
+				Tooltip: Seeks and shocks enemies.
+			}
+
+			MasterWormGear: {
+				DisplayName: Masters Worm Gear
+				Tooltip:
+					'''
+					Works like Master Ninja Gear.
+					Reduces damage taken by {0}%
+					'''
+			}
+
+			UncommonCard: {
+				DisplayName: Uncommon Card
+				Tooltip: Could sell well to collectors.
+			}
+
+			TheMoonCard: {
+				DisplayName: The Moon
+				Tooltip:
+					'''
+					Could sell well to collectors.
+					[c/FFFF00:Im sorry, you did WHAT TO THE MOON?]
+					'''
+			}
+
+			RareCard: {
+				DisplayName: Rare Card
+				Tooltip: Could sell well to collectors.
+			}
+
+			LeshysCamera: {
+				DisplayName: Inscribing Camera
+				Tooltip:
+					'''
+					Turns weakened enemies and bosses into cards.
+					"Enscribed with the souls of the dammed."
+					'''
+			}
+
+			CommonCard: {
+				DisplayName: Common Card
+				Tooltip: Could sell well to collectors.
+			}
+
+			BossCard: {
+				DisplayName: Boss Card
+				Tooltip: Could sell well to collectors.
+			}
+
+			MartianBouncing: {
+				DisplayName: Martian Bouncing Arrow
+				Tooltip: Bounces and shocks enemies, Lightly Homing.
+			}
+
+			StoneFlux: {
+				DisplayName: Stone Flux Pauldron
+				Tooltip:
+					'''
+					Double Max health.
+					[c/FF6060:Half speed.]
+					'''
+			}
+
+			ShapedGlass: {
+				DisplayName: Shaped Glass
+				Tooltip:
+					'''
+					Deal 500% Damage.
+					[c/FF6060:Max health reduced to 1/5th.]
+					'''
+			}
+
+			Purity: {
+				DisplayName: Purity
+				Tooltip:
+					'''
+					Gain {0} max mana.
+					[c/FF6060:You are perpetually Unlucky.]
+					[c/FFFF00:What does luck even do?]
+					'''
+			}
+
+			BossfightSpecial: {
+				DisplayName: Bossfight Special
+				Tooltip:
+					'''
+					Provides most all classless potion buffs,like regeneration and endurance,
+					but not class buffs, like summoning or ammo reservation.
+					[c/FFFF00:The bottle is ugly, but it was the only one big enough.]
+					'''
+			}
+
+			SuperOverhealPotion: {
+				DisplayName: Super Overheal Potion
+				Tooltip: Grants {0} Overheal.
+			}
+
+			OverhealPotion: {
+				DisplayName: Overheal Potion
+				Tooltip: Grants {0} Overheal.
+			}
+
+			LesserOverhealPotion: {
+				DisplayName: Lesser Overheal Potion
+				Tooltip: Grants {0} Overheal.
+			}
+
+			GreaterOverhealPotion: {
+				DisplayName: Greater Overheal Potion
+				Tooltip: Grants {0} Overheal.
+			}
 		}
 
 		Projectiles: {
@@ -992,6 +1205,15 @@ Mods: {
 			PoisonGelProjectile.DisplayName: Poison Gel Projectile
 			CursedGelProjectile.DisplayName: Cursed Gel Projectile
 			IchorGelProjectile.DisplayName: Ichor Gel Projectile
+			IceSpearProj.DisplayName: Ice Spear Proj
+			CursedFlowerProj.DisplayName: Cursed Flower Proj
+			IchorFlowerProj.DisplayName: Ichor Flower Proj
+			RainbowFlowerProj.DisplayName: Rainbow Flower Proj
+			GemBoulderHMP.DisplayName: Gem Boulder H M P
+			RollingGemBoulderHMP.DisplayName: Rolling Gem Boulder H M P
+			MartianHomingRoundsProj.DisplayName: Martian Homing Rounds Proj
+			LeshysCameraProj.DisplayName: Leshys Camera Proj
+			MartianBouncingProj.DisplayName: Martian Bouncing Proj
 		}
 
 		Buffs: {
@@ -1088,6 +1310,11 @@ Mods: {
 			SlowingStrikes: {
 				DisplayName: Slowing Strikes
 				Description: Hits inflict slow.
+			}
+
+			MartianShock: {
+				Description: Mods.LensRands.Buffs.MartianShock.Description
+				DisplayName: Martian Shock
 			}
 		}
 

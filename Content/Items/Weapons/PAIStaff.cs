@@ -16,7 +16,7 @@ namespace LensRands.Content.Items.Weapons
         public override string Texture => LensRands.AssetsPath + "Items/Weapons/ROGUS";
         public override void SetDefaults()
         {
-            Item.damage = 250;
+            Item.damage = 230;
             Item.knockBack = 3f;
             Item.mana = 10; 
             Item.width = 32;
@@ -34,7 +34,7 @@ namespace LensRands.Content.Items.Weapons
             Item.DamageType = DamageClass.Ranged;
             Item.buffType = ModContent.BuffType<PAIBuff>();
             Item.shoot = ModContent.ProjectileType<ROGUSUnit>();
-            Item.value = Item.buyPrice(0, 2, 50, 0);
+            Item.value = Item.sellPrice(0, 2, 50, 0);
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -236,7 +236,7 @@ namespace LensRands.Content.Items.Weapons
             if (foundTarget)
             {
                
-                if (distanceFromTarget > 10f)
+                if (distanceFromTarget > 30f)
                 {
                     if (Projectile.friendly)
                     {

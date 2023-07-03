@@ -10,7 +10,7 @@ namespace LensRands.Content.Items.Accessories
     public class Carrier : ModItem
     {
         public override string Texture => LensRands.AssetsPath + "Items/Accessories/Carrier";
-        public static readonly int AmmoChance = 10;
+        public static readonly int AmmoChance = 20;
 
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(AmmoChance);
 
@@ -40,7 +40,7 @@ namespace LensRands.Content.Items.Accessories
     public class CarrierPrime : ModItem
     {
         public override string Texture => LensRands.AssetsPath + "Items/Accessories/CarrierPrime";
-        public static readonly int AmmoChance = 25;
+        public static readonly int AmmoChance = 40;
         public static readonly int DamageAddRanged = 5;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(AmmoChance,DamageAddRanged);
 

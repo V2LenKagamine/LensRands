@@ -1,4 +1,5 @@
-﻿using LensRands.Content.Tiles;
+﻿using LensRands.Content.Items.Consumable;
+using LensRands.Content.Tiles;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -24,6 +25,13 @@ namespace LensRands.Content.Items.Placeable
         {
             Item.DefaultToMusicBox(ModContent.TileType<MarkovBoxTile>(), 0);
         }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.MusicBox)
+                .AddIngredient(ModContent.ItemType<LunarCoin>())
+                .Register();
+        }
     }
     public class YourDemiseBox : ModItem
     {
@@ -38,6 +46,14 @@ namespace LensRands.Content.Items.Placeable
         public override void SetDefaults()
         {
             Item.DefaultToMusicBox(ModContent.TileType<YourDemiseBoxTile>(), 0);
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.MusicBox)
+                .AddIngredient(ModContent.ItemType<LunarCoin>())
+                .Register();
         }
     }
 }

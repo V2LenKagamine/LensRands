@@ -15,7 +15,7 @@ namespace LensRands.Content.Items.Accessories
             Item.height = 32;
             Item.rare = ItemRarityID.White;
             Item.accessory = true;
-            Item.value = Item.buyPrice(0, 5, 0, 0);
+            Item.value = Item.sellPrice(0, 5, 0, 0);
         }
     }
     public class Pennies : RORWhites
@@ -99,7 +99,7 @@ namespace LensRands.Content.Items.Accessories
     public class TopazBrooch : RORWhites
     {
         public override string Texture => base.Texture + "TopazBrooch";
-        public readonly int topaz = 10;
+        public readonly int topaz = 20;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(topaz);
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -121,7 +121,7 @@ namespace LensRands.Content.Items.Accessories
     public class LensMakers : RORWhites
     {
         public override string Texture => base.Texture + "LensMakers";
-        public readonly float amount = 20f;
+        public readonly float amount = 50f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs((int)amount);
         public override void SetStaticDefaults()
         {

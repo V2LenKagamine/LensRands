@@ -24,6 +24,7 @@ namespace LensRands.Systems
         public int HighestBossKilled = 0;
         public bool MonikasListening;
         public bool EndlessMunitionsOn;
+        public bool ManaWellOn;
         public bool Minty;
 
         public bool OpenWoundsBuff;
@@ -40,17 +41,17 @@ namespace LensRands.Systems
         public readonly float RoseDamageReduc = 0.05f;
         //Carrier & Carrier prime
         public bool CarrierOn;
-        public readonly float CarrierChance = 0.1f;
+        public readonly float CarrierChance = 0.2f;
         public bool CarrierPrimeOn;
-        public readonly float CarrierPChance = 0.25f;
+        public readonly float CarrierPChance = 0.4f;
 
         //Overheal
         public float Overheal = 0;
-        public float OverhealDecay = 0.05f;
+        public float OverhealDecay = 0.0125f;
         public float OverhealMax;
         public int LifeLastFrame; //I hate this.
         public int DamagedTimer;
-        public int DamagedTimerMax = 240;//Make sure to yadda yadda ^^^ 
+        public int DamagedTimerMax;
         public bool OverhealWentUp;
 
         
@@ -93,7 +94,7 @@ namespace LensRands.Systems
         public readonly int ChargedDamage = 5;
 
         public bool LightFluxOn;
-        public readonly float LightFluxDamageUp = 0.55f;
+        public readonly float LightFluxDamageUp = 0.5f;
         public readonly float LightFluxSpeedDown = 0.5f;
 
         public bool MercRachOn;
@@ -115,7 +116,7 @@ namespace LensRands.Systems
         public readonly Vector2 ATGDefaultVec = new(0,-10f);
 
         public bool TopazOn;
-        public readonly int TopazOverheal = 10;
+        public readonly int TopazOverheal = 20;
 
         public bool BackupMagOn;
         public readonly float BackupMagChance = 0.2f;
@@ -340,6 +341,10 @@ namespace LensRands.Systems
         public override void PostUpdate()
         {
             OverhealCalcs();
+            if (ManaWellOn)
+            {
+                Player.statMana = Player.statManaMax2;
+            }
         }
 
         public override bool CanConsumeAmmo(Item weapon, Item ammo)
@@ -348,12 +353,24 @@ namespace LensRands.Systems
             {
                 return false;
             }
-            float consumeChanceTotal = CarrierChance + CarrierPChance + BackupMagChance + AmmoDupeChance;
-            if (CarrierOn && Main.rand.NextFloat(1f) < consumeChanceTotal)
+            float consumeChanceTotal = 0;
+            consumeChanceTotal += CarrierOn ? CarrierChance : 0;
+            consumeChanceTotal += CarrierPrimeOn ? CarrierPChance : 0;
+            consumeChanceTotal += BackupMagOn ? BackupMagChance : 0;
+            consumeChanceTotal += AmmoDuplicatorBuff ? AmmoDupeChance : 0;
+            if ((CarrierOn || CarrierPrimeOn || BackupMagOn || AmmoDuplicatorBuff) && Main.rand.NextFloat(1f) < consumeChanceTotal)
             {
                 return false;
             }
             return true;
+        }
+
+        public override void ModifyManaCost(Item item, ref float reduce, ref float mult)
+        {
+            if (ManaWellOn)
+            {
+                mult = 0;
+            }
         }
         public override void UpdateLifeRegen()
         {
@@ -393,6 +410,7 @@ namespace LensRands.Systems
             RoseQuarts = false;
             RoseDefended = false;
             EndlessMunitionsOn = false;
+            ManaWellOn = false;
             Minty = false;
 
             OpenWoundsBuff = false;
@@ -457,7 +475,7 @@ namespace LensRands.Systems
             LifeLastFrame = Player.statLife;
         }
 
-        private void AddOverheal(float amount)
+        public void AddOverheal(float amount)
         {
             Overheal += amount;
             Overheal = Math.Clamp(Overheal, 0, OverhealMax);
@@ -498,7 +516,7 @@ namespace LensRands.Systems
             {
                 AddOverheal(TopazOverheal);
             }
-            if (BrainstalksOn)
+            if (BrainstalksOn && !target.CountsAsACritter)
             {
                 Player.statMana = Math.Clamp(Player.statMana + BrainstalkRestore,0,Player.statManaMax2);
             }

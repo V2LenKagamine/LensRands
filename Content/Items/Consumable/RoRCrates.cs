@@ -19,6 +19,7 @@ namespace LensRands.Content.Items.Consumable
         public abstract int silver { get; }
         public abstract int gold { get; }
         public abstract int plat { get; }
+        public abstract int pricemoment { get; }
         public long PriceToOpen => Item.buyPrice(plat, gold, silver, copper);
         public abstract int[] LootTableCommon { get; }
         public abstract int[] LootTableUncommon { get; }
@@ -35,6 +36,7 @@ namespace LensRands.Content.Items.Consumable
             Item.useTime = 15;
             Item.useAnimation = 15;
             Item.maxStack = 999;
+            Item.value = pricemoment;
         }
 
         public override bool CanRightClick()
@@ -78,6 +80,8 @@ namespace LensRands.Content.Items.Consumable
         public override int gold => 25;
 
         public override int plat => 0;
+
+        public override int pricemoment => Item.sellPrice(0,2,50,0);
         public override int[] LootTableCommon => Mod.GetContent<RORWhites>().Select(x => x.Type).ToArray();
         public override int[] LootTableUncommon => Mod.GetContent<RORGreens>().Select(x => x.Type).ToArray();
         public override int[] LootTableRare => Mod.GetContent<RORReds>().Select(x => x.Type).ToArray();
@@ -98,6 +102,7 @@ namespace LensRands.Content.Items.Consumable
         public override int gold => 0;
 
         public override int plat => 1;
+        public override int pricemoment => Item.sellPrice(0, 10, 0, 0);
         public override int[] LootTableCommon => Mod.GetContent<RORGreens>().Select(x => x.Type).ToArray();
         public override int[] LootTableUncommon => Mod.GetContent<RORGreens>().Select(x => x.Type).ToArray();
         public override int[] LootTableRare => Mod.GetContent<RORReds>().Select(x => x.Type).ToArray();
@@ -117,6 +122,7 @@ namespace LensRands.Content.Items.Consumable
         public override int gold => 0;
 
         public override int plat => 4;
+        public override int pricemoment => Item.sellPrice(0, 50, 0, 0);
         public override int[] LootTableCommon => Mod.GetContent<RORReds>().Select(x => x.Type).ToArray();
         public override int[] LootTableUncommon => Mod.GetContent<RORReds>().Select(x => x.Type).ToArray();
         public override int[] LootTableRare => Mod.GetContent<RORReds>().Select(x => x.Type).ToArray();
@@ -126,13 +132,7 @@ namespace LensRands.Content.Items.Consumable
         public override string Texture => LensRands.AssetsPath + "Items/Consumable/LunarPod";
         public readonly int CoinsToOpen = 1;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(CoinsToOpen);
-        public int[] AuxLoot => new int[]
-        {
-            ModContent.ItemType<Monika>(),
-            ModContent.ItemType<MarkovBox>(),
-            ModContent.ItemType<YourDemiseBox>()
-        };
-        public int[] LootTable => Mod.GetContent<RORLunar>().Select(x => x.Type).ToArray().Concat(AuxLoot).ToArray();
+        public int[] LootTable => Mod.GetContent<RORLunar>().Select(x => x.Type).ToArray();
 
         public override void SetDefaults()
         {
@@ -145,6 +145,7 @@ namespace LensRands.Content.Items.Consumable
             Item.useTime = 15;
             Item.useAnimation = 15;
             Item.maxStack = 999;
+            Item.value = Item.sellPrice(gold: 1);
         }
 
         public override bool CanRightClick()
@@ -176,7 +177,7 @@ namespace LensRands.Content.Items.Consumable
             Item.height = 32;
             Item.rare = ItemRarityID.Blue;
             Item.maxStack = 9999;
-            Item.value = Item.buyPrice(0, 2, 50, 0);
+            Item.value = Item.sellPrice(0, 2, 50, 0);
         }
     }
 }

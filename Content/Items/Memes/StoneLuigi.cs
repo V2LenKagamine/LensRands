@@ -37,7 +37,6 @@ namespace LensRands.Content.Items.Memes
             Item.useStyle = ItemUseStyleID.Swing;
             Item.shoot = ModContent.ProjectileType<FootballProjectile>();
             Item.shootSpeed = 16f;
-            Item.value = Item.buyPrice(0, 0,0,1);
         }
 
     }

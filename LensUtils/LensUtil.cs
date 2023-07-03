@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -65,6 +66,21 @@ namespace LensRands.LensUtils
             projectile.spriteDirection = projectile.velocity.X > 0 ? 1 : -1;
             projectile.rotation += MathHelper.ToRadians(rotate);
         }
+
+        public static void ProjectileBounce(Projectile projectile,Vector2 oldVelocity,float xmult = 1f,float ymult=1f,float BounceSensitivity = 0.1f)
+        {
+
+            if (projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > BounceSensitivity)
+            {
+                projectile.velocity.X = oldVelocity.X * -xmult;
+            }
+            if (projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > BounceSensitivity)
+            {
+                projectile.velocity.Y = oldVelocity.Y * -ymult;
+            }
+
+        }
+
 
         //From https://github.com/Zeodexic/tsorcRevamp/blob/main/, modfied.
         ///<summary> 

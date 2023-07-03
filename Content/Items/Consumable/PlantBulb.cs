@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -30,6 +25,15 @@ namespace LensRands.Content.Items.Consumable
             Item.useTime = 30;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.consumable = true;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.LifeFruit)
+                .AddIngredient(ItemID.Vine,3)
+                .AddIngredient(ItemID.JungleSpores,5)
+                .Register();
         }
         public override bool CanUseItem(Player player)
         {

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using LensRands.Systems.ModSys;
 using LensRands.Systems;
 using System.Text.RegularExpressions;
+using LensRands.Content.Items.Consumable;
 
 namespace LensRands.Content.Items.Pets
 {
@@ -29,6 +30,15 @@ namespace LensRands.Content.Items.Pets
             {
                 player.AddBuff(Item.buffType, 3600);
             }
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddRecipeGroup(RecipeGroupID.IronBar,4)
+                .AddIngredient(ItemID.Wire,18)
+                .AddIngredient(ModContent.ItemType<LunarCoin>())
+                .AddTile(TileID.DemonAltar)
+                .Register();
         }
     }
     public class MonikaProjectile : ModProjectile 

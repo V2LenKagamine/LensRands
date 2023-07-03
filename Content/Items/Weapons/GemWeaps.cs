@@ -30,7 +30,7 @@ namespace LensRands.Content.Items.Weapons
             Item.UseSound = SoundID.Item13;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.noMelee = true;
-            Item.value = Item.buyPrice(0, 0, 25, 0);
+            Item.value = Item.sellPrice(0, 0, 25, 0);
         }
 
         public override void AddRecipes()
@@ -174,7 +174,7 @@ namespace LensRands.Content.Items.Weapons
             Item.height = 16;
             Item.width = 16;
             Item.mana = 20;
-            Item.damage = 55;
+            Item.damage = 45;
             Item.crit = 4;
             Item.DamageType = DamageClass.Magic;
             Item.useTime = 60;
@@ -183,8 +183,9 @@ namespace LensRands.Content.Items.Weapons
             Item.shootSpeed = 8f;
             Item.shoot = ModContent.ProjectileType<GemBoulderP>();
             Item.UseSound = SoundID.Item13;
-            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.noMelee = true;
+            Item.value = Item.sellPrice(gold: 5);
         }
 
         public override void AddRecipes()
@@ -368,16 +369,241 @@ namespace LensRands.Content.Items.Weapons
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (Projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > 0.1f)
-            {
-                Projectile.velocity.X = oldVelocity.X * -0.125f;
-            }
-            if (Projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 0.1f)
-            {
-                Projectile.velocity.Y = oldVelocity.Y * -0.125f;
-            }
-
+            LensUtil.ProjectileBounce(Projectile, oldVelocity, .125f, .125f);
             return false;
+        }
+    }
+
+    public class GemBoulderHM : ModItem
+    {
+        public override string Texture => LensRands.AssetsPath + "Items/Weapons/Gems/Boulder";
+        public override void SetDefaults()
+        {
+            Item.height = 16;
+            Item.width = 16;
+            Item.mana = 20;
+            Item.damage = 125;
+            Item.crit = 4;
+            Item.DamageType = DamageClass.Magic;
+            Item.useTime = 60;
+            Item.useAnimation = 60;
+            Item.knockBack = 6;
+            Item.shootSpeed = 8f;
+            Item.shoot = ModContent.ProjectileType<GemBoulderHMP>();
+            Item.UseSound = SoundID.Item13;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.noMelee = true;
+            Item.value = Item.sellPrice(gold: 5);
+            Item.autoReuse = true;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<GemBoulder>())
+                .AddIngredient(ItemID.SoulofLight,10)
+                .AddIngredient(ItemID.SoulofNight,10)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
+        }
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                type = ModContent.ProjectileType<RollingGemBoulderHMP>();
+                damage = (int)(damage * 1.5f);
+                velocity *= 0.75f;
+            }
+        }
+    }
+    public class GemBoulderHMP : ModProjectile
+    {
+        public override string Texture => LensRands.AssetsPath + "Items/Weapons/Gems/Boulder";
+        public int MaxTime = 240;
+        public List<int> TheGems = new()
+        {
+            ModContent.ProjectileType<AmethystP>(),
+            ModContent.ProjectileType<SapphireP>(),
+            ModContent.ProjectileType<RubyP>(),
+            ModContent.ProjectileType<TopazP>(),
+            ModContent.ProjectileType<EmeraldP>(),
+            ModContent.ProjectileType<DiamondP>()
+        };
+        public override void SetDefaults()
+        {
+            Projectile.width = 24;
+            Projectile.height = 24;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.DamageType = DamageClass.Magic;
+            Projectile.penetrate = 9;
+            Projectile.timeLeft = MaxTime;
+            Projectile.light = 0f;
+            Projectile.ignoreWater = false;
+            Projectile.tileCollide = true;
+            DrawOffsetX = -4;
+            DrawOriginOffsetY = -4;
+        }
+        public override void AI()
+        {
+            float colorratio = MathHelper.Clamp(Projectile.timeLeft / (float)MaxTime, 0f, 1f);
+            Vector3 colortouse;
+            switch (colorratio)
+            {
+                case float x when x > 0.66f:
+                    {
+                        colortouse = new(colorratio * 2, 0f, 0f);
+                        break;
+                    }
+                case float x when x >= 0.33f && x <= 0.66f:
+                    {
+                        colortouse = new(colorratio * 1.5f, colorratio * 1.5f, 0f);
+                        break;
+                    }
+                case float x when x < 0.33f:
+                    {
+                        colortouse = new(colorratio, colorratio, colorratio);
+                        break;
+                    }
+                default:
+                    {
+                        colortouse = new(0f, 0f, 0f);
+                        break;
+                    }
+            }
+            Lighting.AddLight(Projectile.Center, colortouse);
+            LensUtil.ProjectileROTATE(Projectile, 12.5f);
+            Projectile.velocity *= 0.99f;
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            if (Projectile.penetrate > 0)
+            {
+                Projectile.penetrate--;
+                LensUtil.ProjectileBounce(Projectile, oldVelocity);
+                return false;
+            }
+            return true;
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            SpawnGemlets();
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            SpawnGemlets();
+        }
+
+        private void SpawnGemlets()
+        {
+            if (Projectile.owner == Main.myPlayer)
+            {
+                float spread = MathHelper.ToRadians(180f);
+                Vector2 Basevector = Vector2.Normalize(new(Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f)));
+                for (int i = 0; i < TheGems.Count; i++)
+                {
+                    Vector2 VelocityMini = Basevector.RotatedBy(MathHelper.Lerp(-spread, spread, i / (float)(TheGems.Count))) * 6;
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, VelocityMini, TheGems[i], Projectile.damage / 6, Projectile.knockBack);
+                }
+            }
+        }
+
+    }
+    public class RollingGemBoulderHMP : ModProjectile
+    {
+        public override string Texture => LensRands.AssetsPath + "Items/Weapons/Gems/Boulder";
+        public int MaxTime = 360;
+        public List<int> TheGems = new()
+        {
+            ModContent.ProjectileType<AmethystP>(),
+            ModContent.ProjectileType<SapphireP>(),
+            ModContent.ProjectileType<RubyP>(),
+            ModContent.ProjectileType<TopazP>(),
+            ModContent.ProjectileType<EmeraldP>(),
+            ModContent.ProjectileType<DiamondP>()
+        };
+        public override void SetDefaults()
+        {
+            Projectile.width = 24;
+            Projectile.height = 24;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.DamageType = DamageClass.Magic;
+            Projectile.penetrate = 15;
+            Projectile.timeLeft = MaxTime;
+            Projectile.light = 0f;
+            Projectile.ignoreWater = false;
+            Projectile.tileCollide = true;
+            DrawOffsetX = -4;
+            DrawOriginOffsetY = -4;
+        }
+        public override void AI()
+        {
+            float colorratio = MathHelper.Clamp(Projectile.timeLeft / (float)MaxTime, 0f, 1f);
+            Vector3 colortouse;
+            switch (colorratio)
+            {
+                case float x when x > 0.66f:
+                    {
+                        colortouse = new(colorratio * 2, 0f, 0f);
+                        break;
+                    }
+                case float x when x >= 0.33f && x <= 0.66f:
+                    {
+                        colortouse = new(colorratio * 1.5f, colorratio * 1.5f, 0f);
+                        break;
+                    }
+                case float x when x < 0.33f:
+                    {
+                        colortouse = new(colorratio, colorratio, colorratio);
+                        break;
+                    }
+                default:
+                    {
+                        colortouse = new(0f, 0f, 0f);
+                        break;
+                    }
+            }
+            Lighting.AddLight(Projectile.Center, colortouse);
+            LensUtil.ProjectileROTATE(Projectile, Projectile.velocity.X > 0 ? 1.5f * Projectile.velocity.X : 1.5f * -Projectile.velocity.X);
+            Projectile.velocity.Y += 0.15f;
+        }
+        public override void Kill(int timeLeft)
+        {
+            SpawnGemlets();
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            if(Projectile.penetrate > 0)
+            {
+                Projectile.penetrate--;
+                SpawnGemlets();
+                LensUtil.ProjectileBounce(Projectile, oldVelocity, 0.95f, .95f);
+                return false;
+            }
+            return true;
+        }
+        private void SpawnGemlets()
+        {
+            if (Projectile.owner == Main.myPlayer)
+            {
+                float spread = MathHelper.ToRadians(180f);
+                Vector2 Basevector = Vector2.Normalize(new(Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f)));
+                for (int i = 0; i < TheGems.Count; i++)
+                {
+                    Vector2 VelocityMini = Basevector.RotatedBy(MathHelper.Lerp(-spread, spread, i / (float)(TheGems.Count))) * 6;
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, VelocityMini, TheGems[i], Projectile.damage / 6, Projectile.knockBack);
+                }
+            }
         }
     }
 }

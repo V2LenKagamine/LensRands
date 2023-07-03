@@ -31,7 +31,7 @@ namespace LensRands.Content.Items.Weapons
             Item.UseSound = SoundID.Item11;
             Item.useAmmo = AmmoID.Bullet;
             Item.autoReuse = true;
-            Item.value = Item.sellPrice(gold: 2);
+            Item.value = Item.sellPrice(gold: 3);
         }
 
         public override void AddRecipes()

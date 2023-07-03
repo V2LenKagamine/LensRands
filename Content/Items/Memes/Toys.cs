@@ -25,7 +25,7 @@ namespace LensRands.Content.Items.Memes
             Item.useStyle = ItemUseStyleID.Swing;
             Item.shoot = ModContent.ProjectileType<BouncyBallP>();
             Item.shootSpeed = 3f;
-            Item.value = Item.buyPrice(0, 2, 0, 0);
+            Item.value = Item.sellPrice(0, 2, 0, 0);
         }
         public override void AddRecipes()
         {

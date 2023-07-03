@@ -17,6 +17,7 @@ namespace LensRands.Content.Items.Accessories
             Item.height = 32;
             Item.rare = ItemRarityID.Blue;
             Item.accessory = true;
+            Item.value = Item.sellPrice(0,2,50,0);
         }
     }
 
@@ -32,7 +33,7 @@ namespace LensRands.Content.Items.Accessories
     public class LightFlux : RORLunar
     {
         public override string Texture => base.Texture + "LightFlux";
-        public readonly int DamageIncrease = 55;
+        public readonly int DamageIncrease = 50;
         public readonly int SpeedDecrease = 50;
 
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(DamageIncrease, SpeedDecrease);
@@ -71,6 +72,37 @@ namespace LensRands.Content.Items.Accessories
             }
         }
     }
+    public class ShapedGlass : RORLunar
+    {
+        public override string Texture => base.Texture + "ShapedGlass";
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetDamage(DamageClass.Generic) *= 5;
+            player.statLifeMax2 =(int)(player.statLifeMax2 * (.2f));
+        }
+    }
+    public class StoneFlux : RORLunar
+    {
+        public override string Texture => base.Texture + "StoneFlux";
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.statLifeMax2 *= 2;
+            player.accRunSpeed *= 0.5f;
+        }
+    }
+    public class Purity : RORLunar
+    {
+        public override string Texture => base.Texture + "Purity";
+        private int ManaBonus = 300;
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(ManaBonus);
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.statManaMax2 += ManaBonus;
+            player.luck -= 0.5f;
+        }
+    }
     public abstract class RORBoss : ModItem
     {
         public override string Texture => LensRands.AssetsPath + "Items/Accessories/";
@@ -80,6 +112,7 @@ namespace LensRands.Content.Items.Accessories
             Item.height = 32;
             Item.rare = ItemRarityID.Yellow;
             Item.accessory = true;
+            Item.value = Item.sellPrice(0, 10, 0, 0);
         }
     }
 
@@ -197,6 +230,7 @@ namespace LensRands.Content.Items.Accessories
             Item.height = 32;
             Item.rare = ItemRarityID.Purple;
             Item.accessory = true;
+            Item.value = Item.sellPrice(0,6,66,0);
         }
     }
 
@@ -222,7 +256,7 @@ namespace LensRands.Content.Items.Accessories
     public class LostSeers : RORVoid
     {
         public override string Texture => base.Texture + "LostSeers";
-        public readonly float amount = 10f;
+        public readonly float amount = 25f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs((int)amount);
 
         public override void SetStaticDefaults()

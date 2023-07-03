@@ -70,6 +70,7 @@ namespace LensRands.Content.Tiles
             new KeyValuePair<int, int> (ItemID.GrapeJuice,Item.buyPrice(0,1,0,0)),
             new KeyValuePair<int, int> (ItemID.FruitJuice,Item.buyPrice(0,0,50,0)),
             new KeyValuePair<int, int> (ItemID.CookedFish,Item.buyPrice(0,0,10,0)),
+            new KeyValuePair<int, int> (ModContent.ItemType<BossfightSpecial>(),Item.buyPrice(0,6,75,0)),
         };
     }
     public class UtilPotVendorTile : VendorTile
@@ -131,6 +132,9 @@ namespace LensRands.Content.Tiles
             new KeyValuePair<int, int> (ItemID.Hay,Item.buyPrice(0,0,0,2)),
             new KeyValuePair<int, int> (ItemID.BambooBlock,Item.buyPrice(0,0,0,2)),
             new KeyValuePair<int, int> (ItemID.Pumpkin,Item.buyPrice(0,0,0,3)),
+            new KeyValuePair<int, int> (ItemID.PinkBrick,Item.buyPrice(0,0,0,4)),
+            new KeyValuePair<int, int> (ItemID.GreenBrick,Item.buyPrice(0,0,0,4)),
+            new KeyValuePair<int, int> (ItemID.BlueBrick,Item.buyPrice(0,0,0,4)),
             new KeyValuePair<int, int> (ItemID.SandBlock,Item.buyPrice(0,0,0,5)),
             new KeyValuePair<int, int> (ItemID.Granite,Item.buyPrice(0,0,0,5)),
             new KeyValuePair<int, int> (ItemID.Marble,Item.buyPrice(0,0,0,5)),
@@ -147,7 +151,9 @@ namespace LensRands.Content.Tiles
             new KeyValuePair<int, int> (ItemID.XenonMoss,Item.buyPrice(0,0,0,30)),
             new KeyValuePair<int, int> (ItemID.ArgonMoss,Item.buyPrice(0,0,0,30)),
             new KeyValuePair<int, int> (ItemID.VioletMoss,Item.buyPrice(0,0,0,30)),
-            new KeyValuePair<int, int> (ItemID.RainbowMoss,Item.buyPrice(0,0,0,30))
+            new KeyValuePair<int, int> (ItemID.RainbowMoss,Item.buyPrice(0,0,0,30)),
+            new KeyValuePair<int, int> (ItemID.LivingFireBlock,Item.buyPrice(0,0,0,40)),
+
         };
     }
     public class AccessoryVendorTile : VendorTile
@@ -222,12 +228,30 @@ namespace LensRands.Content.Tiles
              new KeyValuePair<int, int> (ItemID.LihzahrdPowerCell,Item.buyPrice(0,10,0,0)),
              new KeyValuePair<int, int> (ItemID.TruffleWorm,Item.buyPrice(0,6,66,0)),
              new KeyValuePair<int, int> (ItemID.EmpressButterfly,Item.buyPrice(0,10,0,0)),
-             new KeyValuePair<int, int> (ItemID.CelestialSigil,Item.buyPrice(0,15,5,0))
+             new KeyValuePair<int, int> (ItemID.CelestialSigil,Item.buyPrice(0,15,5,0)),
+             new KeyValuePair<int, int> (ItemID.LuckPotionGreater,Item.buyPrice(0,1,0,0)),
+             new KeyValuePair<int, int> (ItemID.LuckPotion,Item.buyPrice(0,0,75,0)),
+             new KeyValuePair<int, int> (ItemID.LuckPotionLesser,Item.buyPrice(0,0,50,0)),
+             new KeyValuePair<int, int> (ItemID.Campfire,0),
+             new KeyValuePair<int, int> (ItemID.HeartLantern,0),
+             new KeyValuePair<int, int> (ItemID.HoneyBucket,Item.buyPrice(0,0,5,0)),
+             new KeyValuePair<int, int> (ItemID.BottomlessHoneyBucket,0),
+             new KeyValuePair<int, int> (ItemID.Bubble,0),
+             new KeyValuePair<int, int> (ItemID.HeartStatue,0),
+             new KeyValuePair<int, int> (ItemID.StarStatue,0),
+             new KeyValuePair<int, int> (ItemID.StarinaBottle,0),
+             new KeyValuePair<int, int> (ItemID.CatBast,0),
+             new KeyValuePair<int, int> (ItemID.GardenGnome,0),
+             new KeyValuePair<int, int> (ItemID.WaterCandle,0),
+             new KeyValuePair<int, int> (ItemID.PeaceCandle,0),
+             new KeyValuePair<int, int> (ItemID.Chain,Item.buyPrice(0,0,0,5)),
+             new KeyValuePair<int, int> (ItemID.WoodPlatform,Item.buyPrice(0,0,0,1)),
+
         };
     }
     public class FishingVendorTile : VendorTile
     {
-        public override string Texture => base.Texture + "VendingMachineMisc";
+        public override string Texture => base.Texture + "VendingMachineFishing";
         internal override List<KeyValuePair<int, int>> ItemToPrice => new() 
         {
             new KeyValuePair<int, int> (ItemID.TackleBox,0),
@@ -241,6 +265,9 @@ namespace LensRands.Content.Tiles
             new KeyValuePair<int, int> (ItemID.FishingPotion,Item.buyPrice(0,0,75,0)),
             new KeyValuePair<int, int> (ItemID.SonarPotion,Item.buyPrice(0,0,25,0)),
             new KeyValuePair<int, int> (ItemID.CratePotion,Item.buyPrice(0,0,50,0)),
+            new KeyValuePair<int, int> (ItemID.LuckPotionGreater,Item.buyPrice(0,1,0,0)),
+            new KeyValuePair<int, int> (ItemID.LuckPotion,Item.buyPrice(0,0,75,0)),
+            new KeyValuePair<int, int> (ItemID.LuckPotionLesser,Item.buyPrice(0,0,50,0)),
             new KeyValuePair<int, int> (ItemID.FishermansGuide,0),
             new KeyValuePair<int, int> (ItemID.WeatherRadio,0),
             new KeyValuePair<int, int> (ItemID.Sextant,0),
@@ -248,6 +275,7 @@ namespace LensRands.Content.Tiles
             new KeyValuePair<int, int> (ItemID.ApprenticeBait,0),
             new KeyValuePair<int, int> (ItemID.JourneymanBait,0),
             new KeyValuePair<int, int> (ItemID.MasterBait,0),
+            new KeyValuePair<int, int> (ItemID.ChumBucket,0),
             new KeyValuePair<int, int> (ItemID.BottomlessBucket,0),
             new KeyValuePair<int, int> (ItemID.BottomlessHoneyBucket,0),
             new KeyValuePair<int, int> (ItemID.BottomlessLavaBucket,0),

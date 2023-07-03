@@ -10,9 +10,9 @@ namespace LensRands.Content.Items.Ammo
     public class SavathunRounds : ModItem
     {
         public override string Texture => LensRands.AssetsPath + "Items/Ammo/Savathun";
-        public override void SetDefaults()//Craft silver bullets plus venom thing jungle
+        public override void SetDefaults()
         {
-            Item.damage = 9;
+            Item.damage = 7;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 8;
             Item.height = 8;
@@ -22,7 +22,7 @@ namespace LensRands.Content.Items.Ammo
             Item.value = 10;
             Item.rare = ItemRarityID.Green;
             Item.shoot = ModContent.ProjectileType<SavathunProjectile>();
-            Item.shootSpeed = 2f;
+            Item.shootSpeed = 5f;
             Item.ammo = AmmoID.Bullet;
         }
         public override void AddRecipes()
@@ -53,14 +53,14 @@ namespace LensRands.Content.Items.Ammo
             Projectile.penetrate = 1;
             Projectile.ignoreWater = false;
             Projectile.tileCollide = true;
-            Projectile.extraUpdates = 3;
-            Projectile.timeLeft = 1200;
+            Projectile.extraUpdates = 1;
+            Projectile.timeLeft = 600;
             Projectile.aiStyle = -1;
         }
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
-            Lighting.AddLight(Projectile.Center, color * 0.25f);
+            Lighting.AddLight(Projectile.Center, color);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -71,9 +71,9 @@ namespace LensRands.Content.Items.Ammo
     public class SavathunRoundsHM : ModItem
     {
         public override string Texture => LensRands.AssetsPath + "Items/Ammo/SavathunHM";
-        public override void SetDefaults()//Craft silver bullets plus venom thing jungle
+        public override void SetDefaults()
         {
-            Item.damage = 15;
+            Item.damage = 8;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 8;
             Item.height = 8;
@@ -83,7 +83,7 @@ namespace LensRands.Content.Items.Ammo
             Item.value = 10;
             Item.rare = ItemRarityID.Purple;
             Item.shoot = ModContent.ProjectileType<SavathunProjectileHM>();
-            Item.shootSpeed = 3f;
+            Item.shootSpeed = 6f;
             Item.ammo = AmmoID.Bullet;
         }
         public override void AddRecipes()
@@ -98,7 +98,7 @@ namespace LensRands.Content.Items.Ammo
     public class SavathunProjectileHM : ModProjectile
     {
         public override string Texture => LensRands.AssetsPath + "Projectiles/SavathunHM";
-        private Vector3 color = new(0.5f,0f,0.5f);
+        private Vector3 color = new(0.5f,0f,5f);
         public override void SetDefaults()
         {
             Projectile.width = 8;
@@ -109,14 +109,14 @@ namespace LensRands.Content.Items.Ammo
             Projectile.penetrate = 2;
             Projectile.ignoreWater = false;
             Projectile.tileCollide = true;
-            Projectile.extraUpdates = 4;
-            Projectile.timeLeft = 1600;
+            Projectile.extraUpdates = 1;
+            Projectile.timeLeft = 600;
             Projectile.aiStyle = -1;
         }
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
-            Lighting.AddLight(Projectile.Center, color * 0.75f);
+            Lighting.AddLight(Projectile.Center, color);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

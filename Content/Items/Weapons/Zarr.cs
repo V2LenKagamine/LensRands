@@ -34,7 +34,7 @@ namespace LensRands.Content.Items.Weapons
             Item.useTime = 54;
             Item.useAnimation = 54;
             Item.knockBack = 3;
-            Item.shootSpeed = 7f;
+            Item.shootSpeed = 8f;
             Item.shoot = ProjectileID.PurificationPowder;
             Item.UseSound = SoundID.Item62; //Item7 maybe?
             Item.useStyle = ItemUseStyleID.Shoot;
@@ -57,7 +57,7 @@ namespace LensRands.Content.Items.Weapons
 
                     newVel *= 1f - Main.rand.NextFloat(0.1f);
 
-                    Projectile.NewProjectileDirect(source, position, newVel, type, damage / 4, knockback, player.whoAmI);
+                    Projectile.NewProjectileDirect(source, position, newVel, type, damage / 6, knockback, player.whoAmI);
                 }
 
                 return false;
@@ -81,7 +81,7 @@ namespace LensRands.Content.Items.Weapons
     public class KuvaZarr : ModItem
     {
 
-        public int ShotgunShots = 10;
+        public int ShotgunShots = 8;
         public int CannonShots = 1;
         public override string Texture => LensRands.AssetsPath + "Items/Weapons/KuvaZarr";
 
@@ -94,18 +94,12 @@ namespace LensRands.Content.Items.Weapons
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Kuva Zarr");
-            /* Tooltip.SetDefault("A gun from the Void." +
-                "\nThis one packs more punch."); */
-        }
 
         public override void SetDefaults()
         {
             Item.useAmmo = AmmoID.Bullet;
-            Item.autoReuse = false;
-            Item.damage = 185;
+            Item.autoReuse = true;
+            Item.damage = 175;
             Item.rare = ItemRarityID.Blue;
             Item.DamageType = DamageClass.Ranged;
             Item.crit = 16;
@@ -133,7 +127,7 @@ namespace LensRands.Content.Items.Weapons
 
                     newVel *= 1f - Main.rand.NextFloat(0.1f);
 
-                    Projectile.NewProjectileDirect(source, position, newVel, type, damage / 4, knockback, player.whoAmI);
+                    Projectile.NewProjectileDirect(source, position, newVel, type, damage / 8, knockback, player.whoAmI);
                 }
 
                 return false;
@@ -181,7 +175,7 @@ namespace LensRands.Content.Items.Weapons
         public override void SetDefaults()
         {
             Item.useAmmo = AmmoID.Bullet;
-            Item.autoReuse = false;
+            Item.autoReuse = true;
             Item.damage = 1500;
             Item.rare = ItemRarityID.Purple;
             Item.DamageType = DamageClass.Ranged;
@@ -189,7 +183,7 @@ namespace LensRands.Content.Items.Weapons
             Item.useTime = 36;
             Item.useAnimation = 36;
             Item.knockBack = 4;
-            Item.shootSpeed = 12f;
+            Item.shootSpeed = 11f;
             Item.shoot = ProjectileID.PurificationPowder;
             Item.UseSound = SoundID.Item62; //Item7 maybe?
             Item.useStyle = ItemUseStyleID.Shoot;
@@ -210,7 +204,7 @@ namespace LensRands.Content.Items.Weapons
 
                     newVel *= 1f - Main.rand.NextFloat(0.1f);
 
-                    Projectile.NewProjectileDirect(source, position, newVel, type, damage / 4, knockback, player.whoAmI);
+                    Projectile.NewProjectileDirect(source, position, newVel, type, damage / 10, knockback, player.whoAmI);
                 }
 
                 return false;
@@ -366,7 +360,7 @@ namespace LensRands.Content.Items.Weapons
                     }
                 }
                 // Delayed gravity
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.2f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;
             }
             // Rotation increased by velocity.X 
             Projectile.rotation += Projectile.velocity.X * 0.1f;

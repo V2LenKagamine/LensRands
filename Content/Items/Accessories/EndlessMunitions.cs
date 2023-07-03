@@ -57,10 +57,7 @@ namespace LensRands.Content.Items.Accessories
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<EndlessMunitions2>())
-                .AddIngredient(ItemID.RangerEmblem)
-                .AddIngredient(ItemID.SoulofFright,15)
-                .AddIngredient(ItemID.SoulofMight, 15)
-                .AddIngredient(ItemID.SoulofSight, 15)
+                .AddIngredient(ItemID.AvengerEmblem)
                 .AddTile(TileID.TinkerersWorkbench)
                 .Register();
         }
@@ -85,7 +82,7 @@ namespace LensRands.Content.Items.Accessories
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<EndlessMunitions4>())
-                .AddIngredient(ItemID.LunarBar,15)
+                .AddIngredient(ItemID.LunarBar,5)
                 .AddIngredient(ItemID.FragmentVortex,15)
                 .AddTile(TileID.TinkerersWorkbench)
                 .Register();

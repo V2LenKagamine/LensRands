@@ -35,17 +35,11 @@ namespace LensRands.Content.Buffs
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
-            if (npc.buffTime[buffIndex] % 10 == 0 && !npc.immortal)
+            if (npc.lifeRegen > 0)
             {
-                if (npc.life != 1)
-                {
-                    npc.life -= 1;
-                }
-                else
-                {
-                    npc.StrikeInstantKill();
-                }
+                npc.lifeRegen = 0;
             }
+            npc.lifeRegen -= 12;
         }
     }
     public class SlowingStrikes : MutationBuffs
