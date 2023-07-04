@@ -1163,6 +1163,17 @@ Mods: {
 				DisplayName: Greater Overheal Potion
 				Tooltip: Grants {0} Overheal.
 			}
+
+			StrongBone: {
+				DisplayName: Strong Bone
+				Tooltip:
+					'''
+					Taking over 15 damage spawns a floating bone.
+					Touching this bone while it is stationary will
+					heal you for 1/3rd of the damage you took making it.
+					[c/FFFF00:He need some milk!]
+					'''
+			}
 		}
 
 		Projectiles: {
@@ -1214,6 +1225,7 @@ Mods: {
 			MartianHomingRoundsProj.DisplayName: Martian Homing Rounds Proj
 			LeshysCameraProj.DisplayName: Leshys Camera Proj
 			MartianBouncingProj.DisplayName: Martian Bouncing Proj
+			StrongBoneProj.DisplayName: Strong Bone Proj
 		}
 
 		Buffs: {

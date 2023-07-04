@@ -32,6 +32,8 @@ namespace LensRands.Systems
 
         public bool AmmoDuplicatorBuff;
         public readonly float AmmoDupeChance = 0.2f;
+
+        public bool StrongBoneOn;
         //RealKnife
         public bool KnifeOut = false;
         public float KnifeTimer = 0f;
@@ -322,19 +324,27 @@ namespace LensRands.Systems
             }
             return base.UseSpeedMultiplier(item);
         }
-        public override void OnHurt(Player.HurtInfo info)
+        public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
             if (MercRachOn)
             {
-                info.Damage = (int)(info.Damage * (1f + MercRachDmg));
+                modifiers.FinalDamage *= 1f + MercRachDmg;
             }
-            if (GestureOverloaded) 
+            if (GestureOverloaded)
             {
-                info.Damage = (int)(info.Damage * (1f + GestureDamageInc));
+                modifiers.FinalDamage *= 1f + GestureDamageInc;
             }
             if (RoseQuarts)
             {
-                info.Damage = (int)(info.Damage * (1f - RoseDamageReduc));
+                modifiers.FinalDamage *= 1f - RoseDamageReduc;
+            }
+        }
+        public override void OnHurt(Player.HurtInfo info)
+        {
+            if (StrongBoneOn && Player.whoAmI == Main.myPlayer && info.Damage >= 15)
+            {
+                Projectile Bone = Projectile.NewProjectileDirect(Player.GetSource_FromThis("StrongBone"), Player.position, Player.velocity * -8,ModContent.ProjectileType<StrongBoneProj>(),0,0);
+                Bone.ai[0] = (int)(info.Damage * 0.33f);
             }
         }
 
@@ -411,11 +421,14 @@ namespace LensRands.Systems
             RoseDefended = false;
             EndlessMunitionsOn = false;
             ManaWellOn = false;
-            Minty = false;
+            StrongBoneOn = false;
 
+
+            Minty = false;
             OpenWoundsBuff = false;
             SlowingStrikesBuff = false;
             AmmoDuplicatorBuff = false;
+
             //ROR
             CarrierOn = false;
             CarrierPrimeOn = false;
@@ -481,6 +494,17 @@ namespace LensRands.Systems
             Overheal = Math.Clamp(Overheal, 0, OverhealMax);
             OverhealWentUp = true;
         }
+
+        public void AddHealth(int Amount)
+        {
+            Player.statLife += Amount;
+            if (Player.statLife > Player.statLifeMax2)
+            {
+                Player.statLife = Player.statLifeMax2;
+            }
+            Player.HealEffect(Amount);
+        }
+
         private void SpawnMonet(int plat, int gold, int silver, int copper)
         {
             if (plat > 0) { Player.QuickSpawnItem(Player.GetSource_FromThis(), ItemID.PlatinumCoin, plat); }

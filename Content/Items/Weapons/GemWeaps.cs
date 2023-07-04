@@ -238,7 +238,7 @@ namespace LensRands.Content.Items.Weapons
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.penetrate = 3;
+            Projectile.penetrate = 1;
             Projectile.timeLeft = MaxTime;
             Projectile.light = 0f;
             Projectile.ignoreWater = false;
@@ -311,7 +311,7 @@ namespace LensRands.Content.Items.Weapons
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.penetrate = 5;
+            Projectile.penetrate = 3;
             Projectile.timeLeft = MaxTime;
             Projectile.light = 0f;
             Projectile.ignoreWater = false;
@@ -441,7 +441,7 @@ namespace LensRands.Content.Items.Weapons
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.penetrate = 9;
+            Projectile.penetrate = 5;
             Projectile.timeLeft = MaxTime;
             Projectile.light = 0f;
             Projectile.ignoreWater = false;
@@ -538,7 +538,7 @@ namespace LensRands.Content.Items.Weapons
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.penetrate = 15;
+            Projectile.penetrate = 7;
             Projectile.timeLeft = MaxTime;
             Projectile.light = 0f;
             Projectile.ignoreWater = false;
