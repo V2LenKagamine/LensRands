@@ -30,6 +30,23 @@ namespace LensRands.Content.Items.Weapons
             Item.autoReuse = true;
             Item.value = Item.sellPrice(gold: 3);
         }
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe()
+                .AddIngredient(ItemID.GrenadeLauncher, 1)
+                .AddIngredient(ItemID.MythrilBar, 15)
+                .AddIngredient(ItemID.ClockworkAssaultRifle, 1)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
+
+            recipe = CreateRecipe()
+                .AddIngredient(ItemID.GrenadeLauncher, 1)
+                .AddIngredient(ItemID.OrichalcumBar, 15)
+                .AddIngredient(ItemID.ClockworkAssaultRifle, 1)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
+        }
+
         public override bool AltFunctionUse(Player player)
         {
             return true;

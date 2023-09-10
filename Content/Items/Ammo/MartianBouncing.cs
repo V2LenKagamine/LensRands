@@ -27,7 +27,7 @@ namespace LensRands.Content.Items.Ammo
         }
         public override void AddRecipes()
         {
-            CreateRecipe(60)
+            CreateRecipe(250)
                 .AddIngredient(ItemID.ChlorophyteArrow, 250)
                 .AddIngredient(ItemID.MartianConduitPlating, 5)
                 .AddTile(TileID.MythrilAnvil)

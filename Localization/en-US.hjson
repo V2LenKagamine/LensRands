@@ -1179,10 +1179,90 @@ Mods: {
 				DisplayName: Bear Cat
 				Tooltip:
 					'''
-					Fires 3 shots in a 3 round burst.
-					Alt fire instead fires 3 grenades.
+					Fires 3 grenades in a spread.
+					Alt Fire for a burst fire instead.
 					[c/B30000:I love the smell of popcorn in the morning.]
 					'''
+			}
+
+			AmethystRounds: {
+				DisplayName: Amethyst Rounds
+				Tooltip: Confuses enemies.
+			}
+
+			CrystalineAmethystRounds: {
+				DisplayName: Crystaline Amethyst Rounds
+				Tooltip:
+					'''
+					Confuses enemies.
+					Shatters in a small radius.
+					'''
+			}
+
+			CrystalineDiamondRounds: {
+				DisplayName: Crystaline Diamond Rounds
+				Tooltip: Shatters in a moderate radius.
+			}
+
+			CrystalineEmeraldRounds: {
+				DisplayName: Crystaline Emerald Rounds
+				Tooltip:
+					'''
+					Poisons enemies.
+					Shatters in a small radius.
+					'''
+			}
+
+			CrystalineRubyRounds: {
+				DisplayName: Crystaline Ruby Rounds
+				Tooltip:
+					'''
+					Ignites enemies.
+					Shatters in a small radius.
+					'''
+			}
+
+			CrystalineSapphireRounds: {
+				DisplayName: Crystaline Sapphire Rounds
+				Tooltip:
+					'''
+					Frostburns enemies.
+					Shatters in a small radius.
+					'''
+			}
+
+			CrystalineTopazRounds: {
+				DisplayName: Crystaline Topaz Rounds
+				Tooltip:
+					'''
+					Ichors enemies.
+					Shatters in a small radius.
+					'''
+			}
+
+			DiamondRounds: {
+				DisplayName: Diamond Rounds
+				Tooltip: Pierces enemies
+			}
+
+			EmeraldRounds: {
+				DisplayName: Emerald Rounds
+				Tooltip: Poisons enemies.
+			}
+
+			RubyRounds: {
+				DisplayName: Ruby Rounds
+				Tooltip: Ignites enemies.
+			}
+
+			SapphireRounds: {
+				DisplayName: Sapphire Rounds
+				Tooltip: Frostburns enemies.
+			}
+
+			TopazRounds: {
+				DisplayName: Topaz Rounds
+				Tooltip: Ichors enemies.
 			}
 		}
 
@@ -1236,6 +1316,18 @@ Mods: {
 			LeshysCameraProj.DisplayName: Leshys Camera Proj
 			MartianBouncingProj.DisplayName: Martian Bouncing Proj
 			StrongBoneProj.DisplayName: Strong Bone Proj
+			AmethystRoundP.DisplayName: Amethyst Round P
+			CrystalineAmethystRoundP.DisplayName: Crystaline Amethyst Round P
+			CrystalineDiamondRoundP.DisplayName: Crystaline Diamond Round P
+			CrystalineEmeraldRoundP.DisplayName: Crystaline Emerald Round P
+			CrystalineRubyRoundP.DisplayName: Crystaline Ruby Round P
+			CrystalineSapphireRoundP.DisplayName: Crystaline Sapphire Round P
+			CrystalineTopazRoundP.DisplayName: Crystaline Topaz Round P
+			DiamondRoundP.DisplayName: Diamond Round P
+			EmeraldRoundP.DisplayName: Emerald Round P
+			RubyRoundP.DisplayName: Ruby Round P
+			SapphireRoundP.DisplayName: Sapphire Round P
+			TopazRoundP.DisplayName: Topaz Round P
 		}
 
 		Buffs: {
@@ -1335,7 +1427,7 @@ Mods: {
 			}
 
 			MartianShock: {
-				Description: Mods.LensRands.Buffs.MartianShock.Description
+				Description: Zap!
 				DisplayName: Martian Shock
 			}
 		}

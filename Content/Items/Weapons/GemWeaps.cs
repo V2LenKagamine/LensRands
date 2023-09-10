@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using LensRands.LensUtils;
 using Microsoft.Xna.Framework;
-using SteelSeries.GameSense;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
