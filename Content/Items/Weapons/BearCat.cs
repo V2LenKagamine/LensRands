@@ -8,7 +8,7 @@ namespace LensRands.Content.Items.Weapons
 {
     public class BearCat : ModItem
     {
-        public override string Texture => LensRands.AssetsPath + "Items/Weapons/AsheRifle";
+        public override string Texture => LensRands.AssetsPath + "Items/Weapons/BearCat";
         public override void SetDefaults()
         {
             Item.damage = 30;
@@ -16,6 +16,7 @@ namespace LensRands.Content.Items.Weapons
             Item.width = 24;
             Item.height = 24;
             Item.useTime = 24;
+            Item.scale = 2;
             Item.useAnimation = 24;
             Item.consumeAmmoOnLastShotOnly = true;
             Item.useStyle = ItemUseStyleID.Shoot;
@@ -49,6 +50,11 @@ namespace LensRands.Content.Items.Weapons
             }
 
             return base.CanUseItem(Player);
+        }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-12, 0);
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
