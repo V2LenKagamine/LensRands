@@ -63,7 +63,7 @@ namespace LensRands.Content.Items.Weapons
         }
         public override void AI()
         {
-            if(Projectile.timeLeft == 20)
+            if(Projectile.timeLeft == 20 && Main.myPlayer == Projectile.owner)
             {
                 Projectile.Center = Main.MouseWorld;
                 Projectile.velocity = Vector2.Zero;
@@ -75,20 +75,19 @@ namespace LensRands.Content.Items.Weapons
             if (!target.immortal && !target.boss && target.life < (target.lifeMax * 0.1f))
             {
                 target.StrikeInstantKill();
-                if (Main.myPlayer == Projectile.owner) { SpawnCard(target.lifeMax, target.type); }
-
+                SpawnCard(target.lifeMax, target.type,Main.player[Projectile.owner]);
             }
             else if (!target.immortal && target.boss && target.life < (target.lifeMax * 0.025))
             {
                 target.StrikeInstantKill();
-                if (Main.myPlayer == Projectile.owner) { SpawnCard(target.lifeMax, target.type); }
+                SpawnCard(target.lifeMax, target.type,Main.player[Projectile.owner]);
             }
         }
-        private void SpawnCard(int targetmaxlife,int targettype) // 14 to 8k
+        private void SpawnCard(int targetmaxlife,int targettype,Player player) // 14 to 8k
         {
             if (targettype == NPCID.MoonLordCore)
             {
-                Item.NewItem(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ItemType<TheMoonCard>());
+                player.QuickSpawnItem(Projectile.GetSource_Death(),ModContent.ItemType<TheMoonCard>());
             }
             else
             {
@@ -96,22 +95,22 @@ namespace LensRands.Content.Items.Weapons
                 {
                     case int x when x <= 250 && x >= 25:
                         {
-                            Item.NewItem(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ItemType<CommonCard>());
+                            player.QuickSpawnItem(Projectile.GetSource_Death(),ModContent.ItemType<CommonCard>());
                             break;
                         }
                     case int x when x > 250 && x <= 2500:
                         {
-                            Item.NewItem(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ItemType<UncommonCard>());
+                            player.QuickSpawnItem(Projectile.GetSource_Death(),ModContent.ItemType<UncommonCard>());
                             break;
                         }
                     case int x when x > 2500 && x <= 10000:
                         {
-                            Item.NewItem(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ItemType<RareCard>());
+                            player.QuickSpawnItem(Projectile.GetSource_Death(),ModContent.ItemType<RareCard>());
                             break;
                         }
                     case int x when x > 10000:
                         {
-                            Item.NewItem(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ItemType<BossCard>());
+                            player.QuickSpawnItem(Projectile.GetSource_Death(),ModContent.ItemType<BossCard>());
                             break;
                         }
                     default:
@@ -129,6 +128,7 @@ namespace LensRands.Content.Items.Weapons
         public abstract int CardRarity { get; }
         public override void SetDefaults()
         {
+            Item.maxStack = Item.CommonMaxStack;
             Item.height = Item.width = 16;
             Item.value = CardValue;
             Item.rare = CardRarity;
@@ -136,32 +136,32 @@ namespace LensRands.Content.Items.Weapons
     }
     public class CommonCard : CameraCard
     {
-        public override int CardValue => Item.sellPrice(gold:1);
+        public override int CardValue => Item.sellPrice(silver:20);
 
         public override int CardRarity => ItemRarityID.White;
     }
     public class UncommonCard : CameraCard
     {
-        public override int CardValue => Item.sellPrice(gold: 10);
+        public override int CardValue => Item.sellPrice(gold: 2,silver: 50);
 
         public override int CardRarity => ItemRarityID.Green;
     }
 
     public class RareCard : CameraCard
     {
-        public override int CardValue => Item.sellPrice(gold: 50);
+        public override int CardValue => Item.sellPrice(gold: 10);
 
         public override int CardRarity => ItemRarityID.Blue;
     }
     public class BossCard : CameraCard
     {
-        public override int CardValue => Item.sellPrice(platinum:1 );
+        public override int CardValue => Item.sellPrice(gold:20 );
 
         public override int CardRarity => ItemRarityID.Red;
     }
     public class TheMoonCard : CameraCard
     {
-        public override int CardValue => Item.sellPrice(platinum: 10);
+        public override int CardValue => Item.sellPrice(platinum: 2);
 
         public override int CardRarity => ItemRarityID.Master;
     }

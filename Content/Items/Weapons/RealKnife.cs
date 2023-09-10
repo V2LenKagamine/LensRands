@@ -22,13 +22,13 @@ namespace LensRands.Content.Items.Weapons
         {
             Recipe recipe = CreateRecipe()
                 .AddIngredient(ItemID.WoodenSword)
-                .AddIngredient(ItemID.DemoniteOre, 20)
+                .AddIngredient(ItemID.DemoniteBar, 5)
                 .AddTile(TileID.DemonAltar)
                 .AddCondition(Condition.InMasterMode)
                 .Register();
             recipe = CreateRecipe()
                 .AddIngredient(ItemID.WoodenSword)
-                .AddIngredient(ItemID.CrimtaneOre, 20)
+                .AddIngredient(ItemID.CrimtaneBar, 5)
                 .AddTile(TileID.DemonAltar)
                 .AddCondition(Condition.InMasterMode)
                 .Register();

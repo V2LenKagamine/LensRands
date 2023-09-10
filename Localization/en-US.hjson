@@ -1174,6 +1174,16 @@ Mods: {
 					[c/FFFF00:He need some milk!]
 					'''
 			}
+
+			BearCat: {
+				DisplayName: Bear Cat
+				Tooltip:
+					'''
+					Fires 3 shots in a 3 round burst.
+					Alt fire instead fires 3 grenades.
+					[c/B30000:I love the smell of popcorn in the morning.]
+					'''
+			}
 		}
 
 		Projectiles: {
