@@ -109,6 +109,7 @@ namespace LensRands.Content.Items.Ammo
             Projectile.penetrate = 2;
             Projectile.ignoreWater = false;
             Projectile.tileCollide = true;
+            Projectile.usesLocalNPCImmunity = true;
             Projectile.extraUpdates = 1;
             Projectile.timeLeft = 600;
             Projectile.aiStyle = -1;

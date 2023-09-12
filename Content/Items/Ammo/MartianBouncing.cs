@@ -51,6 +51,7 @@ namespace LensRands.Content.Items.Ammo
             Projectile.extraUpdates = 1;
             Projectile.timeLeft = 600;
             Projectile.aiStyle = -1;
+            Projectile.usesLocalNPCImmunity = true;
             DrawOriginOffsetY = -12;
         }
         public override void AI()

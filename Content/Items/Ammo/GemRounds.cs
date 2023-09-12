@@ -218,6 +218,7 @@ namespace LensRands.Content.Items.Ammo
             Projectile.tileCollide = true;
             Projectile.extraUpdates = 0;
             Projectile.timeLeft = 600;
+            Projectile.usesLocalNPCImmunity = true;
             Projectile.aiStyle = -1;
         }
 
@@ -254,6 +255,7 @@ namespace LensRands.Content.Items.Ammo
             Projectile.tileCollide = true;
             Projectile.extraUpdates = 0;
             Projectile.timeLeft = 600;
+            Projectile.usesLocalNPCImmunity = true;
             Projectile.aiStyle = -1;
         }
 

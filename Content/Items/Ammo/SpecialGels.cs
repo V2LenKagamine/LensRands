@@ -109,6 +109,7 @@ namespace LensRands.Content.Items.Ammo
             Projectile.tileCollide = true;
             Projectile.extraUpdates = 0;
             Projectile.timeLeft = TTL;
+            Projectile.usesLocalNPCImmunity = true;
             Projectile.aiStyle = -1;
         }
 
