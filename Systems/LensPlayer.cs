@@ -222,13 +222,6 @@ namespace LensRands.Systems
             if (!target.active)
             { OnKillEnemy(target,hit,damageDone); }
 
-            if (LostSeersOn && Player.GetTotalCritChance(DamageClass.Generic) > 1f && hit.Crit)
-            {
-                if(Main.rand.NextFloat(1f) < Player.GetTotalCritChance(DamageClass.Generic) - 1f)
-                {
-                    hit.Damage *= 5;
-                }
-            } 
             if (UkeleleOn && Main.rand.NextFloat(1f) < UkeleleChance)
             {
                 List<int> exclude = new List<int>() { target.whoAmI };
@@ -256,7 +249,7 @@ namespace LensRands.Systems
             {
                 Player.Heal(1);
             }
-            if (target.active && SymScorpOn && Main.rand.NextFloat(1f) < SymScorpChance)
+            if (target.active && !target.immortal && SymScorpOn && Main.rand.NextFloat(1f) < SymScorpChance)
             {
                 target.defDefense -= SymScorpReduc;
                 if (target.defDefense < 0)
@@ -296,6 +289,13 @@ namespace LensRands.Systems
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
+            if (LostSeersOn && Player.GetTotalCritChance(DamageClass.Generic) > 1f)
+            {
+                if (Main.rand.NextFloat(1f) < 0.05f)
+                {
+                    modifiers.FinalDamage *= 5;
+                }
+            }
             if (ChargedOn && Main.rand.NextFloat(1f) < ChargedChance)
             {
                 modifiers.FinalDamage *= 1 + ChargedDamage;

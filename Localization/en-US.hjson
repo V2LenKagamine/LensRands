@@ -549,8 +549,8 @@ Mods: {
 				Tooltip:
 					'''
 					Adds {0}% crit chance.
-					Critical chance over 100% gives crits a
-					chance to "Hypercrit" for 10x damage.
+					Critical chance over 100% gives crits a 5%
+					chance to "Hypercrit" for 10x total damage.
 					[c/FFFF00:Got the Stax.]
 					'''
 			}

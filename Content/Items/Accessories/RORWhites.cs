@@ -121,7 +121,7 @@ namespace LensRands.Content.Items.Accessories
     public class LensMakers : RORWhites
     {
         public override string Texture => base.Texture + "LensMakers";
-        public readonly float amount = 50f;
+        public readonly float amount = 40f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs((int)amount);
         public override void SetStaticDefaults()
         {

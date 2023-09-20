@@ -256,7 +256,7 @@ namespace LensRands.Content.Items.Accessories
     public class LostSeers : RORVoid
     {
         public override string Texture => base.Texture + "LostSeers";
-        public readonly float amount = 25f;
+        public readonly float amount = 20f;
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs((int)amount);
 
         public override void SetStaticDefaults()
