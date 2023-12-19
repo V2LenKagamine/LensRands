@@ -1264,6 +1264,11 @@ Mods: {
 				DisplayName: Topaz Rounds
 				Tooltip: Ichors enemies.
 			}
+
+			BounceFireArrows: {
+				DisplayName: Bounce Fire Arrows
+				Tooltip: Bounces and explodes up to 3 times. What could go wrong?
+			}
 		}
 
 		Projectiles: {
@@ -1328,6 +1333,7 @@ Mods: {
 			RubyRoundP.DisplayName: Ruby Round P
 			SapphireRoundP.DisplayName: Sapphire Round P
 			TopazRoundP.DisplayName: Topaz Round P
+			BounceFireArrowsProj.DisplayName: Bounce Fire Arrows Proj
 		}
 
 		Buffs: {

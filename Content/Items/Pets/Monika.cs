@@ -98,7 +98,6 @@ namespace LensRands.Content.Items.Pets
         {
             "[c/9E4638:Monika:] I love you.",
             "[c/9E4638:Monika:] I don't like this nurse character... You won't mind if I just... Darn. Locked.",
-            "[c/F88379:Sayori:] Hey I'm in here too!\n[c/9E4638:Monika:] No you're not shut up.",
             "[c/9E4638:Monika:] Remember: [c/FF0000:you're mine forever.]",
             "[c/9E4638:Monika:]: Who's this 'Len Kagamine' person I keep seing in the files???",
             "[c/9E4638:Monika:] You know, it wasnt very nice to lock me out of the system files so I can't see your real name...",
@@ -219,10 +218,10 @@ namespace LensRands.Content.Items.Pets
                 }
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Main.player[Projectile.owner].GetModPlayer<LensPlayer>().MonikasListening = false;
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
         }
 
         private void AnimateNormal(bool fast)
