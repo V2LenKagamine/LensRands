@@ -275,7 +275,7 @@ namespace LensRands.Content.Items.Weapons
             LensUtil.ProjectileROTATE(Projectile, 12.5f);
             Projectile.velocity *= 0.98f;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
@@ -353,7 +353,7 @@ namespace LensRands.Content.Items.Weapons
                 Projectile.velocity.X += Projectile.velocity.X > 0 ? 0.05f : -0.05f;
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {
@@ -496,7 +496,7 @@ namespace LensRands.Content.Items.Weapons
             SpawnGemlets();
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SpawnGemlets();
         }
@@ -576,7 +576,7 @@ namespace LensRands.Content.Items.Weapons
             LensUtil.ProjectileROTATE(Projectile, Projectile.velocity.X > 0 ? 1.5f * Projectile.velocity.X : 1.5f * -Projectile.velocity.X);
             Projectile.velocity.Y += 0.15f;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SpawnGemlets();
         }

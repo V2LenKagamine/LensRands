@@ -14,13 +14,6 @@ namespace LensRands.Content.Items.Weapons
         {
             Recipe recipe = CreateRecipe().AddIngredient(ItemID.Beenade, 25).Register();
         }
-
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Beecase-P");
-            // Tooltip.SetDefault("Contains approximately 10 Perfect Bee's.\nStingers have been reinforced for multiplied pain!");
-        }
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.Beenade);
@@ -51,7 +44,7 @@ namespace LensRands.Content.Items.Weapons
             Projectile.timeLeft = 90;
             Projectile.damage = 150;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             if (Main.myPlayer == Projectile.owner)

@@ -34,11 +34,6 @@ namespace LensRands.Content.Items.Weapons
     {
 
         public override string Texture => LensRands.AssetsPath + "Projectiles/Breefcase";
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Beecase");
-        }
         public override void SetDefaults()
         {
             Projectile.width = 20;
@@ -47,7 +42,7 @@ namespace LensRands.Content.Items.Weapons
             Projectile.friendly = true;
             Projectile.timeLeft = 90;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             if (Main.myPlayer == Projectile.owner)

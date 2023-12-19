@@ -243,7 +243,7 @@ namespace LensRands.Content.Items.Weapons
             Projectile.extraUpdates = 0;            //Set to above 0 if you want the projectile to update multiple time in a frame
         }
 
-        public override void Kill(int timeLeft) //Also Stolen
+        public override void OnKill(int timeLeft) //Also Stolen
         {
 
             if (Projectile.owner == Main.myPlayer && Projectile.ai[1] == 0)
