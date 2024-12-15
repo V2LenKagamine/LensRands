@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "hOBcmNs1KvZkISV5h3eseUSBaXDomyZgJdkGos0+siQ6rrActCSTqyQjHtVws+LJsD2ezsexoatmJQLoXIh7hA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\user\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\LensRands\\LensRands.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\user\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
+  ],
+  "logs": []
+}
