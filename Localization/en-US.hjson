@@ -1269,6 +1269,15 @@ Mods: {
 				DisplayName: Bounce Fire Arrows
 				Tooltip: Bounces and explodes up to 3 times. What could go wrong?
 			}
+
+			HellShock: {
+				DisplayName: Hell-Shock
+				Tooltip:
+					'''
+					Turns Musket Balls into rounds that bounce, pierce,
+					and alternate between inflicting Cursed Flames and Ichor.
+					'''
+			}
 		}
 
 		Projectiles: {
@@ -1334,6 +1343,7 @@ Mods: {
 			SapphireRoundP.DisplayName: Sapphire Round P
 			TopazRoundP.DisplayName: Topaz Round P
 			BounceFireArrowsProj.DisplayName: Bounce Fire Arrows Proj
+			HellshockProj.DisplayName: Hellshock Bullet
 		}
 
 		Buffs: {

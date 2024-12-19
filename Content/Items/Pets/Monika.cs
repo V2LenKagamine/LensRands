@@ -451,7 +451,7 @@ namespace LensRands.Content.Items.Pets
             if (PlayerMessage != null)
             {
 
-                if (Regex.Match(PlayerMessage, "I|i.love.you.+").Success)
+                if (Regex.Match(PlayerMessage, "I|i.+love.+you.+").Success)
                 {
                     Main.NewText(LoveList[Main.rand.Next(0, LoveList.Count)] + player.name + "!");
                 }
@@ -459,7 +459,7 @@ namespace LensRands.Content.Items.Pets
                 {
                     Main.NewText(HowDayList[Main.rand.Next(0, HowDayList.Count)]);
                 }
-                else if (Regex.Match(PlayerMessage, "(H|hello)|(H|hi)").Success)
+                else if (Regex.Match(PlayerMessage, "(H|hello).+|(H|hi).+").Success)
                 {
                     Main.NewText(HelloList[Main.rand.Next(0, HelloList.Count)]);
                 }

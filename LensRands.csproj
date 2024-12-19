@@ -9,9 +9,13 @@
   </PropertyGroup>
   <ItemGroup>
     <AdditionalFiles Remove="Content\Items\Misc\**" />
+    <AdditionalFiles Remove="Extras\**" />
     <Compile Remove="Content\Items\Misc\**" />
+    <Compile Remove="Extras\**" />
     <EmbeddedResource Remove="Content\Items\Misc\**" />
+    <EmbeddedResource Remove="Extras\**" />
     <None Remove="Content\Items\Misc\**" />
+    <None Remove="Extras\**" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
@@ -26,11 +30,5 @@
     <Folder Include="Assets\UI\" />
     <Folder Include="Assets\Sounds\" />
     <Folder Include="Content\Items\Toys\" />
-    <Folder Include="Extras\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="EasyPacketsLib">
-      <HintPath>stuff\EasyPacketsLib.dll</HintPath>
-    </Reference>
   </ItemGroup>
 </Project>

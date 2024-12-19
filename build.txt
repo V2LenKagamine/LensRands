@@ -1,5 +1,5 @@
 displayName = Len's Randoms
 author = Len Kagamine
-version = 0.1.1.5
+version = 0.1.1.6
 Side = Both
 buildIgnore = stuff/*
